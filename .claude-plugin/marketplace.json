@@ -1,0 +1,6 @@
+{
+  "name": "agenttrunk-plugins",
+  "metadata": {"description": "Portable AgentTrunk skills for versioned agent context."},
+  "owner": {"name": "Aadi Labs"},
+  "plugins": [{"name": "agenttrunk", "source": "./plugins/agenttrunk", "description": "Versioned context for your agents", "version": "0.1.0"}]
+}
