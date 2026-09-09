@@ -1,0 +1,13 @@
+{
+  "cliVersion": "5.108.0",
+  "generatorName": "fernapi/fern-ruby-sdk",
+  "generatorVersion": "1.23.2",
+  "generatorConfig": {
+    "moduleName": "AgentTrunk",
+    "enableWireTests": true
+  },
+  "originGitCommit": "b69b217c53a4a3a6988215845bb98dc4344bb7d7",
+  "originGitCommitIsDirty": true,
+  "invokedBy": "manual",
+  "requestedVersion": "0.1.0"
+}

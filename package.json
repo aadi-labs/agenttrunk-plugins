@@ -1,20 +1,139 @@
 {
   "name": "@agenttrunk/sdk",
   "version": "0.1.0",
-  "description": "AgentTrunk TypeScript SDK and CLI for versioned agent context",
+  "description": "AgentTrunk SDKs in six languages, portable agent skills and a complete API CLI",
   "type": "module",
   "license": "MIT",
-  "repository": {"type": "git", "url": "https://github.com/aadi-labs/agenttrunk-plugins.git"},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aadi-labs/agenttrunk-plugins.git"
+  },
   "homepage": "https://agenttrunk.ai",
-  "engines": {"node": ">=22"},
-  "exports": {".": {"types": "./dist/sdk/index.d.ts", "import": "./dist/sdk/index.js"}},
-  "bin": {"agenttrunk": "./dist/cli/index.js"},
-  "files": ["dist", "plugins", "README.md", "LICENSE"],
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/sdk/index.d.ts",
+      "import": "./dist/sdk/index.js"
+    }
+  },
+  "bin": {
+    "agenttrunk": "./dist/cli/index.js"
+  },
+  "files": [
+    "dist",
+    "plugins",
+    "docs",
+    "examples",
+    "sdk/README.md",
+    "cli/README.md",
+    "catalog.json",
+    "llms.txt",
+    "README.md",
+    "LICENSE",
+    "sdk/typescript/README.md",
+    "sdk/typescript/reference.md",
+    "sdk/python/README.md",
+    "sdk/python/reference.md",
+    "sdk/go/README.md",
+    "sdk/go/reference.md",
+    "sdk/go/examples",
+    "skills",
+    "skills.json",
+    "skills.sh.json",
+    "plugin.json",
+    "plugin.yaml",
+    "__init__.py",
+    ".cursor-plugin",
+    "openclaw.plugin.json",
+    "openclaw",
+    "compat",
+    "sdk/rust/README.md",
+    "sdk/rust/reference.md",
+    "sdk/ruby/README.md",
+    "sdk/ruby/reference.md",
+    "sdk/swift/README.md",
+    "sdk/swift/reference.md",
+    ".agents"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "npm run skills:build && tsc",
     "check": "tsc --noEmit",
     "test": "npm run build && node --test test/*.test.mjs",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "validate": "npm run skills:check && node scripts/validate.mjs",
+    "test:package": "node scripts/test-package.mjs",
+    "sdk:sync": "node scripts/sync-openapi.mjs",
+    "sdk:sync:live": "node scripts/sync-openapi.mjs --live",
+    "sdk:sync:check": "node scripts/sync-openapi.mjs --live --check",
+    "sdk:check": "node scripts/sync-openapi.mjs --check && fern check && npm run check",
+    "sdk:generate": "node scripts/sync-openapi.mjs --check && sh scripts/generate-local.sh && node scripts/postprocess-sdks.mjs && sh scripts/go.sh mod tidy",
+    "sdk:postprocess": "node scripts/postprocess-sdks.mjs",
+    "sdk:test:python": "uv run --with ./sdk/python python -m unittest discover -s test/python -v",
+    "sdk:test:go": "sh scripts/go.sh test ./... -run TestAgentTrunk",
+    "sdk:build:python": "uv build ./sdk/python",
+    "sdk:postprocess:check": "node scripts/check-postprocess.mjs",
+    "skills:build": "node scripts/skills.mjs",
+    "skills:check": "node scripts/skills.mjs --check",
+    "cli:generate": "node scripts/generate-cli.mjs",
+    "cli:check": "node scripts/generate-cli.mjs --check",
+    "examples:generate": "node scripts/generate-examples.mjs",
+    "sdk:test:rust": "cargo test --manifest-path sdk/rust/Cargo.toml --test agenttrunk_safety && cargo check --manifest-path sdk/rust/Cargo.toml --examples",
+    "sdk:test:ruby": "ruby -I sdk/ruby/lib test/ruby/test_agenttrunk.rb",
+    "sdk:test:swift": "swift test --package-path sdk/swift --filter AgentTrunkSafetyTests"
   },
-  "devDependencies": {"@types/node": "^22.0.0", "typescript": "~5.9.3"}
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "fern-api": "5.108.0",
+    "typescript": "~5.9.3",
+    "yaml": "2.9.0"
+  },
+  "keywords": [
+    "agenttrunk",
+    "agent-skills",
+    "ai-agents",
+    "context-management",
+    "versioned-context",
+    "skills",
+    "prompts",
+    "typescript",
+    "sdk",
+    "cli",
+    "claude-code",
+    "codex",
+    "python",
+    "go",
+    "fern",
+    "openapi",
+    "pi-package",
+    "openclaw",
+    "hermes",
+    "cursor",
+    "opencode",
+    "rust",
+    "ruby",
+    "swift"
+  ],
+  "bugs": {
+    "url": "https://github.com/aadi-labs/agenttrunk-plugins/issues"
+  },
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  },
+  "openclaw": {
+    "extensions": [
+      "./openclaw/index.js"
+    ]
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.7.1-2"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    }
+  }
 }

@@ -1,0 +1,22 @@
+{
+  "name": "agenttrunk",
+  "version": "0.1.0",
+  "description": "Discover, verify, stage and release versioned context for AI agents.",
+  "author": {
+    "name": "Aadi Labs"
+  },
+  "homepage": "https://agenttrunk.ai",
+  "repository": "https://github.com/aadi-labs/agenttrunk-plugins",
+  "license": "MIT",
+  "keywords": [
+    "agenttrunk",
+    "agent-skills",
+    "versioned-context",
+    "prompts",
+    "policies",
+    "sdk"
+  ],
+  "displayName": "AgentTrunk",
+  "category": "Productivity",
+  "skills": "./skills/"
+}

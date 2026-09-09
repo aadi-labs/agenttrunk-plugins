@@ -1,0 +1,4 @@
+interface:
+  display_name: "AgentTrunk"
+  short_description: "Set up, pin and release shared agent context"
+  default_prompt: "Use $agenttrunk to connect this agent to my workspace and find relevant production context."

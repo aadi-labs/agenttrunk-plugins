@@ -1,0 +1,111 @@
+# yaml-language-server: $schema=https://schema.buildwithfern.dev/generators-yml.json
+auth-schemes:
+  bearerAuth:
+    scheme: bearer
+    token:
+      name: accessToken
+      env: AGENTTRUNK_ACCESS_TOKEN
+api:
+  auth: bearerAuth
+  specs:
+    - openapi: ./openapi/openapi.json
+      origin: https://agenttrunk.ai/openapi.yaml
+      settings:
+        inline-path-parameters: false
+        respect-forward-compatible-enums: true
+default-group: all-sdks
+aliases:
+  all-sdks:
+    - typescript-sdk
+    - python-sdk
+    - go-sdk
+    - rust-sdk
+    - ruby-sdk
+    - swift-sdk
+  extra-sdks:
+    - rust-sdk
+    - ruby-sdk
+    - swift-sdk
+groups:
+  typescript-sdk:
+    generators:
+      - name: fern-typescript-sdk
+        version: 3.88.3
+        output:
+          location: local-file-system
+          path: ../sdk/typescript
+        config:
+          naming:
+            namespace: AgentTrunkApi
+            client: AgentTrunkClient
+            error: AgentTrunkApiError
+            timeoutError: AgentTrunkTimeoutError
+            environment: AgentTrunkEnvironment
+          generateWireTests: true
+          packageJson:
+            name: "@agenttrunk/sdk"
+            description: AgentTrunk TypeScript SDK for versioned agent context.
+            private: true
+            license: MIT
+  python-sdk:
+    generators:
+      - name: fern-python-sdk
+        version: 5.29.2
+        output:
+          location: local-file-system
+          path: ../sdk/python
+        config:
+          package_name: agenttrunk
+          client_class_name: AgentTrunk
+          environment_class_name: AgentTrunkEnvironment
+          enable_wire_tests: true
+  go-sdk:
+    generators:
+      - name: fern-go-sdk
+        version: 1.57.9
+        output:
+          location: local-file-system
+          path: ../sdk/go
+        config:
+          module:
+            path: github.com/aadi-labs/agenttrunk-plugins/sdk/go
+          clientName: AgentTrunk
+          clientConstructorName: New
+          enableWireTests: true
+  rust-sdk:
+    generators:
+      - name: fern-rust-sdk
+        version: 0.46.4
+        output:
+          location: local-file-system
+          path: ../sdk/rust
+        config:
+          clientClassName: AgentTrunk
+          crateName: agenttrunk
+          crateVersion: 0.1.0
+          enableWireTests: true
+          packageDescription: Official Rust SDK for the AgentTrunk API.
+          packageLicense: MIT
+          packageRepository: https://github.com/aadi-labs/agenttrunk-plugins
+  ruby-sdk:
+    generators:
+      - name: fern-ruby-sdk
+        version: 1.23.2
+        output:
+          location: local-file-system
+          path: ../sdk/ruby
+        config:
+          moduleName: AgentTrunk
+          enableWireTests: true
+  swift-sdk:
+    generators:
+      - name: fern-swift-sdk
+        version: 0.36.1
+        output:
+          location: local-file-system
+          path: ../sdk/swift
+        config:
+          clientClassName: AgentTrunk
+          environmentEnumName: AgentTrunkEnvironment
+          moduleName: AgentTrunk
+          enableWireTests: true

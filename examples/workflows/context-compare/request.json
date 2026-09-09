@@ -1,0 +1,8 @@
+{
+  "trunkId": "${AGENTTRUNK_WORKSPACE_ID}",
+  "contextKey": "${AGENTTRUNK_CONTEXT_KEY}",
+  "request": {
+    "base": "${AGENTTRUNK_FROM_REVISION}",
+    "target": "${AGENTTRUNK_REVISION_ID}"
+  }
+}

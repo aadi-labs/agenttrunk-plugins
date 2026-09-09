@@ -1,8 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2023", "module": "NodeNext", "moduleResolution": "NodeNext",
-    "strict": true, "declaration": true, "outDir": "dist", "rootDir": ".",
-    "noUncheckedIndexedAccess": true, "skipLibCheck": true
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true
   },
-  "include": ["sdk/**/*.ts", "cli/**/*.ts"]
+  "include": [
+    "sdk/index.ts",
+    "sdk/typescript/src/**/*.ts",
+    "cli/**/*.ts"
+  ]
 }

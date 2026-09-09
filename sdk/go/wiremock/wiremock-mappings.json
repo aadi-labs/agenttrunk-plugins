@@ -1,0 +1,1342 @@
+{
+  "mappings": [
+    {
+      "id": "59df60d6-94ce-497b-9dbd-9682031ede4d",
+      "name": "Assign privacy review to the authorizing user - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/privacy-requests/{requestId}/review",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "requestId": {
+            "equalTo": "requestId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "59df60d6-94ce-497b-9dbd-9682031ede4d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c36731b8-ab80-48d1-b269-d15f221411a3",
+      "name": "Read-only workspace erasure inventory - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/erasure-plan",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c36731b8-ab80-48d1-b269-d15f221411a3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "b9a398e0-aa0b-4933-81bd-7962bf88a95b",
+      "name": "List the latest 20 workspace privacy review requests - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/privacy-requests",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "b9a398e0-aa0b-4933-81bd-7962bf88a95b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c2f3d1e5-bbae-4c79-bd0f-58fb8b8992ac",
+      "name": "Record a manual access or erasure review request - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/privacy-requests",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 202,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c2f3d1e5-bbae-4c79-bd0f-58fb8b8992ac",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "69f3101b-a507-4cae-9a1b-d8083c068232",
+      "name": "Export a pinned context revision - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}/export",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        },
+        "queryParameters": {
+          "revisionId": {
+            "equalTo": "revisionId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "69f3101b-a507-4cae-9a1b-d8083c068232",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "bc18ce4b-cbae-40b5-bd64-02d4a4f902ae",
+      "name": "getRollbackPlan - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}/rollback",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        },
+        "queryParameters": {
+          "revisionId": {
+            "equalTo": "revisionId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"eligible\": true,\n  \"expectedStagingRevisionId\": \"expectedStagingRevisionId\",\n  \"reason\": \"reason\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bc18ce4b-cbae-40b5-bd64-02d4a4f902ae",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "231d5e53-51c4-4aab-acb5-7b42b3db35f7",
+      "name": "stageRollback - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}/rollback",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "231d5e53-51c4-4aab-acb5-7b42b3db35f7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "38cc6ea6-75f5-45f3-8f82-82223ada85cc",
+      "name": "publish - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/publications",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"context\": {\n    \"id\": \"id\",\n    \"trunkId\": \"trunkId\",\n    \"scopeId\": \"scopeId\",\n    \"key\": \"key\",\n    \"title\": \"title\",\n    \"kind\": \"skill\",\n    \"summary\": \"summary\",\n    \"tags\": [\n      \"tags\"\n    ],\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  },\n  \"revision\": {\n    \"id\": \"id\",\n    \"contextId\": \"contextId\",\n    \"packageDigest\": \"packageDigest\",\n    \"parentRevisionId\": \"parentRevisionId\",\n    \"files\": [\n      {\n        \"path\": \"path\",\n        \"size\": 1,\n        \"sha256\": \"sha256\"\n      }\n    ],\n    \"createdAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "38cc6ea6-75f5-45f3-8f82-82223ada85cc",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a48ddfa2-e79a-4126-9bf1-2fabf3ed5512",
+      "name": "share - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}/share",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a48ddfa2-e79a-4126-9bf1-2fabf3ed5512",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "899bfea9-9c64-47c0-8659-c4be823711aa",
+      "name": "discover - default",
+      "request": {
+        "urlPathTemplate": "/v1/contexts",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"trunkId\": \"trunkId\",\n      \"scopeId\": \"scopeId\",\n      \"contextKey\": \"contextKey\",\n      \"title\": \"title\",\n      \"kind\": \"skill\",\n      \"summary\": \"summary\",\n      \"tags\": [\n        \"tags\"\n      ],\n      \"revisionId\": \"revisionId\",\n      \"packageDigest\": \"packageDigest\",\n      \"channel\": \"production\",\n      \"updatedAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "899bfea9-9c64-47c0-8659-c4be823711aa",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "2777e9a7-5425-4a29-883a-49597a6d57fd",
+      "name": "inspect - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"context\": {\n    \"id\": \"id\",\n    \"trunkId\": \"trunkId\",\n    \"scopeId\": \"scopeId\",\n    \"key\": \"key\",\n    \"title\": \"title\",\n    \"kind\": \"skill\",\n    \"summary\": \"summary\",\n    \"tags\": [\n      \"tags\"\n    ],\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  },\n  \"revision\": {\n    \"id\": \"id\",\n    \"contextId\": \"contextId\",\n    \"packageDigest\": \"packageDigest\",\n    \"parentRevisionId\": \"parentRevisionId\",\n    \"files\": [\n      {\n        \"path\": \"path\",\n        \"size\": 1,\n        \"sha256\": \"sha256\"\n      }\n    ],\n    \"createdAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2777e9a7-5425-4a29-883a-49597a6d57fd",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "82cc0a4c-d6f5-4007-9dd3-4aaea218c591",
+      "name": "history - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}/history",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"id\": \"id\",\n      \"contextId\": \"contextId\",\n      \"packageDigest\": \"packageDigest\",\n      \"parentRevisionId\": \"parentRevisionId\",\n      \"files\": [\n        {\n          \"path\": \"path\",\n          \"size\": 1,\n          \"sha256\": \"sha256\"\n        }\n      ],\n      \"createdAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next\": \"next\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "82cc0a4c-d6f5-4007-9dd3-4aaea218c591",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "2d7f235f-c313-4b69-8250-889c19607dc2",
+      "name": "compare - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}/compare",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2d7f235f-c313-4b69-8250-889c19607dc2",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "29093568-c881-48ec-8211-c3f343fd3369",
+      "name": "getProvenance - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}/provenance",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "29093568-c881-48ec-8211-c3f343fd3369",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "18cb21b7-9284-47ac-800c-40d8e9abb3dd",
+      "name": "putProvenance - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}/provenance",
+        "method": "PUT",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "18cb21b7-9284-47ac-800c-40d8e9abb3dd",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f9ee3a08-9286-4bcd-8cea-e9de06c31e9a",
+      "name": "readFile - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}/files/{resourcePath}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          },
+          "resourcePath": {
+            "equalTo": "resourcePath"
+          }
+        },
+        "queryParameters": {
+          "ref": {
+            "equalTo": "ref"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f9ee3a08-9286-4bcd-8cea-e9de06c31e9a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "3e714e1f-206f-4db7-bbcc-23288e86776b",
+      "name": "get - default",
+      "request": {
+        "urlPathTemplate": "/v1/billing",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"plan\": \"free\",\n  \"accesses\": 1,\n  \"includedAccesses\": 1,\n  \"spendLimitCents\": 1,\n  \"meteringActive\": \"meteringActive\",\n  \"canManage\": true,\n  \"subscriptionStatus\": \"subscriptionStatus\",\n  \"monthlyPriceCents\": 1,\n  \"overageCents\": 1,\n  \"overageCentsPerThousand\": 1,\n  \"period\": \"period\",\n  \"hasCustomer\": true\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3e714e1f-206f-4db7-bbcc-23288e86776b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "301aeec3-4ccb-4f33-a585-66a0e7bc4699",
+      "name": "createCheckout - default",
+      "request": {
+        "urlPathTemplate": "/v1/billing/checkout",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"url\": \"url\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "301aeec3-4ccb-4f33-a585-66a0e7bc4699",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "bc6af14b-8164-49c5-878b-2376ae718338",
+      "name": "createPortal - default",
+      "request": {
+        "urlPathTemplate": "/v1/billing/portal",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"url\": \"url\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bc6af14b-8164-49c5-878b-2376ae718338",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1f43c01a-9c0a-42ec-9582-828a12280ed3",
+      "name": "setSpendLimit - default",
+      "request": {
+        "urlPathTemplate": "/v1/billing/spend-limit",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"spendLimitCents\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1f43c01a-9c0a-42ec-9582-828a12280ed3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "637a7874-fd25-467b-9815-5b0c042bb2e7",
+      "name": "get - default",
+      "request": {
+        "urlPathTemplate": "/healthz",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "637a7874-fd25-467b-9815-5b0c042bb2e7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "fab28645-4033-42e6-8f57-ae1d2f2fdd0c",
+      "name": "list - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"nextCursor\": \"nextCursor\",\n  \"data\": [\n    {\n      \"id\": \"id\",\n      \"organizationId\": \"organizationId\",\n      \"name\": \"name\",\n      \"slug\": \"slug\",\n      \"createdBy\": \"createdBy\",\n      \"branches\": {\n        \"staging\": null,\n        \"production\": null\n      },\n      \"createdAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fab28645-4033-42e6-8f57-ae1d2f2fdd0c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "1cbf891e-064d-4cc3-bb02-a6539deb1ebc",
+      "name": "create - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"id\": \"id\",\n  \"organizationId\": \"organizationId\",\n  \"name\": \"name\",\n  \"slug\": \"slug\",\n  \"createdBy\": \"createdBy\",\n  \"branches\": {\n    \"staging\": \"staging\",\n    \"production\": \"production\"\n  },\n  \"createdAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1cbf891e-064d-4cc3-bb02-a6539deb1ebc",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "748504a8-2028-4748-8f6a-220596a35f0f",
+      "name": "get - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"organizationId\": \"organizationId\",\n  \"name\": \"name\",\n  \"slug\": \"slug\",\n  \"createdBy\": \"createdBy\",\n  \"branches\": {\n    \"staging\": \"staging\",\n    \"production\": \"production\"\n  },\n  \"createdAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "748504a8-2028-4748-8f6a-220596a35f0f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "31bd4719-d27b-45a7-aa8a-d467daf965c3",
+      "name": "audit - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/audit",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "31bd4719-d27b-45a7-aa8a-d467daf965c3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a982b8e2-0f76-4ff7-9c3d-2c9617ddbd58",
+      "name": "list - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/webhooks",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"nextCursor\": \"nextCursor\",\n  \"data\": [\n    {\n      \"sequence\": \"sequence\",\n      \"eventId\": \"eventId\",\n      \"status\": \"pending\",\n      \"attempts\": 1,\n      \"lastError\": \"lastError\",\n      \"svixMessageId\": \"svixMessageId\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a982b8e2-0f76-4ff7-9c3d-2c9617ddbd58",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "911035fc-6a46-4cdf-9ac0-2886f24a14d3",
+      "name": "createPortal - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/webhooks/portal",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"url\": \"url\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "911035fc-6a46-4cdf-9ac0-2886f24a14d3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "8608ca4d-017f-4454-8754-7fe68bc5521f",
+      "name": "retry - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/webhooks/{eventId}/retry",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "eventId": {
+            "equalTo": "eventId"
+          }
+        }
+      },
+      "response": {
+        "status": 202,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8608ca4d-017f-4454-8754-7fe68bc5521f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "ceb352b5-bde5-44ad-ab0a-58fc46bc91da",
+      "name": "list - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/scopes",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"canCreateScope\": true,\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"slug\": \"slug\",\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"environments\": [\n        {\n          \"id\": \"id\",\n          \"name\": \"staging\",\n          \"commitSha\": null\n        }\n      ]\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "ceb352b5-bde5-44ad-ab0a-58fc46bc91da",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "35c83544-1a44-42e3-b325-85883aa90bef",
+      "name": "create - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/scopes",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"canCreateScope\": true,\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"slug\": \"slug\",\n  \"createdBy\": \"createdBy\",\n  \"createdAt\": \"2024-01-15T09:30:00Z\",\n  \"environments\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"staging\",\n      \"commitSha\": \"commitSha\",\n      \"canDeploy\": true,\n      \"canPropose\": true,\n      \"canPublish\": true\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "35c83544-1a44-42e3-b325-85883aa90bef",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d0b40ebb-5d37-4df4-8813-f6c1bc03c72e",
+      "name": "sources - default",
+      "request": {
+        "urlPathTemplate": "/v1/context-sources",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d0b40ebb-5d37-4df4-8813-f6c1bc03c72e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "b4d2f9a4-e712-4d8c-b676-e3bbb5901df2",
+      "name": "list - default",
+      "request": {
+        "urlPathTemplate": "/v1/context-sets",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "b4d2f9a4-e712-4d8c-b676-e3bbb5901df2",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "d13c8147-09db-466a-aee8-966f616df8d6",
+      "name": "create - default",
+      "request": {
+        "urlPathTemplate": "/v1/context-sets",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d13c8147-09db-466a-aee8-966f616df8d6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "53966e74-135b-4f1a-879b-a38fe0654d1c",
+      "name": "resolve - default",
+      "request": {
+        "urlPathTemplate": "/v1/context-sets/{contextSetId}/resolve",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "contextSetId": {
+            "equalTo": "contextSetId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "53966e74-135b-4f1a-879b-a38fe0654d1c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1c897eb2-52f9-40eb-baa2-5bab10ab9224",
+      "name": "list - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/promotion-requests",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"id\": \"id\",\n      \"trunkId\": \"trunkId\",\n      \"scopeId\": \"scopeId\",\n      \"sourceCommitSha\": \"sourceCommitSha\",\n      \"targetCommitSha\": \"targetCommitSha\",\n      \"changes\": [\n        {\n          \"contextId\": \"contextId\",\n          \"contextKey\": \"contextKey\",\n          \"sourceRevisionId\": \"sourceRevisionId\",\n          \"targetRevisionId\": null\n        }\n      ],\n      \"status\": \"open\",\n      \"evidenceReference\": \"evidenceReference\",\n      \"createdBy\": \"createdBy\",\n      \"delegatedActorId\": \"delegatedActorId\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"mergedBy\": \"mergedBy\",\n      \"mergedDelegatedActorId\": \"mergedDelegatedActorId\",\n      \"mergedAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1c897eb2-52f9-40eb-baa2-5bab10ab9224",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c909717b-05b8-4edd-8ae5-a5bae94cd75d",
+      "name": "open - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/promotion-requests",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"id\": \"id\",\n  \"trunkId\": \"trunkId\",\n  \"scopeId\": \"scopeId\",\n  \"sourceCommitSha\": \"sourceCommitSha\",\n  \"targetCommitSha\": \"targetCommitSha\",\n  \"changes\": [\n    {\n      \"contextId\": \"contextId\",\n      \"contextKey\": \"contextKey\",\n      \"sourceRevisionId\": \"sourceRevisionId\",\n      \"targetRevisionId\": \"targetRevisionId\"\n    }\n  ],\n  \"status\": \"open\",\n  \"evidenceReference\": \"evidenceReference\",\n  \"createdBy\": \"createdBy\",\n  \"delegatedActorId\": \"delegatedActorId\",\n  \"createdAt\": \"2024-01-15T09:30:00Z\",\n  \"mergedBy\": \"mergedBy\",\n  \"mergedDelegatedActorId\": \"mergedDelegatedActorId\",\n  \"mergedAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c909717b-05b8-4edd-8ae5-a5bae94cd75d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "92c69e45-a3e6-4687-aaf8-f0d4540a97de",
+      "name": "merge - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/promotion-requests/{promotionId}/merge",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "promotionId": {
+            "equalTo": "promotionId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"trunkId\": \"trunkId\",\n  \"scopeId\": \"scopeId\",\n  \"sourceCommitSha\": \"sourceCommitSha\",\n  \"targetCommitSha\": \"targetCommitSha\",\n  \"changes\": [\n    {\n      \"contextId\": \"contextId\",\n      \"contextKey\": \"contextKey\",\n      \"sourceRevisionId\": \"sourceRevisionId\",\n      \"targetRevisionId\": \"targetRevisionId\"\n    }\n  ],\n  \"status\": \"open\",\n  \"evidenceReference\": \"evidenceReference\",\n  \"createdBy\": \"createdBy\",\n  \"delegatedActorId\": \"delegatedActorId\",\n  \"createdAt\": \"2024-01-15T09:30:00Z\",\n  \"mergedBy\": \"mergedBy\",\n  \"mergedDelegatedActorId\": \"mergedDelegatedActorId\",\n  \"mergedAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "92c69e45-a3e6-4687-aaf8-f0d4540a97de",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 37
+  }
+}

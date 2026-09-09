@@ -2,7 +2,11 @@ export type ContextKind = "skill" | "docs" | "prompt" | "policy" | "memory-schem
 export type Channel = "production" | "staging" | "latest";
 export interface Page<T> { data: T[]; nextCursor?: string | null }
 export interface Workspace { id: string; name: string; organizationId: string; slug: string }
-export interface Scope { id: string; name: string; slug: string }
+export interface Scope {
+  id: string; name: string; slug: string;
+  environments: {id: string; name: "staging" | "production"; commitSha: string | null;
+    canDeploy?: boolean; canPropose?: boolean; canPublish?: boolean}[];
+}
 export interface FileRecord { path: string; size: number; sha256: string }
 export interface Revision { id: string; packageDigest: string; files: FileRecord[] }
 export interface Context { id: string; trunkId: string; scopeId: string; key: string; title: string; kind: ContextKind }
@@ -16,7 +20,12 @@ export interface PublishInput {
   summary?: string; tags?: string[]; claimedDigest?: string;
   files: { path: string; contentBase64: string }[];
 }
-export interface Promotion { id: string; trunkId: string; scopeId: string; status: "open" | "merged" | "closed" }
+export interface Promotion {
+  id: string; trunkId: string; scopeId: string; status: "open" | "merged" | "closed";
+  sourceCommitSha: string; targetCommitSha: string | null;
+  changes: {contextId: string; contextKey: string; sourceRevisionId: string; targetRevisionId: string | null}[];
+  evidenceReference?: string | null;
+}
 export interface ClientOptions {
   token: string | (() => string | Promise<string>);
   baseUrl?: string;
@@ -100,20 +109,29 @@ export class AgentTrunk {
     const bytes = await boundedBody(response, binary ? 1_000_000 : 24_000_000);
     return (binary ? bytes : JSON.parse(new TextDecoder().decode(bytes))) as T;
   }
+  /** Workspaces in the token's active organization. Follow nextCursor even on empty pages. */
   listWorkspaces(query: {cursor?: string; q?: string; limit?: number} = {}) {
     return this.request<Page<Workspace>>("/trunks", "GET", undefined, query);
   }
+  /** Creates a workspace with a General scope and staging/production environments. No retries. */
   createWorkspace(input: {name: string; description?: string}) {
     return this.request<Workspace>("/trunks", "POST", input);
   }
   getWorkspace(id: string) { return this.request<Workspace>(`/trunks/${segment(id)}`); }
   listScopes(id: string) { return this.request<Page<Scope>>(`/trunks/${segment(id)}/scopes`); }
+  /** Creates a scope and its environments. Requires existing authorization; does not grant access. */
+  createScope(workspace: string, input: {name: string; slug?: string}) {
+    return this.request<Scope>(`/trunks/${segment(workspace)}/scopes`, "POST", input);
+  }
+  /** Set trunkId and channel explicitly for reproducible, workspace-scoped discovery. */
   discover(query: {query?: string; trunkId?: string; scopeId?: string; channel?: Channel; cursor?: string; limit?: number} = {}) {
     return this.request<Page<DiscoveryResult>>("/contexts", "GET", undefined, query);
   }
+  /** Resolve a channel once, or inspect a discovery result's revisionId to preserve its snapshot. */
   inspect(workspace: string, key: string, ref: string = "production") {
     return this.request<InspectedContext>(`/trunks/${segment(workspace)}/contexts/${segment(key)}`, "GET", undefined, {ref});
   }
+  /** Replaces the complete package in staging. Include every file to retain; this is not a patch. */
   publish(workspace: string, input: PublishInput) {
     if (!Array.isArray(input.files) || input.files.length < 1 || input.files.length > 256) throw new Error("Publish 1–256 files");
     const paths = new Set<string>();
@@ -124,6 +142,7 @@ export class AgentTrunk {
     }
     return this.request<InspectedContext>(`/trunks/${segment(workspace)}/publications`, "POST", input);
   }
+  /** Reads one immutable file and verifies its manifest byte count and SHA-256 before returning it. */
   async readFile(workspace: string, key: string, revisionId: string, file: FileRecord): Promise<Uint8Array> {
     if (!/^[a-f0-9]{64}$/.test(revisionId)) throw new Error("File reads require an immutable revision ID; inspect the context first");
     if (!/^[a-f0-9]{64}$/.test(file.sha256) || !Number.isInteger(file.size) || file.size < 0 || file.size > 1_000_000) throw new Error("Invalid file manifest");
@@ -133,10 +152,21 @@ export class AgentTrunk {
     if (bytes.length !== file.size || digest !== file.sha256) throw new Error("Context file integrity check failed");
     return bytes;
   }
+  /** Read review snapshots or reconcile an uncertain release request. Does not change production. */
+  listPromotions(workspace: string, query: {scopeId?: string; status?: Promotion["status"]; cursor?: string; limit?: number} = {}) {
+    return this.request<Page<Promotion>>(`/trunks/${segment(workspace)}/promotion-requests`, "GET", undefined, query);
+  }
+  /** Opens review of the entire scope's staging snapshot; this does not approve or merge it. */
   openPromotion(workspace: string, input: {scopeId: string; evidenceReference?: string}) {
     return this.request<Promotion>(`/trunks/${segment(workspace)}/promotion-requests`, "POST", input);
   }
+  /** Changes production to the reviewed snapshot. Calling runtime must obtain release authorization. */
   mergePromotion(workspace: string, promotion: string) {
     return this.request<Promotion>(`/trunks/${segment(workspace)}/promotion-requests/${segment(promotion)}/merge`, "POST");
   }
 }
+
+// Full REST coverage generated by Fern; the AgentTrunk class above retains the bounded convenience API.
+export { AgentTrunkClient, AgentTrunkApi, AgentTrunkApiError, AgentTrunkTimeoutError } from "./typescript/src/index.js";
+export {AgentTrunkWorkflows} from './typescript/src/workflows.js';
+export {AgentRegistration, AgentAuthError, type AgentIdentity} from "./agent-auth.js";

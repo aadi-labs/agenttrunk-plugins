@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "skills": [
+    {
+      "name": "agenttrunk",
+      "source": "plugins/agenttrunk/skills/agenttrunk",
+      "export": "skills/agenttrunk"
+    }
+  ]
+}

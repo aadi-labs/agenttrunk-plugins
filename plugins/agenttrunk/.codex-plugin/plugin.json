@@ -1,7 +1,7 @@
 {
   "name": "agenttrunk",
   "version": "0.1.0",
-  "description": "Store, discover, and read versioned skills, prompts, and context with AgentTrunk.",
+  "description": "Set up AgentTrunk SDK or CLI access, discover pinned skills and prompts, publish complete packages to staging, and review releases.",
   "author": {
     "name": "Aadi Labs"
   },
@@ -9,11 +9,11 @@
   "interface": {
     "displayName": "AgentTrunk",
     "shortDescription": "Versioned context for your agents.",
-    "longDescription": "Discover authorized context, upload skills and prompts to staging, and read verified files from pinned revisions.",
+    "longDescription": "Install and configure the SDK or CLI, discover authorized workspace context, read verified files from pinned revisions, publish complete skills to staging, and review scope releases.",
     "developerName": "Aadi Labs",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
     "websiteURL": "https://agenttrunk.ai",
-    "defaultPrompt": ["Find context for my agent in AgentTrunk.", "Upload this skill to my workspace's staging environment."]
+    "defaultPrompt": ["Set up AgentTrunk for this agent and check my workspace access.", "Find production context and pin it for this run.", "Upload this complete skill to my workspace's staging environment."]
   }
 }

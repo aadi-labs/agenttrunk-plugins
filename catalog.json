@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "name": "agenttrunk",
+  "description": "Portable skill, SDK and CLI for authorized versioned agent context.",
+  "repository": "https://github.com/aadi-labs/agenttrunk-plugins",
+  "runtime": {
+    "node": ">=22",
+    "package": "@agenttrunk/sdk",
+    "install": "source-tarball"
+  },
+  "api": {
+    "origin": "https://api.agenttrunk.ai",
+    "contract": "https://agenttrunk.ai/openapi.yaml",
+    "authentication": "runtime-supplied short-lived bearer token",
+    "selfServiceLogin": false,
+    "mcp": false
+  },
+  "skills": [
+    {
+      "name": "agenttrunk",
+      "path": "plugins/agenttrunk/skills/agenttrunk/SKILL.md"
+    }
+  ],
+  "plugins": {
+    "claude": "plugins/agenttrunk/.claude-plugin/plugin.json",
+    "codex": "plugins/agenttrunk/.codex-plugin/plugin.json"
+  },
+  "documentation": [
+    "README.md",
+    "docs/setup.md",
+    "docs/installation.md",
+    "sdk/README.md",
+    "cli/README.md",
+    "docs/troubleshooting.md",
+    "docs/maintaining.md",
+    "examples/README.md",
+    "llms.txt",
+    "docs/sdk-generation.md",
+    "sdk/typescript/README.md",
+    "sdk/python/README.md",
+    "sdk/go/README.md",
+    "examples/clients/README.md",
+    "docs/readiness.md",
+    "docs/releases.md",
+    "examples/workflows/README.md"
+  ],
+  "examples": [
+    {
+      "name": "quickstart",
+      "readme": "examples/quickstart/README.md",
+      "entrypoint": "examples/quickstart/index.mjs",
+      "defaultEffect": "read"
+    },
+    {
+      "name": "pinned-context",
+      "readme": "examples/pinned-context/README.md",
+      "entrypoint": "examples/pinned-context/index.mjs",
+      "defaultEffect": "read"
+    },
+    {
+      "name": "publish-skill",
+      "readme": "examples/publish-skill/README.md",
+      "entrypoint": "examples/publish-skill/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "release-review",
+      "readme": "examples/release-review/README.md",
+      "entrypoint": "examples/release-review/index.mjs",
+      "defaultEffect": "read"
+    },
+    {
+      "name": "cli",
+      "readme": "examples/cli/README.md",
+      "defaultEffect": "documented-commands"
+    },
+    {
+      "name": "workspace-audit",
+      "readme": "examples/workflows/workspace-audit/README.md",
+      "entrypoint": "examples/workflows/workspace-audit/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "context-history",
+      "readme": "examples/workflows/context-history/README.md",
+      "entrypoint": "examples/workflows/context-history/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "context-compare",
+      "readme": "examples/workflows/context-compare/README.md",
+      "entrypoint": "examples/workflows/context-compare/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "rollback-plan",
+      "readme": "examples/workflows/rollback-plan/README.md",
+      "entrypoint": "examples/workflows/rollback-plan/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "context-export",
+      "readme": "examples/workflows/context-export/README.md",
+      "entrypoint": "examples/workflows/context-export/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "context-sets",
+      "readme": "examples/workflows/context-sets/README.md",
+      "entrypoint": "examples/workflows/context-sets/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "context-sources",
+      "readme": "examples/workflows/context-sources/README.md",
+      "entrypoint": "examples/workflows/context-sources/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "provenance",
+      "readme": "examples/workflows/provenance/README.md",
+      "entrypoint": "examples/workflows/provenance/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "webhook-deliveries",
+      "readme": "examples/workflows/webhook-deliveries/README.md",
+      "entrypoint": "examples/workflows/webhook-deliveries/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "billing-status",
+      "readme": "examples/workflows/billing-status/README.md",
+      "entrypoint": "examples/workflows/billing-status/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "privacy-requests",
+      "readme": "examples/workflows/privacy-requests/README.md",
+      "entrypoint": "examples/workflows/privacy-requests/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "release-review",
+      "readme": "examples/workflows/release-review/README.md",
+      "entrypoint": "examples/workflows/release-review/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "publish-package",
+      "readme": "examples/workflows/publish-package/README.md",
+      "entrypoint": "examples/workflows/publish-package/index.mjs",
+      "defaultEffect": "local-preview"
+    },
+    {
+      "name": "open-release",
+      "readme": "examples/workflows/open-release/README.md",
+      "entrypoint": "examples/workflows/open-release/index.mjs",
+      "defaultEffect": "local-preview"
+    }
+  ],
+  "sdks": [
+    {
+      "language": "typescript",
+      "readme": "sdk/typescript/README.md",
+      "reference": "sdk/typescript/reference.md"
+    },
+    {
+      "language": "python",
+      "readme": "sdk/python/README.md",
+      "reference": "sdk/python/reference.md"
+    },
+    {
+      "language": "go",
+      "readme": "sdk/go/README.md",
+      "reference": "sdk/go/reference.md"
+    },
+    {
+      "language": "rust",
+      "readme": "sdk/rust/README.md",
+      "reference": "sdk/rust/reference.md"
+    },
+    {
+      "language": "ruby",
+      "readme": "sdk/ruby/README.md",
+      "reference": "sdk/ruby/reference.md"
+    },
+    {
+      "language": "swift",
+      "readme": "sdk/swift/README.md",
+      "reference": "sdk/swift/reference.md"
+    }
+  ],
+  "integrations": {
+    "portable": "plugin.json",
+    "cursor": ".cursor-plugin/plugin.json",
+    "pi": "package.json",
+    "openclaw": "openclaw.plugin.json",
+    "hermes": "plugin.yaml",
+    "opencode": "docs/installation.md",
+    "codexMarketplace": ".agents/plugins/marketplace.json"
+  }
+}

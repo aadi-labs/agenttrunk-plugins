@@ -1,0 +1,19 @@
+{
+  "trunkId": "${AGENTTRUNK_WORKSPACE_ID}",
+  "request": {
+    "scopeId": "${AGENTTRUNK_SCOPE_ID}",
+    "contextKey": "${AGENTTRUNK_CONTEXT_KEY}",
+    "title": "Support response guidance",
+    "kind": "skill",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "contentBase64": "LS0tCm5hbWU6IHN1cHBvcnQtcmVzcG9uc2UKZGVzY3JpcHRpb246IERyYWZ0IHN1cHBvcnQgcmVzcG9uc2VzIHVzaW5nIHZlcmlmaWVkIGZhY3RzIGFuZCBlc2NhbGF0ZSB1bnJlc29sdmVkIGlzc3Vlcy4KLS0tCgojIFN1cHBvcnQgcmVzcG9uc2UKClJlYWQgcmVmZXJlbmNlcy9lc2NhbGF0aW9uLm1kLiBTdGF0ZSBrbm93biBmYWN0cy4gQXNrIHRoZSBydW50aW1lIHRvIHJvdXRlIHVucmVzb2x2ZWQgcmVxdWVzdHMgdG8gdGhlIHN1cHBvcnQgb3duZXIuCg=="
+      },
+      {
+        "path": "references/escalation.md",
+        "contentBase64": "IyBFc2NhbGF0aW9uCgpEbyBub3QgaW52ZW50IGFjY291bnQgYWNjZXNzIG9yIHBvbGljeS4gRXNjYWxhdGUgbWlzc2luZyBmYWN0cyB0byB0aGUgc3VwcG9ydCBvd25lci4K"
+      }
+    ]
+  }
+}

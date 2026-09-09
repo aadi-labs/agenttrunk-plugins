@@ -1,0 +1,7 @@
+{
+  "trunkId": "${AGENTTRUNK_WORKSPACE_ID}",
+  "request": {
+    "scopeId": "${AGENTTRUNK_SCOPE_ID}",
+    "evidenceReference": "${AGENTTRUNK_EVIDENCE_URL}"
+  }
+}

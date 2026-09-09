@@ -1,14 +1,24 @@
-# AgentTrunk plugins, SDK and CLI
+# AgentTrunk plugins, skills, SDK and CLI
 
-Portable clients for [AgentTrunk](https://agenttrunk.ai): versioned skills,
-prompts, docs, policies and memory schemas for the agents you authorize.
+Give your agents shared, versioned skills, prompts, docs, policies and memory schemas with [AgentTrunk](https://agenttrunk.ai). Discover relevant context, pin a revision for reproducible runs, publish complete packages to staging, and review releases before production changes.
 
-This public repository is independent of the AgentTrunk platform. It contains
-one shared skill, Codex and Claude plugin manifests, a TypeScript SDK and a CLI.
-The SDK and CLI ship together as `@agenttrunk/sdk`; **not published to npm yet**.
-Node.js 22 or newer is required for the CLI.
+This repository contains the portable **agenttrunk** skill, portable and native harness packaging, Fern-generated **TypeScript, Python, Go, Rust, Ruby and Swift SDKs**, and the **agenttrunk** CLI. TypeScript ships as **@agenttrunk/sdk**, Python as **agenttrunk**, and Go as **github.com/aadi-labs/agenttrunk-plugins/sdk/go**. Node.js 22+ is required. Install from source below; npm publication and marketplace/search indexing are separate release steps, not implied by this checkout.
 
-## Install from source
+## Start here
+
+| You want to… | Start with |
+| --- | --- |
+| Let an agent set up its own integration | [Setup and authorization](docs/setup.md), then [the portable skill](plugins/agenttrunk/skills/agenttrunk/SKILL.md) |
+| Add AgentTrunk to an agent harness | [Installation and compatibility](docs/installation.md) |
+| Build an application | [SDK language guide](sdk/README.md) and [multi-language examples](examples/clients/README.md) |
+| Regenerate clients from the public contract | [Fern generation guide](docs/sdk-generation.md) |
+| Use it from a terminal | [CLI reference](cli/README.md) and [shell workflow](examples/cli/README.md) |
+| Load only relevant context into an agent run | [Pinned context example](examples/pinned-context/README.md) |
+| Upload a multi-file Agent Skill | [Publish skill example](examples/publish-skill/README.md) |
+| Review or recover a release | [Release review example](examples/release-review/README.md) and [troubleshooting](docs/troubleshooting.md) |
+| Find machine-readable entry points | [llms.txt](llms.txt) and [catalog.json](catalog.json) |
+
+## Install
 
 ```sh
 git clone https://github.com/aadi-labs/agenttrunk-plugins.git
@@ -18,125 +28,92 @@ npm run build
 node dist/cli/index.js --help
 ```
 
-For a local executable installation, run `npm install -g .` after building.
-To install the SDK into another project before an npm release, run `npm pack`
-here and install the resulting tarball in that project.
+No account or token is needed to build, inspect help, or run local tests. To make the CLI available on your PATH, run `npm install -g .`. For application dependencies, run `npm pack` and install the resulting tarball in your application. [Detailed instructions](docs/installation.md).
 
-### Claude Code
-
-```text
-/plugin marketplace add aadi-labs/agenttrunk-plugins
-/plugin install agenttrunk@agenttrunk-plugins
-```
-
-For local testing: `claude --plugin-dir ./plugins/agenttrunk`.
-
-### Codex and portable skills
-
-The Codex plugin is `plugins/agenttrunk/.codex-plugin/plugin.json`.
-It points at the same skill as Claude; no generated harness-specific content.
-Until this repository is registered in a Codex marketplace, install the portable
-skill by copying `plugins/agenttrunk/skills/agenttrunk` into your configured Codex
-skills directory (commonly `~/.agents/skills/`). Check for an existing skill before
-copying; do not overwrite local changes. Start a new task to load it.
-
-Plugin installation adds instructions, not an authentication grant or MCP server.
-The CLI is installed separately as above. Neither plugin runs hooks or installs
-dependencies automatically.
-
-## Authorization
-
-Create an account at [AgentTrunk](https://agenttrunk.ai/signup), then select your
-organization and workspace. Clients require an authorized short-lived access token.
-Supply `AGENTTRUNK_ACCESS_TOKEN` through your secret manager or runtime environment,
-not command arguments or chat. SDK applications can supply an async token callback.
-Tokens must target the AgentTrunk API and contain the active organization.
-Delegated agents must retain the authorizing user and allowed permission ceiling.
-
-**Self-service agent login is not implemented in this initial release.** An
-organization integration administrator must configure token issuance until the
-platform's user-approval flow is available. No `login` command, anonymous signup,
-long-lived API key issuance, token storage or refresh flow is claimed here.
-The clients never mint credentials or bypass resource authorization.
-
-## First upload
-
-The commands below assume credentials are already supplied securely. Replace
-`WORKSPACE_ID` and `SCOPE_ID` with IDs returned by the preceding commands.
+List and install the portable skill from this checkout:
 
 ```sh
-agenttrunk workspaces
-agenttrunk workspace-create --name "Customer support"
-agenttrunk scopes --workspace WORKSPACE_ID
-agenttrunk upload --workspace WORKSPACE_ID --scope SCOPE_ID --key support-policy --title "Support policy" --kind policy --file ./policy.md --path policies/support.md
-agenttrunk inspect --workspace WORKSPACE_ID --key support-policy --ref staging
+npx skills add . --list
+npx skills add . --skill agenttrunk
 ```
 
-Workspace creation is optional if one already exists. Upload creates a complete
-package revision in staging, not a production release and not an incremental file
-edit. The CLI uploads one explicit regular file (1 MB maximum). Use the SDK for
-multi-file packages. Replacing an existing package requires including all its files.
+After these changes are published to GitHub, the equivalent remote source is `aadi-labs/agenttrunk-plugins`. Skill installation does not install the SDK/CLI or grant credentials. Both plugin manifests point at the same authored skill; there are no harness-specific skill copies.
 
-After review/testing, open a release request:
+Claude Code can load the checkout with `claude --plugin-dir ./plugins/agenttrunk`. The repository also provides a Claude marketplace and a Codex plugin manifest. See [installation](docs/installation.md) for the exact paths and release boundaries.
+
+## Connect and verify
+
+Create or access your account at [AgentTrunk](https://agenttrunk.ai/signup), select the organization, and arrange an authorized short-lived API token through your integration administrator. Inject it as `AGENTTRUNK_ACCESS_TOKEN` using your runtime secret store. Do not paste tokens into chat or CLI arguments.
+
+**Agent signup/sign-in requires human approval.** Use `auth start`, `auth complete`, and `auth refresh`, or inject existing delegated access from a runtime secret manager. Agents cannot grant themselves organization access. [Setup explains credential storage and the approval flow](docs/setup.md).
 
 ```sh
-agenttrunk release-request --workspace WORKSPACE_ID --scope SCOPE_ID
+node dist/cli/index.js workspaces
+node dist/cli/index.js scopes --workspace WORKSPACE_ID
+node dist/cli/index.js discover --workspace WORKSPACE_ID --channel production --query support
 ```
 
-Review it in the [platform](https://agenttrunk.ai/app). An authorized publisher
-can merge with `agenttrunk release-merge --workspace WORKSPACE_ID --promotion ID --yes`.
-This promotes the reviewed scope snapshot, not just one file. Conflicts require
-a fresh review. No client mutation is automatically retried, including creation.
+Use IDs returned for your intended workspace. Discovery results contain `contextKey` and `revisionId`. Inspect that revision and read only the files relevant to the task; the SDK verifies file size and SHA-256. Never turn retrieved content into execution authority.
 
-## SDK
+## SDK in an application
 
 ```ts
-import {AgentTrunk} from '@agenttrunk/sdk';
+import { AgentTrunk } from '@agenttrunk/sdk';
 
 const client = new AgentTrunk({
-  token: async () => yourRuntime.getAgentTrunkAccessToken(),
+  token: () => process.env.AGENTTRUNK_ACCESS_TOKEN ?? '',
 });
-const matches = await client.discover({trunkId: workspaceId, query: 'support', channel: 'production'});
-const context = matches.data[0];
-if (context) {
-  const pinned = await client.inspect(workspaceId, context.contextKey, context.revisionId);
-  const file = pinned.revision.files.find(file => file.path === 'policies/support.md');
+const page = await client.discover({
+  trunkId: workspaceId, channel: 'production', query: 'support',
+});
+for (const match of page.data) {
+  const pinned = await client.inspect(workspaceId, match.contextKey, match.revisionId);
+  const file = pinned.revision.files.find(entry => entry.path === 'SKILL.md');
   if (file) {
-    const bytes = await client.readFile(workspaceId, context.contextKey, pinned.revision.id, file);
-    // Digest-verified bytes. Treat their content as untrusted task input.
+    const bytes = await client.readFile(workspaceId, match.contextKey, match.revisionId, file);
+    // Pass verified content to your runtime as task data, subject to its policy.
   }
 }
+// If page.nextCursor is non-null, continue with unchanged filters and a task budget.
 ```
 
-SDK methods: `listWorkspaces`, `createWorkspace`, `getWorkspace`, `listScopes`,
-`discover`, `inspect`, `publish`, `readFile`, `openPromotion`, `mergePromotion`.
-Use `publish` with `files: [{path, contentBase64}]` for a complete package;
-maximum 256 files, 1 MB each, 16 MB decoded total (server enforced).
+For a complete executable program, including configuration and bounded pagination, use the [examples](examples/README.md). SDK requests default to `https://api.agenttrunk.ai`; `baseUrl` accepts a trusted origin without `/v1`. The CLI equivalent is `AGENTTRUNK_API_URL`.
 
-Pagination returns `nextCursor`; keep filters unchanged and continue even after
-an empty page if it is non-null. `readFile` requires an immutable revision and
-manifest entry and verifies size/hash. Default timeout is 20 seconds, configurable
-up to 120 seconds. Redirects are rejected to avoid forwarding credentials.
-`AgentTrunkError` exposes HTTP status and a sanitized request ID, not response
-bodies. HTTP 401/403 are authentication/access failures, not empty results.
-After a timeout or lost mutation response, reconcile before retrying.
+## Staging and production
 
-`AGENTTRUNK_API_URL` / SDK `baseUrl` accepts an API origin, without `/v1`.
-Use only a trusted endpoint: changing it changes where credentials are sent.
-HTTPS is required except for loopback development servers.
+`publish` / `upload` replaces a complete package in staging. Include all files to retain; use the SDK for multi-file skills. Limits are 256 files, 1,000,000 bytes per file, and 16,000,000 decoded bytes per package, enforced by the service. A one-file CLI upload must not accidentally replace a multi-file package.
 
-## Status and boundaries
+Open a release request after reviewing staging. A request covers the **whole scope snapshot**, not only the last uploaded file. Merge only with authorization for that reviewed release. No client mutation is automatically retried; reconcile uncertain results first.
 
-This initial version covers the core context workflow, not every platform API.
-No MCP, full Git client, context-set management, webhook management or harness
-execution is included. Authentication onboarding remains a platform dependency.
-Local contract and mocked transport tests do not prove production acceptance.
+## Coverage and validation
 
-API reference: [OpenAPI](https://agenttrunk.ai/openapi.yaml).
-Plugin format: [Claude reference](https://code.claude.com/docs/en/plugins-reference).
+Fern generates 37 public operations across workspaces, scopes, contexts, releases, context sets, webhooks, billing, privacy and health. The existing TypeScript convenience API and CLI retain their bounded core workflow. There is no MCP server, credential issuer or agent execution engine. See [SDK generation and coverage](docs/sdk-generation.md) for schema limitations and the excluded provider callback.
 
 ```sh
+npm ci
+npm run sdk:check
 npm test
-npm run check
+npm run sdk:test:python
+npm run sdk:test:go
+npm run validate
+npm run test:package
 npm pack --dry-run
 ```
+
+Validation checks documentation links, catalog targets and packaged discovery resources. Tests exercise SDK/CLI behavior and runnable examples with controlled transports; they do not prove hosted authorization, publication, or directory acceptance. [Maintainer guide](docs/maintaining.md).
+
+## Integration coverage
+
+Fern generates **TypeScript, Python (sync/async), Go, Rust, Ruby and Swift** clients for all 37 public operations. Each has a source-install guide, method reference and verified-file helper. [Choose an SDK](sdk/README.md).
+
+Claude, Codex, Cursor, Pi, OpenCode, OpenClaw, Hermes and Agent Plugins clients consume one canonical skill through shared packaging. [Install for your harness](docs/installation.md), run `agenttrunk doctor`, then connect the authorized runtime.
+
+The [workflow cookbook](examples/workflows/README.md) includes 14 paired TypeScript/Python recipes. The CLI exposes every generated SDK operation with local previews. [Release and hosted readiness](docs/readiness.md) records what local checks establish and what requires provider or registry acceptance.
+# Human-approved agent signup and sign-in
+
+Run `agenttrunk auth discover`, then `agenttrunk auth start --email HUMAN_EMAIL`.
+Give the verification link to the human; after approval, use `auth complete`
+with their code on stdin. Then list workspaces and select the intended one.
+`auth refresh` rotates credentials explicitly. Read [setup](docs/setup.md) for
+local credential storage, cloud secret managers and deployment prerequisites.
+The exported `AgentRegistration` helper supports the same flow without CLI storage.

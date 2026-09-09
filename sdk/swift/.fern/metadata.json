@@ -1,0 +1,15 @@
+{
+  "cliVersion": "5.108.0",
+  "generatorName": "fernapi/fern-swift-sdk",
+  "generatorVersion": "0.36.1",
+  "generatorConfig": {
+    "clientClassName": "AgentTrunk",
+    "environmentEnumName": "AgentTrunkEnvironment",
+    "moduleName": "AgentTrunk",
+    "enableWireTests": true
+  },
+  "originGitCommit": "b69b217c53a4a3a6988215845bb98dc4344bb7d7",
+  "originGitCommitIsDirty": true,
+  "invokedBy": "manual",
+  "requestedVersion": "0.1.0"
+}

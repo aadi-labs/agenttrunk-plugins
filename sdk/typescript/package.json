@@ -1,0 +1,166 @@
+{
+  "name": "@agenttrunk/sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      },
+      "default": "./dist/cjs/index.js"
+    },
+    "./privacy": {
+      "import": {
+        "types": "./dist/esm/api/resources/privacy/exports.d.mts",
+        "default": "./dist/esm/api/resources/privacy/exports.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/api/resources/privacy/exports.d.ts",
+        "default": "./dist/cjs/api/resources/privacy/exports.js"
+      },
+      "default": "./dist/cjs/api/resources/privacy/exports.js"
+    },
+    "./contexts": {
+      "import": {
+        "types": "./dist/esm/api/resources/contexts/exports.d.mts",
+        "default": "./dist/esm/api/resources/contexts/exports.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/api/resources/contexts/exports.d.ts",
+        "default": "./dist/cjs/api/resources/contexts/exports.js"
+      },
+      "default": "./dist/cjs/api/resources/contexts/exports.js"
+    },
+    "./billing": {
+      "import": {
+        "types": "./dist/esm/api/resources/billing/exports.d.mts",
+        "default": "./dist/esm/api/resources/billing/exports.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/api/resources/billing/exports.d.ts",
+        "default": "./dist/cjs/api/resources/billing/exports.js"
+      },
+      "default": "./dist/cjs/api/resources/billing/exports.js"
+    },
+    "./health": {
+      "import": {
+        "types": "./dist/esm/api/resources/health/exports.d.mts",
+        "default": "./dist/esm/api/resources/health/exports.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/api/resources/health/exports.d.ts",
+        "default": "./dist/cjs/api/resources/health/exports.js"
+      },
+      "default": "./dist/cjs/api/resources/health/exports.js"
+    },
+    "./workspaces": {
+      "import": {
+        "types": "./dist/esm/api/resources/workspaces/exports.d.mts",
+        "default": "./dist/esm/api/resources/workspaces/exports.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/api/resources/workspaces/exports.d.ts",
+        "default": "./dist/cjs/api/resources/workspaces/exports.js"
+      },
+      "default": "./dist/cjs/api/resources/workspaces/exports.js"
+    },
+    "./webhooks": {
+      "import": {
+        "types": "./dist/esm/api/resources/webhooks/exports.d.mts",
+        "default": "./dist/esm/api/resources/webhooks/exports.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/api/resources/webhooks/exports.d.ts",
+        "default": "./dist/cjs/api/resources/webhooks/exports.js"
+      },
+      "default": "./dist/cjs/api/resources/webhooks/exports.js"
+    },
+    "./scopes": {
+      "import": {
+        "types": "./dist/esm/api/resources/scopes/exports.d.mts",
+        "default": "./dist/esm/api/resources/scopes/exports.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/api/resources/scopes/exports.d.ts",
+        "default": "./dist/cjs/api/resources/scopes/exports.js"
+      },
+      "default": "./dist/cjs/api/resources/scopes/exports.js"
+    },
+    "./contextSets": {
+      "import": {
+        "types": "./dist/esm/api/resources/contextSets/exports.d.mts",
+        "default": "./dist/esm/api/resources/contextSets/exports.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/api/resources/contextSets/exports.d.ts",
+        "default": "./dist/cjs/api/resources/contextSets/exports.js"
+      },
+      "default": "./dist/cjs/api/resources/contextSets/exports.js"
+    },
+    "./releases": {
+      "import": {
+        "types": "./dist/esm/api/resources/releases/exports.d.mts",
+        "default": "./dist/esm/api/resources/releases/exports.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/api/resources/releases/exports.d.ts",
+        "default": "./dist/cjs/api/resources/releases/exports.js"
+      },
+      "default": "./dist/cjs/api/resources/releases/exports.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "reference.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "format": "biome format --write --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
+    "format:check": "biome format --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
+    "lint": "biome lint --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
+    "lint:fix": "biome lint --fix --unsafe --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
+    "check": "biome check --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
+    "check:fix": "biome check --fix --unsafe --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
+    "build": "pnpm build:cjs && pnpm build:esm",
+    "build:cjs": "tsc --project ./tsconfig.cjs.json",
+    "build:esm": "tsc --project ./tsconfig.esm.json && node scripts/rename-to-esm-files.js dist/esm",
+    "test": "vitest",
+    "test:unit": "vitest --project unit",
+    "test:wire": "vitest --project wire"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^5.105.4",
+    "ts-loader": "^9.5.4",
+    "vitest": "^4.1.1",
+    "msw": "2.11.2",
+    "@types/node": "^20.0.0",
+    "typescript": "~5.9.3",
+    "@biomejs/biome": "2.4.10"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false,
+    "stream": false,
+    "crypto": false
+  },
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "sideEffects": false,
+  "description": "AgentTrunk TypeScript SDK for versioned agent context.",
+  "license": "MIT"
+}

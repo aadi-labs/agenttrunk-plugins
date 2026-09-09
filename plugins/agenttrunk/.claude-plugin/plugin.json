@@ -1,7 +1,7 @@
 {
   "name": "agenttrunk",
   "version": "0.1.0",
-  "description": "Store, discover, and read versioned skills, prompts, and context with AgentTrunk.",
+  "description": "Set up AgentTrunk SDK or CLI access, discover pinned skills and prompts, publish complete packages to staging, and review releases.",
   "author": {"name": "Aadi Labs"},
   "homepage": "https://agenttrunk.ai",
   "repository": "https://github.com/aadi-labs/agenttrunk-plugins",

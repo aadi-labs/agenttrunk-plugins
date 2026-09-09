@@ -1,0 +1,31 @@
+import {fileURLToPath} from 'node:url';
+import {mkdtemp, writeFile, readFile, rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {execFileSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+const source = fileURLToPath(new URL('../', import.meta.url));
+const temporary = await mkdtemp(join(tmpdir(), 'agenttrunk-package-smoke-'));
+const run = (command, args, cwd, env = process.env) => execFileSync(command, args, {cwd, env, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']});
+try {
+  const pack = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporary], source))[0];
+  await writeFile(join(temporary, 'package.json'), JSON.stringify({private: true, type: 'module'}));
+  run('npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund', join(temporary, pack.filename)], temporary);
+  const out = run(process.execPath, ['--input-type=module', '-e', "import {AgentTrunk, AgentTrunkClient} from '@agenttrunk/sdk'; const c = new AgentTrunk({token:'local-test',fetch:async()=>Response.json({data:[]})}); const generated = new AgentTrunkClient({accessToken:'local-test',fetch:async()=>Response.json({data:[]})}); console.log(JSON.stringify([await c.listWorkspaces(), await generated.workspaces.list()]));"], temporary);
+  assert.deepEqual(JSON.parse(out), [{data: []}, {data: []}]);
+  const help = run(join(temporary, 'node_modules/.bin/agenttrunk'), ['--help'], temporary);
+  assert.match(help, /api RESOURCE.METHOD/);
+  const catalog=JSON.parse(run(join(temporary, 'node_modules/.bin/agenttrunk'), ['api','list'], temporary));
+  assert.equal(catalog.length,37);
+  const portable=JSON.parse(await readFile(join(temporary,'node_modules/@agenttrunk/sdk/plugin.json'),'utf8'));
+  assert.equal(portable.name,'agenttrunk');
+  assert.match(help, /scope-create/); assert.match(help, /releases/);
+  const installed = join(temporary, 'node_modules/@agenttrunk/sdk');
+  const env = {...process.env, AGENTTRUNK_WORKSPACE_ID: 'workspace_example', AGENTTRUNK_SCOPE_ID: 'scope_example', AGENTTRUNK_CONTEXT_KEY: 'sample', AGENTTRUNK_WRITE: '0'};
+  delete env.AGENTTRUNK_ACCESS_TOKEN;
+  const preview = JSON.parse(run(process.execPath, ['examples/publish-skill/index.mjs'], installed, env));
+  assert.equal(preview.mode, 'preview'); assert.equal(preview.input.files.length, 2);
+  const skill = await readFile(join(installed, 'plugins/agenttrunk/skills/agenttrunk/references/setup.md'), 'utf8');
+  assert.match(skill, /Node.js 22/);
+  console.log('Tarball consumer smoke passed: ESM import, executable CLI, token-free two-file preview, installed skill references.');
+} finally { await rm(temporary, {recursive:true,force:true}); }

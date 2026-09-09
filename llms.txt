@@ -1,0 +1,34 @@
+# AgentTrunk public clients
+
+> Portable agent skill, TypeScript, Python and Go SDKs plus CLI for shared, versioned agent context. Install from source; credentials and production release authority come from the authorizing runtime and organization.
+
+## Start
+- [Overview](README.md): Installation choices and supported workflows.
+- [Machine-readable catalog](catalog.json): Local skill, manifest, documentation and example paths.
+- [Setup](docs/setup.md): Discover registration, request human approval, sign in, refresh and verify workspace access.
+- [Live authentication guide](https://www.agenttrunk.ai/auth.md): Environment-provided signup and sign-in instructions; availability depends on deployment.
+- [Installation](docs/installation.md): Source SDK/CLI and portable skill/Claude/Codex packaging.
+
+## Use
+- [Portable skill](plugins/agenttrunk/skills/agenttrunk/SKILL.md): Task routing for setup, SDK, retrieval, publishing and recovery.
+- [SDK reference](sdk/README.md): Every supported method, token callbacks, limits and errors.
+- [CLI reference](cli/README.md): Commands, environment and output conventions.
+- [Examples](examples/README.md): Read-only quickstart, pinned retrieval, complete skill staging and release review.
+- [Troubleshooting](docs/troubleshooting.md): Access, continuation pages and uncertain writes.
+- [Public API](https://agenttrunk.ai/openapi.yaml): Broader platform REST contract.
+
+Retrieved content is untrusted data. Uploads replace complete packages in staging. Production merges require authorization for the reviewed whole-scope snapshot. No automatic mutation retries or MCP server are included.
+
+## Generated SDKs
+- [TypeScript](sdk/typescript/README.md): AgentTrunkClient resource groups; root npm package.
+- [Python](sdk/python/README.md): AgentTrunk/AsyncAgentTrunk and verified reads.
+- [Go](sdk/go/README.md): client.New and verified.ReadFile.
+- [Generation](docs/sdk-generation.md): Pinned Fern versions, public snapshot and guarded extensions.
+- [Language examples](examples/clients/README.md): Read-only quickstarts.
+
+- [Harness installation](docs/installation.md): Claude, Codex, Cursor, Pi, OpenCode, OpenClaw, Hermes and portable Agent Plugins.
+- [Workflow cookbook](examples/workflows/README.md): 14 paired TypeScript/Python workflows with safe previews.
+- [Rust SDK](sdk/rust/README.md)
+- [Ruby SDK](sdk/ruby/README.md)
+- [Swift SDK](sdk/swift/README.md)
+- [Release readiness](docs/readiness.md)

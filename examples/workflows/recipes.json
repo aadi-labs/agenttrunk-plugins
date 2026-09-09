@@ -1,0 +1,58 @@
+[
+  {
+    "name": "workspace-audit",
+    "operation": "workspaces.audit"
+  },
+  {
+    "name": "context-history",
+    "operation": "contexts.history"
+  },
+  {
+    "name": "context-compare",
+    "operation": "contexts.compare"
+  },
+  {
+    "name": "rollback-plan",
+    "operation": "contexts.getRollbackPlan"
+  },
+  {
+    "name": "context-export",
+    "operation": "contexts.export"
+  },
+  {
+    "name": "context-sets",
+    "operation": "contextSets.list"
+  },
+  {
+    "name": "context-sources",
+    "operation": "contextSets.sources"
+  },
+  {
+    "name": "provenance",
+    "operation": "contexts.getProvenance"
+  },
+  {
+    "name": "webhook-deliveries",
+    "operation": "webhooks.list"
+  },
+  {
+    "name": "billing-status",
+    "operation": "billing.get"
+  },
+  {
+    "name": "privacy-requests",
+    "operation": "privacy.list"
+  },
+  {
+    "name": "release-review",
+    "operation": "releases.list"
+  },
+  {
+    "name": "publish-package",
+    "operation": "contexts.publish"
+  },
+  {
+    "name": "open-release",
+    "operation": "releases.open"
+  }
+]

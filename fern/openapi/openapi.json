@@ -1,0 +1,2765 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AgentTrunk API",
+    "version": "0.1.0",
+    "description": "Versioned portable context for users and the agents they authorize.\nAuthenticated operations require an active WorkOS organization membership.\nAuthentication failures return 401, denied authorization returns 403, and\nmembership-provider outages return 503 with code authorization_unavailable.\nJSON requests are capped at 18,000,000 bytes while streaming; excess returns\n413 with code payload_too_large. Use x-request-id for troubleshooting.\nProvisioning is not yet durably idempotent; do not blindly retry mutations\nafter a timeout. Resolve a revision once and pin file reads to its ID.\n"
+  },
+  "servers": [
+    {
+      "url": "https://api.agenttrunk.ai"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/trunks/{trunkId}/privacy-requests/{requestId}/review": {
+      "parameters": [
+        {
+          "name": "trunkId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "requestId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "summary": "Assign privacy review to the authorizing user",
+        "description": "Requires workspace management. Repeating the same assignment is safe; other owners and terminal cases conflict. Does not verify identity or complete fulfillment.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Review assigned or already assigned to this user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID or attempted status/identity override"
+          },
+          "403": {
+            "description": "Workspace management required"
+          },
+          "409": {
+            "description": "Request unavailable or already assigned/resolved"
+          }
+        },
+        "operationId": "privacy_assignReview",
+        "tags": [
+          "privacy"
+        ],
+        "x-fern-sdk-group-name": "privacy",
+        "x-fern-sdk-method-name": "assignReview"
+      }
+    },
+    "/v1/trunks/{trunkId}/erasure-plan": {
+      "parameters": [
+        {
+          "name": "trunkId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Read-only workspace erasure inventory",
+        "description": "Requires workspace management. Counts selected database dependencies; explicitly not executable or a complete provider inventory.",
+        "responses": {
+          "200": {
+            "description": "Non-cacheable inventory with unresolved requirements",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Workspace management required"
+          }
+        },
+        "operationId": "privacy_erasurePlan",
+        "tags": [
+          "privacy"
+        ],
+        "x-fern-sdk-group-name": "privacy",
+        "x-fern-sdk-method-name": "erasurePlan"
+      }
+    },
+    "/v1/trunks/{trunkId}/contexts/{contextKey}/export": {
+      "parameters": [
+        {
+          "name": "trunkId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "contextKey",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "revisionId",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Export a pinned context revision",
+        "description": "Reads require current context authorization. Includes verified files encoded as base64 and metadata; excludes other history, notes, accounts, logs and backups. Not a complete personal-data export.",
+        "responses": {
+          "200": {
+            "description": "Portable JSON bundle",
+            "no-store": null,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing pinned revision or package exceeds limits"
+          },
+          "404": {
+            "description": "Revision unavailable or not authorized"
+          }
+        },
+        "operationId": "contexts_export",
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "export"
+      }
+    },
+    "/v1/trunks/{trunkId}/privacy-requests": {
+      "parameters": [
+        {
+          "name": "trunkId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "List the latest 20 workspace privacy review requests",
+        "description": "Requires workspace management. This is not a personal-data export.",
+        "responses": {
+          "200": {
+            "description": "Non-cacheable request history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Workspace management required"
+          }
+        },
+        "operationId": "privacy_list",
+        "tags": [
+          "privacy"
+        ],
+        "x-fern-sdk-group-name": "privacy",
+        "x-fern-sdk-method-name": "list"
+      },
+      "post": {
+        "summary": "Record a manual access or erasure review request",
+        "description": "Requires workspace management. Deduplicates open requests for the authorizing user. Does not export or delete data.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "kind"
+                ],
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "access",
+                      "erasure"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Request recorded or existing open request returned; not fulfilled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request; only kind is accepted"
+          },
+          "403": {
+            "description": "Workspace management required"
+          }
+        },
+        "operationId": "privacy_create",
+        "tags": [
+          "privacy"
+        ],
+        "x-fern-sdk-group-name": "privacy",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/v1/billing": {
+      "get": {
+        "operationId": "billing_get",
+        "description": "Organization subscription and usage summary. Requires billing:read. MCP metering is currently inactive.",
+        "responses": {
+          "200": {
+            "description": "Current plan, subscription status, allowance, usage, cap in cents, and canManage capability.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "plan",
+                    "accesses",
+                    "includedAccesses",
+                    "spendLimitCents",
+                    "meteringActive",
+                    "canManage"
+                  ],
+                  "properties": {
+                    "plan": {
+                      "type": "string",
+                      "enum": [
+                        "free",
+                        "developer",
+                        "starter",
+                        "startup",
+                        "scale"
+                      ]
+                    },
+                    "accesses": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "includedAccesses": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0,
+                      "description": "Null while new usage allowances are pending approval."
+                    },
+                    "spendLimitCents": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1000000
+                    },
+                    "meteringActive": {
+                      "const": false
+                    },
+                    "canManage": {
+                      "type": "boolean"
+                    },
+                    "subscriptionStatus": {
+                      "type": "string"
+                    },
+                    "monthlyPriceCents": {
+                      "type": "integer"
+                    },
+                    "overageCents": {
+                      "type": "integer"
+                    },
+                    "overageCentsPerThousand": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "period": {
+                      "type": "string"
+                    },
+                    "hasCustomer": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "billing:read permission required."
+          },
+          "503": {
+            "description": "Billing disabled or provider unavailable."
+          }
+        },
+        "tags": [
+          "billing"
+        ],
+        "x-fern-sdk-group-name": "billing",
+        "x-fern-sdk-method-name": "get"
+      }
+    },
+    "/v1/billing/checkout": {
+      "post": {
+        "operationId": "billing_createCheckout",
+        "description": "Requires billing:manage. Reuses an unexpired checkout; existing subscriptions must use the portal. Body limited to 4096 bytes.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "plan"
+                ],
+                "properties": {
+                  "plan": {
+                    "type": "string",
+                    "enum": [
+                      "starter",
+                      "startup",
+                      "scale"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Object with url for the hosted Stripe checkout.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "url"
+                  ],
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid plan."
+          },
+          "403": {
+            "description": "Billing management permission required."
+          },
+          "409": {
+            "description": "Existing subscription or different checkout in progress."
+          },
+          "503": {
+            "description": "Billing unavailable."
+          }
+        },
+        "tags": [
+          "billing"
+        ],
+        "x-fern-sdk-group-name": "billing",
+        "x-fern-sdk-method-name": "createCheckout"
+      }
+    },
+    "/v1/billing/portal": {
+      "post": {
+        "operationId": "billing_createPortal",
+        "description": "Requires billing:manage and an existing organization customer.",
+        "responses": {
+          "200": {
+            "description": "Object with url for the hosted Stripe billing portal.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "url"
+                  ],
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Billing management permission required."
+          },
+          "409": {
+            "description": "No billing customer exists."
+          },
+          "503": {
+            "description": "Billing unavailable."
+          }
+        },
+        "tags": [
+          "billing"
+        ],
+        "x-fern-sdk-group-name": "billing",
+        "x-fern-sdk-method-name": "createPortal"
+      }
+    },
+    "/v1/billing/spend-limit": {
+      "post": {
+        "operationId": "billing_setSpendLimit",
+        "description": "Requires billing:manage. Audited organization overage cap; excludes subscription fees and taxes. Does not activate metering.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "cents"
+                ],
+                "properties": {
+                  "cents": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Object with the saved spendLimitCents.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "spendLimitCents"
+                  ],
+                  "properties": {
+                    "spendLimitCents": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid spend limit."
+          },
+          "403": {
+            "description": "Billing management permission required."
+          },
+          "503": {
+            "description": "Billing unavailable."
+          }
+        },
+        "tags": [
+          "billing"
+        ],
+        "x-fern-sdk-group-name": "billing",
+        "x-fern-sdk-method-name": "setSpendLimit"
+      }
+    },
+    "/healthz": {
+      "get": {
+        "security": [],
+        "operationId": "health_get",
+        "responses": {
+          "200": {
+            "description": "Process liveness only; does not verify database, WorkOS, or Artifacts readiness.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "health"
+        ],
+        "x-fern-sdk-group-name": "health",
+        "x-fern-sdk-method-name": "get"
+      }
+    },
+    "/v1/webhooks/stripe": {
+      "post": {
+        "security": [],
+        "operationId": "receiveStripeWebhook",
+        "description": "Receives Stripe billing events after raw-body signature verification.",
+        "parameters": [
+          {
+            "name": "Stripe-Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event signature verified and receipt recorded idempotently."
+          },
+          "400": {
+            "description": "Missing or invalid Stripe signature."
+          },
+          "413": {
+            "description": "Webhook payload exceeds the one-megabyte limit."
+          }
+        },
+        "x-fern-ignore": true
+      }
+    },
+    "/v1/trunks": {
+      "get": {
+        "operationId": "workspaces_list",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trunks readable by the principal in the active organization. Name/slug search runs before pagination. Pass nextCursor as cursor with unchanged filters until null. Cursors pin principal-bound candidate snapshots for 15 minutes; authorization is rechecked on every page. Snapshot limits are 10000 records and 8 MB; narrow oversized queries.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "nextCursor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "maxItems": 100,
+                      "items": {
+                        "$ref": "#/components/schemas/Trunk"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "workspaces"
+        ],
+        "x-fern-sdk-group-name": "workspaces",
+        "x-fern-sdk-method-name": "list"
+      },
+      "post": {
+        "operationId": "workspaces_create",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTrunkInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Organization-owned trunk with a default FGA scope and staging and production environments.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trunk"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidInput"
+          }
+        },
+        "tags": [
+          "workspaces"
+        ],
+        "x-fern-sdk-group-name": "workspaces",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/v1/trunks/{trunkId}": {
+      "parameters": [
+        {
+          "name": "trunkId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "workspaces_get",
+        "responses": {
+          "200": {
+            "description": "Authorized workspace metadata",
+            "independent of list pagination.": null,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trunk"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Workspace read permission is required."
+          },
+          "404": {
+            "description": "Workspace not found in this organization."
+          }
+        },
+        "tags": [
+          "workspaces"
+        ],
+        "x-fern-sdk-group-name": "workspaces",
+        "x-fern-sdk-method-name": "get"
+      }
+    },
+    "/v1/trunks/{trunkId}/contexts/{contextKey}/rollback": {
+      "parameters": [
+        {
+          "name": "trunkId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "contextKey",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "contexts_getRollbackPlan",
+        "description": "Check whether an immutable revision can be restored to staging. This is advisory; the write rechecks permissions, release evidence, and staging concurrency. Ineligible responses do not expose the current staging revision.",
+        "parameters": [
+          {
+            "name": "revisionId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rollback eligibility and the expected staging revision when eligible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "eligible",
+                    "expectedStagingRevisionId",
+                    "reason"
+                  ],
+                  "properties": {
+                    "eligible": {
+                      "type": "boolean"
+                    },
+                    "expectedStagingRevisionId": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid revision identifier."
+          },
+          "403": {
+            "description": "Target context is not readable."
+          },
+          "404": {
+            "description": "Target revision does not exist."
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "getRollbackPlan"
+      },
+      "post": {
+        "operationId": "contexts_stageRollback",
+        "description": "Restore a previously released immutable revision into staging. Requires production rollback and staging deploy permissions. Production only changes through a subsequent promotion PR.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "revisionId",
+                  "expectedStagingRevisionId",
+                  "reason"
+                ],
+                "properties": {
+                  "revisionId": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "expectedStagingRevisionId": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Staging restored; receipt contains revisionId",
+            "stagingCommitSha": null,
+            "and requiresPromotion=true.": null,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unreleased target."
+          },
+          "403": {
+            "description": "Required rollback or deployment permission missing."
+          },
+          "409": {
+            "description": "Staging changed; reload before retrying."
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "stageRollback"
+      }
+    },
+    "/v1/trunks/{trunkId}/webhooks": {
+      "parameters": [
+        {
+          "name": "trunkId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "webhooks_list",
+        "description": "Requires trunk management permission. Lists at most 50 workspace submission receipts, not endpoint delivery receipts. Pass nextCursor as before until null.",
+        "parameters": [
+          {
+            "name": "before",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[1-9][0-9]{0,18}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workspace-scoped submission page.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "nextCursor"
+                  ],
+                  "properties": {
+                    "nextCursor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "maxItems": 50,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sequence": {
+                            "type": "string"
+                          },
+                          "eventId": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": [
+                              "pending",
+                              "accepted",
+                              "failed"
+                            ]
+                          },
+                          "attempts": {
+                            "type": "integer"
+                          },
+                          "lastError": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "svixMessageId": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid pagination cursor."
+          },
+          "403": {
+            "description": "Workspace management permission required."
+          },
+          "503": {
+            "description": "Outbound webhooks not configured."
+          }
+        },
+        "tags": [
+          "webhooks"
+        ],
+        "x-fern-sdk-group-name": "webhooks",
+        "x-fern-sdk-method-name": "list"
+      }
+    },
+    "/v1/trunks/{trunkId}/webhooks/portal": {
+      "parameters": [
+        {
+          "name": "trunkId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "operationId": "webhooks_createPortal",
+        "description": "Requires trunk management permission. Enables future workspace events and returns a one-hour bearer access URL for endpoint configuration, delivery inspection, and replay. Never cache or log the URL. Previously issued links remain valid until expiry.",
+        "responses": {
+          "200": {
+            "description": "No-store response containing a private portal URL.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "url"
+                  ],
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Workspace management permission required."
+          },
+          "409": {
+            "description": "Workspace application mapping conflicts."
+          },
+          "503": {
+            "description": "Outbound webhooks or provider unavailable."
+          }
+        },
+        "tags": [
+          "webhooks"
+        ],
+        "x-fern-sdk-group-name": "webhooks",
+        "x-fern-sdk-method-name": "createPortal"
+      }
+    },
+    "/v1/trunks/{trunkId}/webhooks/{eventId}/retry": {
+      "parameters": [
+        {
+          "name": "trunkId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "eventId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 200
+          }
+        }
+      ],
+      "post": {
+        "operationId": "webhooks_retry",
+        "description": "Requires trunk management permission. Requeue a failed provider submission with the same event identity. Accepted messages must be replayed through the Svix portal. Consumers must deduplicate events.",
+        "responses": {
+          "202": {
+            "description": "Failed submission queued for retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Workspace management permission required."
+          },
+          "409": {
+            "description": "No matching failed submission in this workspace."
+          },
+          "503": {
+            "description": "Outbound webhooks not configured."
+          }
+        },
+        "tags": [
+          "webhooks"
+        ],
+        "x-fern-sdk-group-name": "webhooks",
+        "x-fern-sdk-method-name": "retry"
+      }
+    },
+    "/v1/trunks/{trunkId}/publications": {
+      "post": {
+        "operationId": "contexts_publish",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Immutable revision published and indexed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "context",
+                    "revision"
+                  ],
+                  "properties": {
+                    "context": {
+                      "$ref": "#/components/schemas/Context"
+                    },
+                    "revision": {
+                      "$ref": "#/components/schemas/Revision"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidInput"
+          },
+          "413": {
+            "$ref": "#/components/responses/TooLarge"
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "publish"
+      }
+    },
+    "/v1/trunks/{trunkId}/scopes": {
+      "get": {
+        "operationId": "scopes_list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "FGA scopes readable by the principal within the trunk.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Scope"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "scopes"
+        ],
+        "x-fern-sdk-group-name": "scopes",
+        "x-fern-sdk-method-name": "list"
+      },
+      "post": {
+        "operationId": "scopes_create",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "slug": {
+                    "type": "string",
+                    "maxLength": 80
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Scope and its staging and production FGA environments created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scope"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "scopes"
+        ],
+        "x-fern-sdk-group-name": "scopes",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/v1/trunks/{trunkId}/contexts/{contextKey}/share": {
+      "post": {
+        "operationId": "contexts_share",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          },
+          {
+            "$ref": "#/components/parameters/ContextKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Sparse WorkOS FGA resource created for the individually shared context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "share"
+      }
+    },
+    "/v1/context-sources": {
+      "get": {
+        "operationId": "contextSets_sources",
+        "description": "Returns up to 20 candidates with current authorization checks and an opaque nextCursor. Snapshots expire after 15 minutes; narrow the scope if the 10000-record or 8 MB snapshot limit is exceeded.",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 43
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Production sources in data with nextCursor (null when exhausted). An empty page may still have a continuation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or expired cursor",
+            "or snapshot limit exceeded.": null
+          }
+        },
+        "tags": [
+          "contextSets"
+        ],
+        "x-fern-sdk-group-name": "contextSets",
+        "x-fern-sdk-method-name": "sources"
+      }
+    },
+    "/v1/context-sets": {
+      "get": {
+        "operationId": "contextSets_list",
+        "description": "Snapshot-stable candidates with current WorkOS authorization rechecked on each page. Cursors expire after 15 minutes and are bound to the principal and filters.",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 43
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Readable context sets in data with nextCursor (null when exhausted). An empty page may still have a continuation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or expired cursor",
+            "or snapshot limit exceeded.": null
+          }
+        },
+        "tags": [
+          "contextSets"
+        ],
+        "x-fern-sdk-group-name": "contextSets",
+        "x-fern-sdk-method-name": "list"
+      },
+      "post": {
+        "operationId": "contextSets_create",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "sources"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "sources": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 64,
+                    "items": {
+                      "$ref": "#/components/schemas/ContextSetSource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Immutable cross-trunk context manifest created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "contextSets"
+        ],
+        "x-fern-sdk-group-name": "contextSets",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/v1/context-sets/{contextSetId}/resolve": {
+      "post": {
+        "operationId": "contextSets_resolve",
+        "parameters": [
+          {
+            "name": "contextSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized version-pinned source receipt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The set or a required source is not authorized."
+          }
+        },
+        "tags": [
+          "contextSets"
+        ],
+        "x-fern-sdk-group-name": "contextSets",
+        "x-fern-sdk-method-name": "resolve"
+      }
+    },
+    "/v1/contexts": {
+      "get": {
+        "operationId": "contexts_discover",
+        "parameters": [
+          {
+            "name": "scopeId",
+            "in": "query",
+            "description": "Filter by scope before applying the result limit.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "Opaque snapshot continuation returned by the preceding page. Keep filters and principal unchanged; cursors expire after 15 minutes. Authorization is always rechecked. Restart pagination for expired or legacy numeric cursors.",
+            "schema": {
+              "type": "string",
+              "maxLength": 43
+            }
+          },
+          {
+            "name": "trunkId",
+            "in": "query",
+            "description": "Narrow discovery to this authorized trunk before applying the result limit.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 200,
+              "default": ""
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "production",
+                "staging",
+                "latest"
+              ],
+              "default": "production"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compact authorized metadata without file bodies.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "maxItems": 20,
+                      "items": {
+                        "$ref": "#/components/schemas/DiscoveryResult"
+                      }
+                    },
+                    "nextCursor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "Continue until null, including after empty pages. At most 100 candidates are authorization-checked per request."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "discover"
+      }
+    },
+    "/v1/trunks/{trunkId}/audit": {
+      "get": {
+        "operationId": "workspaces_audit",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized trunk audit events.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "workspaces"
+        ],
+        "x-fern-sdk-group-name": "workspaces",
+        "x-fern-sdk-method-name": "audit"
+      }
+    },
+    "/v1/trunks/{trunkId}/contexts/{contextKey}": {
+      "get": {
+        "operationId": "contexts_inspect",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          },
+          {
+            "$ref": "#/components/parameters/ContextKey"
+          },
+          {
+            "$ref": "#/components/parameters/RevisionRef"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Context metadata, immutable revision, and bounded file index.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "context",
+                    "revision"
+                  ],
+                  "properties": {
+                    "context": {
+                      "$ref": "#/components/schemas/Context"
+                    },
+                    "revision": {
+                      "$ref": "#/components/schemas/Revision"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "inspect"
+      }
+    },
+    "/v1/trunks/{trunkId}/contexts/{contextKey}/history": {
+      "get": {
+        "operationId": "contexts_history",
+        "description": "Follows immutable parent revisions, authorizing every revision. Historic IDs require staging read or shared-context-item read access.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          },
+          {
+            "$ref": "#/components/parameters/ContextKey"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "latest"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A data array of revisions and a nullable next revision ID. Pass next as from for the next page.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Revision"
+                      }
+                    },
+                    "next": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "history"
+      }
+    },
+    "/v1/trunks/{trunkId}/contexts/{contextKey}/compare": {
+      "get": {
+        "operationId": "contexts_compare",
+        "description": "Authorizes both revisions and returns their manifests, per-file statuses,\nand one selected file preview. Target defaults to latest; base defaults to\nthe target's parent, or an empty snapshot for the first revision. The\nreturned IDs are immutable; use them for subsequent file selections.\nUTF-8 previews verify file digests and are capped at 128000 bytes per side.\nreason is null, too_large, binary, or too_complex. Omitted previews have\nempty content and zero counts, which must not be displayed as no changes.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          },
+          {
+            "$ref": "#/components/parameters/ContextKey"
+          },
+          {
+            "name": "base",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 128,
+              "default": "latest"
+            }
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{base, target, files: [{path, status, before, after}], preview: {path, before, after, additions, deletions, reason} | null}. File statuses are added, removed, modified, unchanged.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidInput"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "compare"
+      }
+    },
+    "/v1/trunks/{trunkId}/contexts/{contextKey}/provenance": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/TrunkId"
+        },
+        {
+          "$ref": "#/components/parameters/ContextKey"
+        }
+      ],
+      "get": {
+        "operationId": "contexts_getProvenance",
+        "parameters": [
+          {
+            "name": "ref",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "latest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Latest Git-note receipt with nullable notesCommitSha and note. Note fields are version, revisionId, packageDigest, authorizingUserId, delegatedActorId, updatedAt, text. Metadata is untrusted and mutable independently of release content.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "getProvenance"
+      },
+      "put": {
+        "operationId": "contexts_putProvenance",
+        "description": "Requires revision read and staging environment deployment permission. Author identity is assigned server-side. Does not modify content, channels, or PR approval. Concurrent updates return 409; reread and reconcile, never blindly retry with a newer token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "revisionId",
+                  "text",
+                  "expectedNotesCommitSha"
+                ],
+                "properties": {
+                  "revisionId": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 16000,
+                    "description": "Maximum 16000 UTF-8 bytes; not 16000 arbitrary Unicode characters."
+                  },
+                  "expectedNotesCommitSha": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^[a-f0-9]{40}$",
+                    "description": "Null for the first note; otherwise the notesCommitSha returned by GET."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved note and its notesCommitSha receipt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The public contract does not specify response fields; inspect the returned JSON.",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidInput"
+          },
+          "403": {
+            "description": "Staging deployment permission is required."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "description": "Storage conflict or rejected push. Reread and reconcile before retrying."
+          },
+          "502": {
+            "description": "Git notes are unavailable or the storage operation failed."
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "putProvenance"
+      }
+    },
+    "/v1/trunks/{trunkId}/contexts/{contextKey}/files/{resourcePath}": {
+      "get": {
+        "operationId": "contexts_readFile",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          },
+          {
+            "$ref": "#/components/parameters/ContextKey"
+          },
+          {
+            "name": "resourcePath",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "ref",
+            "in": "query",
+            "required": true,
+            "description": "Immutable revision ID from inspect; resolve moving channels before reading.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Digest-verified bytes, bounded to 1,000,000 bytes.",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary",
+                  "maxLength": 1000000
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "readFile"
+      }
+    },
+    "/v1/trunks/{trunkId}/promotion-requests": {
+      "get": {
+        "operationId": "releases_list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "scopeId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "open",
+                "merged",
+                "closed"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A data array and nextCursor for organization-scoped requests. Scope/status filters run before snapshotting. Read permissions for both environments are checked on each page. Continue even when data is empty if nextCursor is not null. Snapshots expire after 15 minutes; mutation endpoints always validate current PR state.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PromotionRequest"
+                      }
+                    },
+                    "nextCursor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "releases"
+        ],
+        "x-fern-sdk-group-name": "releases",
+        "x-fern-sdk-method-name": "list"
+      },
+      "post": {
+        "operationId": "releases_open",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenPromotionRequestInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pull request opened from staging to production.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionRequest"
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        },
+        "tags": [
+          "releases"
+        ],
+        "x-fern-sdk-group-name": "releases",
+        "x-fern-sdk-method-name": "open"
+      }
+    },
+    "/v1/trunks/{trunkId}/promotion-requests/{promotionId}/merge": {
+      "post": {
+        "operationId": "releases_merge",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          },
+          {
+            "name": "promotionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Production fast-forwarded to the reviewed staging commit.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionRequest"
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        },
+        "tags": [
+          "releases"
+        ],
+        "x-fern-sdk-group-name": "releases",
+        "x-fern-sdk-method-name": "merge"
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "TrunkId": {
+        "name": "trunkId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^trunk_[A-Za-z0-9]+$"
+        }
+      },
+      "ContextKey": {
+        "name": "contextKey",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+        }
+      },
+      "RevisionRef": {
+        "name": "ref",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "default": "production",
+          "pattern": "^(production|staging|latest|[a-f0-9]{64})$"
+        }
+      }
+    },
+    "schemas": {
+      "ContextKind": {
+        "type": "string",
+        "enum": [
+          "skill",
+          "docs",
+          "prompt",
+          "policy",
+          "memory-schema"
+        ]
+      },
+      "Trunk": {
+        "type": "object",
+        "required": [
+          "id",
+          "organizationId",
+          "createdBy",
+          "name",
+          "slug",
+          "branches",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "organizationId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "branches": {
+            "type": "object",
+            "required": [
+              "staging",
+              "production"
+            ],
+            "properties": {
+              "staging": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "production": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateTrunkInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      },
+      "FileInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "contentBase64"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "contentBase64": {
+            "type": "string",
+            "maxLength": 1400000
+          }
+        }
+      },
+      "PublishInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "contextKey",
+          "title",
+          "kind",
+          "files"
+        ],
+        "properties": {
+          "contextKey": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "kind": {
+            "$ref": "#/components/schemas/ContextKind"
+          },
+          "tags": {
+            "type": "array",
+            "maxItems": 32,
+            "items": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 256,
+            "items": {
+              "$ref": "#/components/schemas/FileInput"
+            }
+          },
+          "claimedDigest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "scopeId": {
+            "type": "string",
+            "maxLength": 200
+          }
+        }
+      },
+      "Context": {
+        "type": "object",
+        "required": [
+          "id",
+          "trunkId",
+          "scopeId",
+          "key",
+          "title",
+          "kind",
+          "summary",
+          "tags",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "trunkId": {
+            "type": "string"
+          },
+          "scopeId": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/ContextKind"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Scope": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "createdBy",
+          "createdAt",
+          "environments"
+        ],
+        "properties": {
+          "canCreateScope": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "environments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "name",
+                "commitSha"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "enum": [
+                    "staging",
+                    "production"
+                  ]
+                },
+                "commitSha": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "pattern": "^[0-9a-f]{40,64}$"
+                },
+                "canDeploy": {
+                  "type": "boolean"
+                },
+                "canPropose": {
+                  "type": "boolean"
+                },
+                "canPublish": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "FileRecord": {
+        "type": "object",
+        "required": [
+          "path",
+          "size",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      },
+      "Revision": {
+        "type": "object",
+        "required": [
+          "id",
+          "contextId",
+          "packageDigest",
+          "files",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "contextId": {
+            "type": "string"
+          },
+          "packageDigest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "parentRevisionId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "files": {
+            "type": "array",
+            "maxItems": 256,
+            "items": {
+              "$ref": "#/components/schemas/FileRecord"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DiscoveryResult": {
+        "type": "object",
+        "required": [
+          "trunkId",
+          "scopeId",
+          "contextKey",
+          "title",
+          "kind",
+          "summary",
+          "tags",
+          "revisionId",
+          "packageDigest",
+          "channel",
+          "updatedAt"
+        ],
+        "properties": {
+          "trunkId": {
+            "type": "string"
+          },
+          "scopeId": {
+            "type": "string"
+          },
+          "contextKey": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/ContextKind"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "revisionId": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "packageDigest": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string",
+            "enum": [
+              "production",
+              "staging",
+              "latest"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ContextSetSource": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sourceTrunkId",
+          "sourceScopeId",
+          "environmentId",
+          "contextKey",
+          "revisionId",
+          "packageDigest",
+          "mountPath",
+          "required"
+        ],
+        "properties": {
+          "sourceTrunkId": {
+            "type": "string"
+          },
+          "sourceScopeId": {
+            "type": "string"
+          },
+          "environmentId": {
+            "type": "string"
+          },
+          "contextKey": {
+            "type": "string"
+          },
+          "revisionId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "packageDigest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "mountPath": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "required": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OpenPromotionRequestInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "evidenceReference": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "scopeId": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Defaults to the trunk General scope."
+          }
+        }
+      },
+      "PromotionRequest": {
+        "type": "object",
+        "required": [
+          "id",
+          "trunkId",
+          "scopeId",
+          "sourceCommitSha",
+          "targetCommitSha",
+          "changes",
+          "status",
+          "createdBy",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "trunkId": {
+            "type": "string"
+          },
+          "scopeId": {
+            "type": "string"
+          },
+          "sourceCommitSha": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40,64}$"
+          },
+          "targetCommitSha": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "changes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "contextId",
+                "contextKey",
+                "sourceRevisionId",
+                "targetRevisionId"
+              ],
+              "properties": {
+                "contextId": {
+                  "type": "string"
+                },
+                "contextKey": {
+                  "type": "string"
+                },
+                "sourceRevisionId": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "targetRevisionId": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "merged",
+              "closed"
+            ]
+          },
+          "evidenceReference": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "delegatedActorId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "mergedBy": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "mergedDelegatedActorId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "mergedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "InvalidInput": {
+        "description": "Invalid input.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource is unavailable to this principal.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "Compare-and-set conflict.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "TooLarge": {
+        "description": "Package or resource exceeds a bounded limit.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}

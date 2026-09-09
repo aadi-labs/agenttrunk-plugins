@@ -110,3 +110,23 @@ test('release requests and merges use separate endpoints', async () => {
     ['/v1/trunks/trunk_1/promotion-requests/promotion_1/merge', 'POST', undefined],
   ]);
 });
+
+test('scope creation and release listing use public routes and preserve review snapshots', async () => {
+  const review = {id: 'pr_1', sourceCommitSha: 'a'.repeat(40), targetCommitSha: null, changes: [{contextKey: 'support'}]};
+  const client = new AgentTrunk({token, fetch: async (url, init) => {
+    if (init.method === 'POST') {
+      assert.equal(url.pathname, '/v1/trunks/trunk_1/scopes');
+      assert.deepEqual(JSON.parse(init.body), {name: 'Support', slug: 'support'});
+      return json({id: 'scope_1', environments: []});
+    }
+    assert.equal(url.pathname, '/v1/trunks/trunk_1/promotion-requests');
+    assert.equal(url.searchParams.get('scopeId'), 'scope_1');
+    assert.equal(url.searchParams.get('status'), 'open');
+    assert.equal(url.searchParams.get('cursor'), 'next');
+    assert.equal(url.searchParams.get('limit'), '20');
+    return json({data: [review], nextCursor: 'continue'});
+  }});
+  assert.equal((await client.createScope('trunk_1', {name: 'Support', slug: 'support'})).id, 'scope_1');
+  const page = await client.listPromotions('trunk_1', {scopeId: 'scope_1', status: 'open', cursor: 'next', limit: 20});
+  assert.deepEqual(page.data[0], review); assert.equal(page.nextCursor, 'continue');
+});

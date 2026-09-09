@@ -1,0 +1,9 @@
+name: agenttrunk
+version: 0.1.0
+description: Versioned skills, prompts, docs and policies for AI agents
+manifest_version: 1
+api_version: 1
+author: Aadi Labs
+license: MIT
+homepage: https://github.com/aadi-labs/agenttrunk-plugins
+tags: [agent-skills, versioned-context, prompts, policies, sdk]

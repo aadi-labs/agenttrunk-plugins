@@ -1,0 +1,5 @@
+{
+  "trunkId": "${AGENTTRUNK_WORKSPACE_ID}",
+  "contextKey": "${AGENTTRUNK_CONTEXT_KEY}",
+  "request": {}
+}

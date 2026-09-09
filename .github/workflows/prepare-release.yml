@@ -1,0 +1,44 @@
+name: Prepare SDK release artifacts
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - run: gem install minitest --no-document
+      - run: npm ci
+      - run: npm run sdk:check && npm test && npm run validate && npm run test:package
+      - run: npm run sdk:test:python && npm run sdk:test:go && npm run sdk:test:rust && npm run sdk:test:ruby && npm run sdk:test:swift
+      - run: npm run sdk:postprocess:check
+      - run: npm pack
+      - run: uv build ./sdk/python
+      - run: cargo package --manifest-path sdk/rust/Cargo.toml
+      - run: gem build agenttrunk.gemspec
+        working-directory: sdk/ruby
+      - run: tar --exclude='.build' -czf agenttrunk-swift-source.tar.gz -C sdk swift
+      - run: tar -czf agenttrunk-go-source.tar.gz -C sdk go
+      - uses: actions/upload-artifact@v4
+        with:
+          name: agenttrunk-release-candidates
+          path: |
+            *.tgz
+            *-source.tar.gz
+            sdk/python/dist/*
+            sdk/rust/target/package/*.crate
+            sdk/ruby/*.gem
+          if-no-files-found: error

@@ -55,3 +55,47 @@ test('explicit file upload reaches HTTP API; symlink and large files never uploa
     await rm(folder, {recursive: true, force: true}); // Only the test-created temporary directory.
   }
 });
+
+test('scope setup and release review CLI reach the scoped API without merging', async () => {
+  const requests = [];
+  const server = createServer(async (req, res) => {
+    let body = ''; for await (const chunk of req) body += chunk;
+    requests.push({method: req.method, url: req.url, body});
+    res.setHeader('content-type', 'application/json');
+    res.end(JSON.stringify(req.method === 'POST' ? {id: 'scope_2'} : {data: [], nextCursor: 'next'}));
+  });
+  server.listen(0, '127.0.0.1'); await once(server, 'listening');
+  const env = {AGENTTRUNK_ACCESS_TOKEN: 'test-only', AGENTTRUNK_API_URL: `http://127.0.0.1:${server.address().port}`};
+  try {
+    await run(['scope-create', '--workspace', 'trunk_1', '--name', 'Support', '--slug', 'support'], env, () => {});
+    let output = '';
+    await run(['releases', '--workspace', 'trunk_1', '--scope', 'scope_2', '--status', 'open', '--cursor', 'current'], env, value => output += value);
+    assert.equal(JSON.parse(output).nextCursor, 'next');
+    assert.deepEqual(requests, [
+      {method: 'POST', url: '/v1/trunks/trunk_1/scopes', body: '{"name":"Support","slug":"support"}'},
+      {method: 'GET', url: '/v1/trunks/trunk_1/promotion-requests?scopeId=scope_2&status=open&cursor=current', body: ''},
+    ]);
+    await assert.rejects(run(['releases', '--workspace', 'trunk_1', '--status', 'pending'], env), /status/);
+    assert.equal(requests.length, 2);
+  } finally { await new Promise(resolve => server.close(resolve)); }
+});
+
+test('CLI executes through the symlink used by npm bin installations', async () => {
+  const folder = await mkdtemp(join(tmpdir(), 'agenttrunk-bin-test-'));
+  try {
+    const executable = join(folder, 'agenttrunk');
+    await symlink(join(process.cwd(), 'dist/cli/index.js'), executable);
+    const result = spawnSync(process.execPath, [executable, '--help'], {encoding: 'utf8'});
+    assert.equal(result.status, 0);
+    assert.match(result.stdout, /scope-create/);
+    assert.match(result.stdout, /releases/);
+  } finally { await rm(folder, {recursive: true, force: true}); }
+});
+
+test('importing CLI and example modules from stdin does not invoke their entrypoints', () => {
+  const result = spawnSync(process.execPath, ['--input-type=module', '-'], {
+    encoding: 'utf8', input: "await import('./dist/cli/index.js'); await import('./examples/quickstart/index.mjs'); console.log('imported');",
+  });
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stdout.trim(), 'imported');
+});

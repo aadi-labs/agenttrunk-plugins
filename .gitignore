@@ -14,3 +14,14 @@ coverage/
 .terraform/
 *.tfstate*
 *.tfvars
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.egg-info/
+
+target/
+.build/
+.bundle/
+vendor/bundle/
+*.gem

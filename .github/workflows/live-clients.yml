@@ -1,0 +1,24 @@
+name: Read-only hosted acceptance
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    environment: agenttrunk-live-read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/live-client.mjs
+        env:
+          AGENTTRUNK_ACCESS_TOKEN: ${{ secrets.AGENTTRUNK_ACCESS_TOKEN }}
+          AGENTTRUNK_WORKSPACE_ID: ${{ vars.AGENTTRUNK_WORKSPACE_ID }}
+          AGENTTRUNK_CONTEXT_KEY: ${{ vars.AGENTTRUNK_CONTEXT_KEY }}
+          AGENTTRUNK_REVISION_ID: ${{ vars.AGENTTRUNK_REVISION_ID }}
+          AGENTTRUNK_RESOURCE_PATH: ${{ vars.AGENTTRUNK_RESOURCE_PATH }}

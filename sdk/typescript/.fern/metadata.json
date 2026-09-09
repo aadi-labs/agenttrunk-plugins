@@ -1,0 +1,26 @@
+{
+    "cliVersion": "5.108.0",
+    "generatorName": "fernapi/fern-typescript-sdk",
+    "generatorVersion": "3.88.3",
+    "generatorConfig": {
+        "naming": {
+            "namespace": "AgentTrunkApi",
+            "client": "AgentTrunkClient",
+            "error": "AgentTrunkApiError",
+            "timeoutError": "AgentTrunkTimeoutError",
+            "environment": "AgentTrunkEnvironment"
+        },
+        "generateWireTests": true,
+        "packageJson": {
+            "name": "@agenttrunk/sdk",
+            "description": "AgentTrunk TypeScript SDK for versioned agent context.",
+            "private": true,
+            "license": "MIT"
+        }
+    },
+    "originGitCommit": "b69b217c53a4a3a6988215845bb98dc4344bb7d7",
+    "originGitCommitIsDirty": true,
+    "invokedBy": "manual",
+    "requestedVersion": "0.1.0",
+    "sdkVersion": "0.1.0"
+}
