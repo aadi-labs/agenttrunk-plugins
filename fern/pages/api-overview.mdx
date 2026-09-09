@@ -9,7 +9,7 @@ OpenAPI snapshot used by our clients.
 
 ## Authenticate first
 
-Complete [authentication](/docs/authentication), then send your runtime's
+Complete [authentication](/authentication), then send your runtime's
 short-lived token as `Authorization: Bearer TOKEN`. Never put it in URLs or
 commit it with an example. Signup and membership do not grant every permission.
 
@@ -38,7 +38,7 @@ a successful write. Reconcile current state first.
 ## Diagnose without leaking context
 
 Retain `x-request-id`, the timestamp, operation, and status. Avoid logging tokens
-or private bodies. See [troubleshooting](/docs/troubleshooting) for status handling.
+or private bodies. See [troubleshooting](/troubleshooting) for status handling.
 
 [Download OpenAPI](https://www.agenttrunk.ai/openapi.yaml) or inspect the
 [reviewed source](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/fern/openapi).

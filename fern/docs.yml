@@ -1,6 +1,6 @@
 instances:
-  - url: agenttrunk.docs.buildwithfern.com/docs
-    custom-domain: www.agenttrunk.ai/docs
+  - url: agenttrunk.docs.buildwithfern.com
+    custom-domain: docs.agenttrunk.ai
 title: AgentTrunk Documentation
 default-language: typescript
 colors:
