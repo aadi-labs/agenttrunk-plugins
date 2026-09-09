@@ -9,9 +9,10 @@ This repository contains the portable **agenttrunk** skill, portable and native 
 The public documentation source is in [fern/pages/](fern/pages/overview.mdx), with
 [quickstart](fern/pages/quickstart.mdx), [authentication](fern/pages/authentication.mdx),
 and the complete upload, retrieval, release, integration, and troubleshooting
-guides. Fern should deploy this repository's `main` branch with documentation
+guides. Fern is connected to this repository's `main` branch with documentation
 configuration `fern/docs.yml`. These files are readable directly on GitHub; hosted docs
-are at [agenttrunk.ai/docs](https://www.agenttrunk.ai/docs).
+are at [docs.agenttrunk.ai](https://docs.agenttrunk.ai). Existing website `/docs`
+links redirect to the matching guide on this subdomain.
 
 | You want to… | Start with |
 | --- | --- |
