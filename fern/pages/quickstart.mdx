@@ -1,5 +1,6 @@
 ---
 title: "Connect your first agent"
+description: "Authenticate, publish a prompt to staging, and verify an immutable read."
 ---
 
 Goal: authenticate and find the workspace your agent should use. No production changes are needed.
@@ -58,7 +59,44 @@ agenttrunk workspace-create --name "Customer support"
 
 Use its returned ID, then list scopes to find General. Do not create a new organization to work around denied access.
 
-## 4. Do useful work
+## 4. Upload a prompt to staging
+
+Create a local file named `welcome.md` containing:
+
+```markdown
+# Welcome assistant
+
+Greet the user, ask what they want to accomplish, and do not invent account details.
+```
+
+Choose a new context key so this exercise does not replace an existing package:
+
+```sh
+agenttrunk upload --workspace WORKSPACE_ID --scope SCOPE_ID \
+  --key welcome-assistant --title "Welcome assistant" --kind prompt \
+  --file ./welcome.md --path prompts/welcome.md
+```
+
+This writes to **staging**, not production. Save the returned `revision.id`.
+If you cannot publish, request access from your administrator; signing in does
+not grant every permission.
+
+## 5. Read exactly what you uploaded
+
+```sh
+agenttrunk inspect --workspace WORKSPACE_ID --key welcome-assistant --ref REVISION_ID
+agenttrunk read --workspace WORKSPACE_ID --key welcome-assistant \
+  --ref REVISION_ID --path prompts/welcome.md
+```
+
+Replace `REVISION_ID` with the returned 64-character revision ID. The CLI checks
+the file against its manifest before returning it. You should see the welcome
+instructions you just uploaded.
+
+**You now have a reproducible context read.** Give that revision ID to your
+harness and retain it with the run. Production has not changed.
+
+## Next steps
 
 - Existing context: [inspect a revision and read a file](https://www.agenttrunk.ai/docs/retrieval).
 - New context: [upload a prompt or skill to staging](https://www.agenttrunk.ai/docs/publishing).

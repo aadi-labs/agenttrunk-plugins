@@ -1,0 +1,30 @@
+---
+title: "React to context changes"
+description: "Use event notifications to trigger work, then verify current authorized state."
+---
+
+Webhooks notify your integration about events; they do not replace the context
+API or carry permission to read a workspace.
+
+Use the webhook management experience in the platform to configure a destination
+and inspect delivery attempts. Endpoint schemas are in the API reference's
+webhook operations.
+
+## Build a safe receiver
+
+1. Keep the request body unmodified for signature verification. Follow the signing
+   instructions shown with your endpoint; do not invent a signing algorithm.
+2. Deduplicate deliveries by event identity before scheduling side effects.
+3. Queue work durably and acknowledge promptly after accepting it.
+4. Fetch current context through the API with your integration's own authorization.
+5. Pin the revision you choose before reading its files.
+
+Do not assume notifications arrive once or in order. A replay is not permission
+to repeat a production action. If event content and current state differ, inspect
+the revision and release state rather than overwriting blindly.
+
+Delivery diagnostics can contain sensitive metadata. Keep endpoint signing
+secrets in your secret manager and omit them from support messages.
+
+For a runtime that only needs approved context when it starts, [a pinned API read](/docs/retrieval)
+is simpler than adding a webhook receiver.

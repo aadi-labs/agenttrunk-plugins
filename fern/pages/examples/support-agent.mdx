@@ -1,0 +1,54 @@
+---
+title: "Give a support agent a reviewed skill"
+description: "A practical staging-to-production workflow using runnable repository examples."
+---
+
+Keep the agent runtime and its instructions separate. AgentTrunk stores the
+support skill; your runtime handles tickets, tool use, and message delivery.
+
+## 1. Preview a skill package
+
+From a built public client checkout, set the intended IDs:
+
+```sh
+export AGENTTRUNK_WORKSPACE_ID="WORKSPACE_ID"
+export AGENTTRUNK_SCOPE_ID="SCOPE_ID"
+export AGENTTRUNK_CONTEXT_KEY="support-response"
+node examples/publish-skill/index.mjs
+```
+
+This previews two files: `SKILL.md` and `references/escalation.md`. The example
+does not upload until you explicitly enable writes. Review the preview and use
+a new context key if you do not intend to replace an existing package.
+
+## 2. Upload and verify staging
+
+With authentication supplied securely:
+
+```sh
+AGENTTRUNK_WRITE=1 node examples/publish-skill/index.mjs
+```
+
+The example uploads the complete package, inspects its returned revision, and
+verifies both files. Its receipt includes the revision ID and confirms production
+was not changed. Evaluate that revision in your support harness.
+
+## 3. Review before production
+
+Follow [review and release](/docs/releases). The release includes the entire
+scope snapshot. Check unrelated staged changes too.
+
+## 4. Load approved context
+
+```sh
+node examples/pinned-context/index.mjs
+```
+
+The read example discovers production context within your selected workspace,
+pins a revision, and verifies a file. It selects a matching result for demonstration;
+your application should choose by its task and expected context key.
+
+The script emits a receipt, not private context bodies. Integrate the returned
+bytes in your runtime and retain the pin for debugging.
+
+[Read the example source](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/examples).

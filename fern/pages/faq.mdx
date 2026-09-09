@@ -1,0 +1,51 @@
+---
+title: "Frequently asked questions"
+description: "Choose the right integration and understand the product boundaries."
+---
+
+## Does AgentTrunk run my agents?
+
+No. It stores and serves versioned context. Your harness chooses models, runs
+tools, evaluates results, and controls execution.
+
+## Can an agent sign up for me?
+
+It can initiate a connection. You complete signup and organization onboarding,
+then approve its access. It cannot approve itself. See [agent setup](/docs/guides/agent-setup).
+
+## Does it work with my harness?
+
+Use the CLI from terminal-capable agents, a portable skill to teach the workflow,
+or a SDK/REST integration. Context remains ordinary files—no model-specific
+compilation step. See [integrations](/docs/integrations).
+
+## Is there an MCP server?
+
+A hosted service MCP endpoint is not currently offered. Use CLI, SDK, or REST
+for reading and publishing context. Documentation search is a different capability.
+
+## Is this automatic long-term memory?
+
+No. You can store explicit memory files and schemas. Extraction, retrieval policy,
+and deciding what to remember belong to your runtime.
+
+## Does updating one file preserve the rest?
+
+Only if you include them. A publication replaces the complete package at that
+key in staging. See [uploads](/docs/publishing).
+
+## Is production a permanent version?
+
+No. Resolve production once and pin the immutable revision ID for the run.
+
+## Can I upload sensitive information?
+
+Do not upload passwords, API keys, or protected health information. Read the
+current [data-handling policy](https://www.agenttrunk.ai/data-handling).
+Replacing a file is not erasing its history.
+
+## Where are pricing and support?
+
+[Pricing](https://www.agenttrunk.ai/pricing) is maintained separately so guides
+do not contain stale allowances. Contact [support@agenttrunk.ai](mailto:support@agenttrunk.ai)
+with request IDs and status codes, not tokens or private content.

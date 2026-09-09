@@ -1,0 +1,33 @@
+---
+title: "Permissions and agent access"
+description: "Agents act for their humans, with explicit access to context and releases."
+---
+
+An agent is authorized by a human. It does not own a separate tenant or acquire
+administrator privileges simply by registering.
+
+Effective access is constrained by the human's current membership and the agent's
+grants. IDs, links, cached bytes, and context-set membership are not access grants.
+
+## Separate three capabilities
+
+| Capability | Typical task |
+| --- | --- |
+| Read | Load approved policy into an agent run |
+| Publish to staging | Propose a new skill or prompt |
+| Promote to production | Approve context for production consumers |
+
+Give a runtime only what its task needs. An improvement agent can propose a
+candidate without being able to approve its own production release.
+
+## Handle denial explicitly
+
+- `401`: renew authentication or check the active organization and membership.
+- `403`: request the required access from the organization's administrator.
+- `503`: access checks may be unavailable; wait rather than bypassing them.
+
+An immutable revision remains subject to current authorization. Revocation is not
+overridden by pinning a revision. Your harness must also control any copies it
+has already retained outside AgentTrunk.
+
+Start with [human-approved authentication](/docs/authentication).

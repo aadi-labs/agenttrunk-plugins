@@ -1,0 +1,44 @@
+---
+title: "API essentials"
+description: "Authentication, resource names, pagination, and safe request handling."
+---
+
+The API origin is `https://api.agenttrunk.ai`. Resource paths start with `/v1`.
+The **API reference** tab contains endpoints and schemas from the reviewed public
+OpenAPI snapshot used by our clients.
+
+## Authenticate first
+
+Complete [authentication](/docs/authentication), then send your runtime's
+short-lived token as `Authorization: Bearer TOKEN`. Never put it in URLs or
+commit it with an example. Signup and membership do not grant every permission.
+
+## Choose the resource
+
+| Task | Resource |
+| --- | --- |
+| List workspaces | `GET /v1/trunks` |
+| Find context | `GET /v1/contexts` |
+| Upload a package | `POST /v1/trunks/{trunkId}/publications` |
+| Inspect a revision | `GET /v1/trunks/{trunkId}/contexts/{contextKey}` |
+| Compose sources | `GET /v1/context-sets` |
+
+The UI calls a `trunk` a workspace. Use returned IDs and encode path/query values.
+Consult the endpoint page for required parameters, request bodies, and responses.
+
+## Pagination and retries
+
+Follow `nextCursor` even after an empty page, with unchanged filters. History
+uses `next` and `from`; check the endpoint rather than assuming one convention.
+
+Use bounded backoff for safe reads and honor `Retry-After`. Do not automatically
+retry uploads, provisioning, releases, or deletion. A timeout may happen after
+a successful write. Reconcile current state first.
+
+## Diagnose without leaking context
+
+Retain `x-request-id`, the timestamp, operation, and status. Avoid logging tokens
+or private bodies. See [troubleshooting](/docs/troubleshooting) for status handling.
+
+[Download OpenAPI](https://www.agenttrunk.ai/openapi.yaml) or inspect the
+[reviewed source](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/fern/openapi).

@@ -1,0 +1,42 @@
+---
+title: "TypeScript SDK"
+description: "Load verified context into a Node.js agent runtime."
+---
+
+Build the public client checkout with `npm ci && npm run build`, then run
+`npm pack` and install the resulting tarball in your application. Source setup
+does not assume an npm registry release. Use Node.js 22 or newer.
+
+```typescript
+import { AgentTrunk } from "@agenttrunk/sdk";
+
+const client = new AgentTrunk({
+  token: () => {
+    const token = process.env.AGENTTRUNK_ACCESS_TOKEN;
+    if (!token) throw new Error("AgentTrunk authentication is required");
+    return token;
+  },
+});
+
+// These values come from your explicit workspace/context selection.
+const workspaceId = process.env.AGENTTRUNK_WORKSPACE_ID;
+const contextKey = process.env.AGENTTRUNK_CONTEXT_KEY;
+if (!workspaceId || !contextKey) throw new Error("Select a workspace and context");
+
+const { revision } = await client.inspect(workspaceId, contextKey, "production");
+const file = revision.files.find((item) => item.path === "SKILL.md");
+if (!file) throw new Error("SKILL.md is not in this package");
+const bytes = await client.readFile(workspaceId, contextKey, revision.id, file);
+const instructions = new TextDecoder().decode(bytes);
+// Pass instructions to your harness as reviewed input, not executable code.
+// Retain revision.id and revision.packageDigest with the run.
+```
+
+`readFile` verifies the returned bytes against the pinned manifest. Keep tokens
+out of frontend bundles and logs. Your runtime owns credential refresh; the
+callback retrieves its current token for each request.
+
+The convenience client above uses `token`; the Fern-generated TypeScript client
+uses `accessToken`. Do not interchange the constructors. See the
+[language reference](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/sdk/typescript)
+and [runnable examples](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/examples/clients/typescript).

@@ -1,5 +1,6 @@
 ---
 title: "Context your agents can share and trust"
+description: "Give any authorized agent the right skills, prompts, and documents—at an exact version."
 ---
 
 AgentTrunk is a versioned home for skills, prompts, instructions, and documents. Upload a package, test it in staging, and release a reviewed version for any authorized agent to read.
@@ -7,6 +8,13 @@ AgentTrunk is a versioned home for skills, prompts, instructions, and documents.
 Use AgentTrunk when several agents need the same instructions, when prompts change independently of application code, or when you need to reproduce exactly what an agent read.
 
 ## Start here
+
+<CardGroup cols={2}>
+  <Card title="Connect your first agent" href="/docs/quickstart">Sign in, upload a prompt to staging, and read back the exact version.</Card>
+  <Card title="Let your agent set up" href="/docs/guides/agent-setup">Give your agent a setup task with a human approval handoff.</Card>
+  <Card title="Build with the SDK" href="/docs/sdks/typescript">Load verified context in your own agent runtime.</Card>
+  <Card title="Explore the API" href="/docs/api-overview">Find endpoint schemas, authentication, and request conventions.</Card>
+</CardGroup>
 
 - [Connect an agent](https://www.agenttrunk.ai/docs/quickstart): Install the CLI, get human approval, and select a workspace.
 - [Upload context](https://www.agenttrunk.ai/docs/publishing): Publish a skill or prompt to staging.
@@ -17,6 +25,16 @@ Use AgentTrunk when several agents need the same instructions, when prompts chan
 - [Troubleshooting](https://www.agenttrunk.ai/docs/troubleshooting): Recover from access errors and uncertain writes.
 
 ## A simple model
+
+```text
+Organization: Acme
+└── Workspace: Customer support
+    └── Context: refund-policy
+        ├── policy.md
+        └── examples.md
+
+Upload → staging → test the revision → review → production
+```
 
 An **organization** is your team and its access boundary. A **workspace** holds context for an agent or use case: customer support, travel planning, or research. The API calls a workspace a `trunk`.
 

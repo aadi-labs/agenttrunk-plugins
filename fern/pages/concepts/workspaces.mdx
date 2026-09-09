@@ -1,0 +1,42 @@
+---
+title: "Organizations and workspaces"
+description: "Separate your team's access boundary from each agent's context."
+---
+
+An organization is your team. A workspace is context for a use case—not an agent
+identity or a running process. Several authorized agents can use one workspace.
+
+For Acme, start with a **Customer support** workspace. Add **Research** when its
+instructions, owners, or release cadence differ. You do not need a workspace per
+conversation or per model.
+
+| Object | Example | Purpose |
+| --- | --- | --- |
+| Organization | Acme | Team membership and access boundary |
+| Workspace | Customer support | Context for one use case |
+| Scope | General | Access and release boundary inside a workspace |
+| Context | refund-policy | Named package of files |
+| Revision | Returned immutable ID | Exact package version |
+
+## Choose before writing
+
+```sh
+agenttrunk workspaces
+agenttrunk scopes --workspace WORKSPACE_ID
+```
+
+Select IDs deliberately. The API calls a workspace a `trunk`; `trunkId` and
+`WORKSPACE_ID` identify the same object. Use the General scope unless you need
+different permissions or independent releases.
+
+To create a workspace when your task requires one:
+
+```sh
+agenttrunk workspace-create --name "Customer support"
+```
+
+It creates a General scope and staging/production environments. An empty list
+is not the same as an authorization error. Never create a replacement organization
+to get around denied access.
+
+Continue with [uploads](/docs/publishing) or [permissions](/docs/concepts/permissions).

@@ -1,0 +1,43 @@
+---
+title: "Python SDK"
+description: "Use synchronous or asynchronous clients with verified immutable reads."
+---
+
+From the public repository checkout, install the source package:
+
+```sh
+python -m pip install ./sdk/python
+```
+
+Python 3.10+ is required. Supply a short-lived access token through your runtime's
+secret manager after [authentication](/docs/authentication).
+
+```python
+import os
+from agenttrunk import AgentTrunk
+from agenttrunk.verified import read_verified_file
+
+client = AgentTrunk(access_token=lambda: os.environ["AGENTTRUNK_ACCESS_TOKEN"])
+page = client.workspaces.list()
+# Select the intended workspace; continue next_cursor when present.
+
+content = read_verified_file(
+    client,
+    os.environ["AGENTTRUNK_WORKSPACE_ID"],
+    os.environ["AGENTTRUNK_CONTEXT_KEY"],
+    os.environ["AGENTTRUNK_REVISION_ID"],
+    "SKILL.md",
+)
+# Supply an actual immutable revision ID, not "production".
+```
+
+The helper checks the manifest, byte count, and SHA-256. `AsyncAgentTrunk` and
+`async_read_verified_file` provide the asynchronous equivalent. Response fields
+use snake_case, including `next_cursor` and `revision_id`.
+
+The client does not read `.env` files automatically. Default retries are zero;
+writes are not automatically retried. See the
+[Python reference](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/sdk/python)
+for resource methods and configuration, and the
+[language examples](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/examples/clients/python)
+for runnable requests.

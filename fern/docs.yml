@@ -1,0 +1,87 @@
+instances:
+  - url: agenttrunk.docs.buildwithfern.com/docs
+    custom-domain: www.agenttrunk.ai/docs
+title: AgentTrunk Documentation
+default-language: typescript
+colors:
+  accent-primary: "#A3B8FF"
+  background: "#0B0D10"
+navbar-links:
+  - type: filled
+    text: Open AgentTrunk
+    href: https://www.agenttrunk.ai/app
+navigation:
+  - section: Get started
+    skip-slug: true
+    contents:
+      - page: Overview
+        path: ./pages/overview.mdx
+        slug: overview
+      - page: Quickstart
+        path: ./pages/quickstart.mdx
+        slug: quickstart
+      - page: Authentication
+        path: ./pages/authentication.mdx
+        slug: authentication
+  - section: Core concepts
+    slug: concepts
+    contents:
+      - page: Workspaces
+        path: ./pages/concepts/workspaces.mdx
+        slug: workspaces
+      - page: Revisions
+        path: ./pages/concepts/revisions.mdx
+        slug: revisions
+      - page: Permissions
+        path: ./pages/concepts/permissions.mdx
+        slug: permissions
+      - page: Context sets
+        path: ./pages/concepts/context-sets.mdx
+        slug: context-sets
+  - section: Work with context
+    skip-slug: true
+    contents:
+      - page: Upload context
+        path: ./pages/publishing.mdx
+        slug: publishing
+      - page: Find and read
+        path: ./pages/retrieval.mdx
+        slug: retrieval
+      - page: Review and release
+        path: ./pages/releases.mdx
+        slug: releases
+      - page: Webhooks
+        path: ./pages/guides/webhooks.mdx
+        slug: guides/webhooks
+  - section: Build with AgentTrunk
+    skip-slug: true
+    contents:
+      - page: Integrations
+        path: ./pages/integrations.mdx
+        slug: integrations
+      - page: TypeScript SDK
+        path: ./pages/sdks/typescript.mdx
+        slug: sdks/typescript
+      - page: Python SDK
+        path: ./pages/sdks/python.mdx
+        slug: sdks/python
+      - page: Agent setup
+        path: ./pages/guides/agent-setup.mdx
+        slug: guides/agent-setup
+      - page: Support agent example
+        path: ./pages/examples/support-agent.mdx
+        slug: examples/support-agent
+  - section: Resources
+    skip-slug: true
+    contents:
+      - page: API essentials
+        path: ./pages/api-overview.mdx
+        slug: api-overview
+      - page: Troubleshooting
+        path: ./pages/troubleshooting.mdx
+        slug: troubleshooting
+      - page: FAQ
+        path: ./pages/faq.mdx
+        slug: faq
+  - api: API reference
+    slug: api-reference

@@ -6,11 +6,11 @@ This repository contains the portable **agenttrunk** skill, portable and native 
 
 ## Start here
 
-The public documentation source is in [mintlify/](mintlify/overview.mdx), with
-[quickstart](mintlify/quickstart.mdx), [authentication](mintlify/authentication.mdx),
+The public documentation source is in [fern/pages/](fern/pages/overview.mdx), with
+[quickstart](fern/pages/quickstart.mdx), [authentication](fern/pages/authentication.mdx),
 and the complete upload, retrieval, release, integration, and troubleshooting
-guides. Mintlify should deploy this repository's `main` branch with documentation
-directory `mintlify`. These files are readable directly on GitHub; hosted docs
+guides. Fern should deploy this repository's `main` branch with documentation
+configuration `fern/docs.yml`. These files are readable directly on GitHub; hosted docs
 are at [agenttrunk.ai/docs](https://www.agenttrunk.ai/docs).
 
 | You want to… | Start with |

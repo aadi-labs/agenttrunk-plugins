@@ -1,0 +1,39 @@
+---
+title: "Context, revisions, and releases"
+description: "Know what moves, what is immutable, and what to pin for a run."
+---
+
+A context is a named package: one prompt, a skill with reference files, or a set
+of policy documents. Its key stays stable while uploads create new revisions.
+
+## Pin content, not a moving label
+
+`staging` and `production` select environments. They can change between requests.
+A revision ID identifies one immutable package. Resolve an environment once,
+then use that revision for all files in the run.
+
+```text
+production ──resolve once──> revision A
+                              ├── SKILL.md
+                              └── references/policy.md
+```
+
+Retain the workspace ID, context key, revision ID, and package digest with the
+run. A later production update should affect the next run, not half of this one.
+
+## An upload replaces the package
+
+If a context contains three files, publishing one file under the same key creates
+a one-file package. Include every file you want to keep. Older revisions remain
+in history; replacing content does not erase it.
+
+## A release covers a scope
+
+Promotion captures a scope snapshot, not just the last context you edited. Review
+all included changes before merging. Testing a candidate is separate from being
+authorized to promote it.
+
+Revision notes can hold evaluation evidence without changing the file content.
+Notes are mutable and do not confer permissions or become part of your content pin.
+
+See [exact-version reads](/docs/retrieval) and [review and release](/docs/releases).

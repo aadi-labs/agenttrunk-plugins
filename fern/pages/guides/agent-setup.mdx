@@ -1,0 +1,40 @@
+---
+title: "Let your agent set up AgentTrunk"
+description: "A copyable setup task with a clear human approval boundary."
+---
+
+Give a terminal-capable agent this task:
+
+```text
+Set up AgentTrunk for this project.
+Read https://www.agenttrunk.ai/docs/quickstart.md and
+https://www.agenttrunk.ai/docs/authentication.md first.
+Reuse existing authorized credentials if available. Otherwise initiate
+human-approved registration and give me the verification link.
+Do not read my inbox, cookies, or passwords. Ask me for the approval code.
+List workspaces and ask which one to use if my intent is ambiguous.
+Do not upload context or change production as part of this setup task.
+Report installation, authentication, and workspace access separately.
+```
+
+## If your human is new
+
+They [sign up](https://www.agenttrunk.ai/signup) and complete organization
+onboarding. Existing users [sign in](https://www.agenttrunk.ai/login).
+Then the agent completes the approval flow described in [authentication](/docs/authentication).
+
+## Discover only what you need
+
+Use [/docs/llms.txt](/docs/llms.txt) to choose a page, then append `.md` to read
+that guide as Markdown. Use the API reference for exact fields rather than
+guessing routes. The [public source](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/fern/pages)
+can be inspected without signing in.
+
+## Skills and MCP
+
+The portable skill teaches the workflow; it is not a credential. Install it
+using the [integration guide](/docs/integrations).
+
+There is no hosted AgentTrunk service MCP endpoint currently documented.
+A documentation search tool is not an upload or release API. Use the CLI, SDK,
+or REST API for those actions; do not invent MCP signup or connection URLs.
