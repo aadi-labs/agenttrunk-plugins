@@ -3,6 +3,14 @@
 > Portable agent skill, TypeScript, Python and Go SDKs plus CLI for shared, versioned agent context. Install from source; credentials and production release authority come from the authorizing runtime and organization.
 
 ## Start
+- [Product overview](mintlify/overview.mdx): Workspaces, context, immutable revisions, and releases.
+- [First agent quickstart](mintlify/quickstart.mdx): Install, sign up or sign in with human approval, and select a workspace.
+- [Authentication](mintlify/authentication.mdx): Human-approved connection and credential safety.
+- [Upload context](mintlify/publishing.mdx): Publish skills, prompts, and documents to staging.
+- [Find and read](mintlify/retrieval.mdx): Discover metadata and read pinned files.
+- [Review and release](mintlify/releases.mdx): Compare revisions and promote reviewed context.
+- [Integrations](mintlify/integrations.mdx): CLI, SDKs, skills, and current MCP availability.
+- [Product troubleshooting](mintlify/troubleshooting.mdx): Authentication, access, and uncertain writes.
 - [Overview](README.md): Installation choices and supported workflows.
 - [Machine-readable catalog](catalog.json): Local skill, manifest, documentation and example paths.
 - [Setup](docs/setup.md): Discover registration, request human approval, sign in, refresh and verify workspace access.

@@ -1,0 +1,63 @@
+---
+title: "Use AgentTrunk in your harness"
+---
+
+Choose the smallest integration that fits. All clients use the same workspace, authorization, and revision model.
+
+## CLI
+
+The [quickstart](https://www.agenttrunk.ai/docs/quickstart) builds the CLI from source and connects it through human approval. Use it from a terminal-capable agent or automation.
+
+Run `agenttrunk api list` for the operation catalog. Inspect `agenttrunk api OPERATION --help` before use. Generic API commands preview by default; requests need `--execute`, and writes also need `--yes`. No write is retried automatically.
+
+## Portable skills
+
+From the public client checkout:
+
+```sh
+npx skills add . --list
+npx skills add . --skill agenttrunk
+```
+
+A skill teaches the workflow; it does not grant access or install an executable CLI. Keep the entire skill directory, including its references.
+
+## Claude Code and Codex
+
+Claude Code can load the checked-out plugin:
+
+```sh
+claude --plugin-dir ./plugins/agenttrunk
+```
+
+For Codex, use the repository's Codex plugin manifest or portable skill installation. See [installation instructions](https://github.com/aadi-labs/agenttrunk-plugins/blob/main/docs/installation.md) for exact paths and other harnesses, including Pi and OpenCode. A repository install is not a claim of marketplace approval.
+
+## SDKs
+
+The public repository includes TypeScript, Python, Go, Rust, Ruby, and Swift clients. Use the [language guides](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/sdk) for installation and request signatures. Source installation does not require a published registry package.
+
+For a TypeScript application, build and pack the client checkout with `npm pack`, then install the resulting tarball in your application. A read-only connection check:
+
+```typescript
+import { AgentTrunk } from "@agenttrunk/sdk";
+
+const token = process.env.AGENTTRUNK_ACCESS_TOKEN;
+if (!token) throw new Error("Supply an AgentTrunk access token through your secret manager");
+const client = new AgentTrunk({ token });
+const page = await client.listWorkspaces();
+// Select the intended workspace by its returned ID. Do not print credentials.
+```
+
+Use a token callback for runtime-managed refresh. For human-approved registration in cloud agents, use `AgentRegistration` and store its credentials in your secret manager, not in prompts.
+
+## Direct REST and MCP
+
+The API origin is `https://api.agenttrunk.ai`; resource paths start with `/v1`. Use [OpenAPI](https://www.agenttrunk.ai/openapi.yaml) for exact requests and responses.
+
+AgentTrunk does not currently offer a hosted MCP endpoint. Use the CLI, SDK, or REST interface instead of configuring an invented MCP URL.
+
+## Common patterns
+
+- **Customer support:** release approved policies and pin them for each conversation.
+- **Research:** store shared instructions and references while keeping execution in your harness.
+- **Harness improvement:** upload a candidate, evaluate its revision, attach evidence, and request promotion.
+- **Several agents for one team:** separate workspaces by use case; share selected sources through explicit permissions and pinned context sets.

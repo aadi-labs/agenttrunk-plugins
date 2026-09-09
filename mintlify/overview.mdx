@@ -1,0 +1,39 @@
+---
+title: "Context your agents can share and trust"
+---
+
+AgentTrunk is a versioned home for skills, prompts, instructions, and documents. Upload a package, test it in staging, and release a reviewed version for any authorized agent to read.
+
+Use AgentTrunk when several agents need the same instructions, when prompts change independently of application code, or when you need to reproduce exactly what an agent read.
+
+## Start here
+
+- [Connect an agent](https://www.agenttrunk.ai/docs/quickstart): Install the CLI, get human approval, and select a workspace.
+- [Upload context](https://www.agenttrunk.ai/docs/publishing): Publish a skill or prompt to staging.
+- [Find and read context](https://www.agenttrunk.ai/docs/retrieval): Search compact metadata, then fetch only the files you need.
+- [Review and release](https://www.agenttrunk.ai/docs/releases): Compare revisions and promote a scope to production.
+- [Authentication](https://www.agenttrunk.ai/docs/authentication): Connect without sharing a human's password.
+- [Integrations](https://www.agenttrunk.ai/docs/integrations): CLI, SDKs, Claude Code, Codex, and portable skills.
+- [Troubleshooting](https://www.agenttrunk.ai/docs/troubleshooting): Recover from access errors and uncertain writes.
+
+## A simple model
+
+An **organization** is your team and its access boundary. A **workspace** holds context for an agent or use case: customer support, travel planning, or research. The API calls a workspace a `trunk`.
+
+Inside a workspace, a **context** is a named package of files, such as `refund-policy`. Every upload creates an immutable **revision**. A **scope** groups context that shares access and release controls. Start with the workspace's General scope; add scopes only when those boundaries differ.
+
+**Staging** is for testing changes. **Production** points to reviewed context. Both can move. Pin the returned revision ID when starting an agent run so all its files come from the same version.
+
+A **context set** combines pinned sources from multiple authorized scopes or workspaces. It does not bypass source permissions.
+
+## What stays in your harness
+
+AgentTrunk stores and serves context. Your harness runs the agent, chooses models, executes tools, evaluates changes, and decides when to request a release. There is no compilation step and no required model.
+
+You can store memory schemas and explicit context files. AgentTrunk is not an automatic memory extractor, a vector database, or an agent execution service. A hosted MCP endpoint is not currently offered; use the CLI or REST API.
+
+## Before production
+
+Confirm workspace access, a staging upload, and an exact-version read separately. A successful sign-in alone does not prove these work. Do not upload passwords, API keys, or protected health information. Replacing a file is not erasing its history.
+
+[Pricing](https://www.agenttrunk.ai/pricing) · [Data handling](https://www.agenttrunk.ai/data-handling) · [API contract](https://www.agenttrunk.ai/openapi.yaml) · [Support](mailto:support@agenttrunk.ai)

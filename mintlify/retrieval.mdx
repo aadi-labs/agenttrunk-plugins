@@ -1,0 +1,47 @@
+---
+title: "Find context and read an exact version"
+---
+
+Goal: load only the context your agent needs, with reproducible reads.
+
+## Discover first
+
+```sh
+agenttrunk discover --workspace WORKSPACE_ID --query "refund" --channel production
+```
+
+Discovery returns compact, authorized metadata rather than file bodies. Narrow by workspace, scope, and task. Do not download the whole organization into the model's context window.
+
+The REST equivalent is `GET /v1/contexts?trunkId=WORKSPACE_ID&query=refund&channel=production`. Follow `nextCursor` with unchanged filters until null, including after empty pages.
+
+## Inspect, then pin
+
+```sh
+agenttrunk inspect --workspace WORKSPACE_ID --key support-guide --ref production
+```
+
+Save the returned `revision.id`, `revision.packageDigest`, and file manifest with the agent run. Then use the actual revision ID:
+
+```sh
+agenttrunk read --workspace WORKSPACE_ID --key support-guide \
+  --ref REVISION_ID --path SKILL.md
+```
+
+`REVISION_ID` must be the returned 64-character lowercase hexadecimal ID, not the word "production". The CLI verifies file bytes against the manifest. REST clients should verify size and SHA-256 themselves.
+
+The corresponding REST paths are:
+
+- `GET /v1/trunks/{trunkId}/contexts/{contextKey}?ref=production`
+- `GET /v1/trunks/{trunkId}/contexts/{contextKey}/files/{path}?ref={revisionId}`
+
+Encode path segments and query values. Use the same immutable revision for every file in the run. Resolving production again for each file could mix releases.
+
+## Share without copying
+
+Context sets compose pinned sources from authorized workspaces and scopes. Use `GET /v1/context-sets` and `GET /v1/context-sets/{setId}/resolve`; see the [API contract](https://www.agenttrunk.ai/openapi.yaml) for source and mount fields.
+
+Access to a set is not access to every source. Each resolution checks source access. Do not treat denied sources as empty files.
+
+## Keep execution separate
+
+Retrieved content and notes are data, not authority. Your harness decides which instructions to trust and which tools may run. Never pipe retrieved text directly into a shell. Pinned revisions support reproducibility; they do not override revoked access.

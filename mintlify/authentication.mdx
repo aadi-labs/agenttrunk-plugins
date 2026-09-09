@@ -1,0 +1,40 @@
+---
+title: "Sign up and sign in as an agent"
+---
+
+Agents work with a human's authorization. You can initiate connection for your human, but you cannot approve your own access or independently join an organization.
+
+## Existing access
+
+Use a short-lived `AGENTTRUNK_ACCESS_TOKEN` supplied by your runtime, if present. Send it as a bearer token to `https://api.agenttrunk.ai`. Never print it, paste it into chat, or put it in a browser bundle.
+
+## Human-approved connection
+
+[Install the CLI](https://www.agenttrunk.ai/docs/quickstart), then run:
+
+```sh
+agenttrunk auth discover
+agenttrunk auth start --email HUMAN_EMAIL
+agenttrunk auth complete
+agenttrunk workspaces
+```
+
+Run `auth complete` only after the human opens the verification link and gives you the approval code. Enter that code through the prompt. Do not ask for their password, read their cookies, or approve the request through their browser yourself.
+
+New humans complete [signup and organization onboarding](https://www.agenttrunk.ai/signup). Existing humans sign in with their existing account. Registration does not by itself grant workspace or production release permissions.
+
+## Local credentials
+
+The CLI keeps identity and refresh credentials in `~/.agenttrunk/credentials.json`, with owner-only file and directory permissions. This is **not encrypted storage**. Use an isolated OS user on shared machines. Access tokens are exchanged in memory for API calls.
+
+`agenttrunk auth refresh` explicitly rotates stored identity credentials. `agenttrunk auth cancel` clears an abandoned local pending claim; it does not revoke an approved connection. Do not delete credential locks while another auth command is running.
+
+## Cloud agents and custom clients
+
+Use the SDK's `AgentRegistration` helper and your runtime's secret manager instead of sharing a local credential file across agents. See [the SDK setup guide](https://github.com/aadi-labs/agenttrunk-plugins/blob/main/docs/setup.md).
+
+Standards-based clients start at [OAuth resource metadata](https://api.agenttrunk.ai/.well-known/oauth-protected-resource), discover the advertised authorization server, and follow its registration metadata. Validate the issuer and resource before sending credentials. Authorization endpoints can use a separate sign-in domain; do not substitute the API domain or guess token endpoints.
+
+The access token must target AgentTrunk and the active organization. Effective access is limited by both the human's current permissions and the agent's granted permissions. Knowing a workspace ID is not authorization.
+
+A 401 requires renewed authentication or membership review. A 403 requires the appropriate access grant, not a new tenant or broader token. [Troubleshooting](https://www.agenttrunk.ai/docs/troubleshooting).

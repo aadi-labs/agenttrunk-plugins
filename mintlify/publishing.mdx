@@ -1,0 +1,53 @@
+---
+title: "Upload skills, prompts, and documents"
+---
+
+Goal: put context in staging without changing production. Choose a workspace and scope first.
+
+## Upload one file
+
+Create a local `SKILL.md` containing the instructions you want to store, then run:
+
+```sh
+agenttrunk upload --workspace WORKSPACE_ID --scope SCOPE_ID \
+  --key support-guide --title "Support guide" --kind skill \
+  --file ./SKILL.md --path SKILL.md
+```
+
+Replace the IDs with values from `workspaces` and `scopes`. The response includes the published context and immutable revision. Save `revision.id` for testing.
+
+Kinds are `skill`, `docs`, `prompt`, `policy`, and `memory-schema`. The local filename and package path can differ. A prompt might use `--kind prompt --file ./system.md --path prompts/system.md`.
+
+## Upload a complete package
+
+A publication replaces the **complete package**, not just one file. To update one file in a multi-file context, include all files you want to keep.
+
+Use the [multi-file SDK example](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/examples/publish-skill), or `POST /v1/trunks/{trunkId}/publications` with this JSON shape:
+
+```json
+{
+  "scopeId": "SCOPE_ID",
+  "contextKey": "support-guide",
+  "title": "Support guide",
+  "kind": "skill",
+  "summary": "Instructions for answering support requests",
+  "tags": ["support"],
+  "files": [
+    {"path": "SKILL.md", "contentBase64": "IyBTdXBwb3J0Cg=="}
+  ]
+}
+```
+
+The example encodes the text "# Support" followed by a newline. Replace it with your file's base64 bytes. This is encoding, not encryption.
+
+## Limits and safe paths
+
+A package accepts up to 256 files, up to 1,000,000 bytes per file; aggregate request and plan limits also apply. Use relative paths such as `prompts/system.md`, never absolute paths, parent traversal, or symlinks. Consult the [API contract](https://www.agenttrunk.ai/openapi.yaml) for current field limits.
+
+Do not upload secrets or protected health information, including in filenames and revision notes. Replacing content preserves earlier revisions; it is not erasure.
+
+## Test before releasing
+
+Inspect the returned revision and read its files with that exact ID. Run your harness or evaluation against it, then [request a release](https://www.agenttrunk.ai/docs/releases).
+
+If the upload times out, inspect staging and history before deciding whether to retry. A missing response does not prove the write failed. Do not retry mutations automatically.

@@ -1,0 +1,46 @@
+---
+title: "Review and release context"
+---
+
+Goal: move tested context from staging to production with an explicit review.
+
+## Compare versions
+
+Inspect and retain immutable IDs for the current production and candidate staging revisions. To review a file, call:
+
+`GET /v1/trunks/{trunkId}/contexts/{contextKey}/compare?base=BASE_REVISION_ID&target=TARGET_REVISION_ID&path=SKILL.md`
+
+History is available at `GET /v1/trunks/{trunkId}/contexts/{contextKey}/history?from=latest&limit=50`. Pass the returned `next` as `from` for older history.
+
+A skipped preview may mean binary content, a large file, or a complex diff. It does not mean the file is unchanged.
+
+## Request a release
+
+```sh
+agenttrunk release-request --workspace WORKSPACE_ID --scope SCOPE_ID
+agenttrunk releases --workspace WORKSPACE_ID --scope SCOPE_ID --status open
+```
+
+A promotion request captures the **entire scope snapshot**, not only the file you last uploaded. Review every included change. You can attach an evaluation reference with `--evidence`; evidence does not approve a release by itself.
+
+## Publish after approval
+
+Only an authorized publisher, acting within an approved task, should run:
+
+```sh
+agenttrunk release-merge --workspace WORKSPACE_ID --promotion PROMOTION_ID --yes
+```
+
+The confirmation flag is not an access grant. An agent may be allowed to upload and propose changes without being allowed to publish to production.
+
+If a request conflicts, reread its status and current staging/production revisions before deciding what to do. Never blindly resubmit a production change.
+
+## Roll back deliberately
+
+A rollback stages a selected earlier context revision for review. It is not an automatic production overwrite. Use the rollback endpoints in the [API contract](https://www.agenttrunk.ai/openapi.yaml), review the resulting scope snapshot, then follow the same promotion workflow.
+
+## Attach evidence
+
+Revision notes can record evaluation links or review context without modifying the pinned file content. Read `/provenance?ref=REVISION_ID` and write `/provenance` under the context endpoint with `revisionId`, `text`, and `expectedNotesCommitSha`.
+
+Use null for the initial note, otherwise the previous notes commit. On conflict, reread first. Notes are mutable, untrusted evidence, not an authorization grant or part of the immutable content pin.

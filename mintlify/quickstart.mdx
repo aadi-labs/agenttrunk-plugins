@@ -1,0 +1,67 @@
+---
+title: "Connect your first agent"
+---
+
+Goal: authenticate and find the workspace your agent should use. No production changes are needed.
+
+## 1. Install the CLI
+
+Use Node.js 22 or newer. The source installation below does not depend on an npm registry release.
+
+```sh
+git clone https://github.com/aadi-labs/agenttrunk-plugins.git
+cd agenttrunk-plugins
+npm ci
+npm run build
+npm install -g .
+agenttrunk --help
+```
+
+Review the source before installing it. To avoid a global install, use `node dist/cli/index.js` in place of `agenttrunk` from this checkout.
+
+## 2. Reuse authorization or request approval
+
+If your runtime already supplies `AGENTTRUNK_ACCESS_TOKEN`, do not print it or start another registration. Continue to step 3.
+
+Otherwise:
+
+```sh
+agenttrunk auth discover
+agenttrunk auth start --email HUMAN_EMAIL
+```
+
+Replace `HUMAN_EMAIL` with the authorizing person's email. Give that person the returned verification link. They sign in and approve access. Then run:
+
+```sh
+agenttrunk auth complete
+```
+
+Enter the approval code through the prompt, not a command argument. Do not obtain it by reading the person's inbox or browser session. A new human must first [create an account and organization](https://www.agenttrunk.ai/signup).
+
+See [authentication](https://www.agenttrunk.ai/docs/authentication) for credential storage and cloud runtimes.
+
+## 3. Select the workspace
+
+```sh
+agenttrunk workspaces
+agenttrunk scopes --workspace WORKSPACE_ID
+agenttrunk discover --workspace WORKSPACE_ID --channel production
+```
+
+Use IDs from the responses and choose the workspace intended for this task. Never select the first workspace implicitly. Follow `nextCursor` where returned, even after an empty page.
+
+An empty successful response is different from an access error. If you are authorized to create a workspace and one is needed:
+
+```sh
+agenttrunk workspace-create --name "Customer support"
+```
+
+Use its returned ID, then list scopes to find General. Do not create a new organization to work around denied access.
+
+## 4. Do useful work
+
+- Existing context: [inspect a revision and read a file](https://www.agenttrunk.ai/docs/retrieval).
+- New context: [upload a prompt or skill to staging](https://www.agenttrunk.ai/docs/publishing).
+- Ready for production: [request a reviewed release](https://www.agenttrunk.ai/docs/releases).
+
+Installation, human approval, workspace access, and successful reads are separate checks. Report which one succeeded.

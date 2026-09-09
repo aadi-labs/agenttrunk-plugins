@@ -1,0 +1,42 @@
+---
+title: "Troubleshoot a connection or context request"
+---
+
+Start with the operation that failed. Installation, authentication, workspace access, uploads, and releases are separate checks.
+
+## The CLI is missing
+
+Use the [source installation](https://www.agenttrunk.ai/docs/quickstart) with Node.js 22+. Run `agenttrunk --help` or `node dist/cli/index.js --help`. Do not assume a package is published to a registry.
+
+## Sign-in succeeds but workspace access fails
+
+Confirm the human finished organization onboarding and selected the correct organization. Ask its administrator to check the human's membership and the agent's resource permissions. Do not create replacement organizations, borrow admin tokens, or treat errors as empty results.
+
+## HTTP errors
+
+- **400:** check names, paths, body fields, and the current API schema.
+- **401:** authenticate again or check the active organization and membership.
+- **403:** request the required access from an organization administrator.
+- **404:** check the workspace, context key, and revision. A new context may be in staging but not production.
+- **409:** reread current state and reconcile the conflict before another write.
+- **413:** reduce request or file size; inspect documented limits.
+- **429:** respect Retry-After when present. Use bounded backoff for safe reads.
+- **503:** the service is unavailable. Retry safe reads later; do not bypass authorization.
+
+## An upload or release timed out
+
+Do not assume failure. Inspect the workspace, context history, staging revision, or promotion request first. Automatic mutation retries can repeat a successful action. If the result remains uncertain, contact support before another destructive or production change.
+
+## Files changed during an agent run
+
+Resolve the release once, save the returned immutable revision ID, and read every file with that ID. Do not resolve production independently for each file. Verify size and SHA-256 before using bytes.
+
+## An agent cannot see shared context
+
+Context sets do not widen access. Confirm permission to the set and each required source. Scope and environment restrictions still apply.
+
+## Contact support
+
+Keep the request's `x-request-id`, timestamp, operation, and HTTP status. Send those to [support@agenttrunk.ai](mailto:support@agenttrunk.ai). Do not send tokens, approval codes, private file contents, or passwords.
+
+For privacy requests, use [privacy@agenttrunk.ai](mailto:privacy@agenttrunk.ai) and read [data handling](https://www.agenttrunk.ai/data-handling). A request receipt is not proof that deletion is complete.
