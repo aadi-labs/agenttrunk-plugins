@@ -311,7 +311,15 @@
                         "null"
                       ],
                       "minimum": 0,
-                      "description": "Null while new usage allowances are pending approval."
+                      "description": "Included successful file reads per billing period. An export counts every delivered file."
+                    },
+                    "includedStorageBytes": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0,
+                      "description": "Retained storage allowance in decimal bytes. Not a measured usage value."
                     },
                     "spendLimitCents": {
                       "type": "integer",
@@ -319,7 +327,8 @@
                       "maximum": 1000000
                     },
                     "meteringActive": {
-                      "const": false
+                      "type": "boolean",
+                      "description": "Whether successful context delivery metering is active."
                     },
                     "canManage": {
                       "type": "boolean"
@@ -2263,6 +2272,32 @@
           "description": {
             "type": "string",
             "maxLength": 500
+          },
+          "baseline": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "trunkId",
+              "contextKey",
+              "revisionId"
+            ],
+            "description": "Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.",
+            "properties": {
+              "trunkId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "contextKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "revisionId": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
           }
         }
       },

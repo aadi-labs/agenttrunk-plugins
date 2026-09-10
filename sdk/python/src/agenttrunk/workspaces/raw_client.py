@@ -10,10 +10,12 @@ from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..types.trunk import Trunk
+from .types.create_trunk_input_baseline import CreateTrunkInputBaseline
 from .types.list_workspaces_response import ListWorkspacesResponse
 from pydantic import ValidationError
 
@@ -84,6 +86,7 @@ class RawWorkspacesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        baseline: typing.Optional[CreateTrunkInputBaseline] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Trunk]:
         """
@@ -92,6 +95,9 @@ class RawWorkspacesClient:
         name : str
 
         description : typing.Optional[str]
+
+        baseline : typing.Optional[CreateTrunkInputBaseline]
+            Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -107,6 +113,9 @@ class RawWorkspacesClient:
             json={
                 "name": name,
                 "description": description,
+                "baseline": convert_and_respect_annotation_metadata(
+                    object_=baseline, annotation=CreateTrunkInputBaseline, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -317,6 +326,7 @@ class AsyncRawWorkspacesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        baseline: typing.Optional[CreateTrunkInputBaseline] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Trunk]:
         """
@@ -325,6 +335,9 @@ class AsyncRawWorkspacesClient:
         name : str
 
         description : typing.Optional[str]
+
+        baseline : typing.Optional[CreateTrunkInputBaseline]
+            Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -340,6 +353,9 @@ class AsyncRawWorkspacesClient:
             json={
                 "name": name,
                 "description": description,
+                "baseline": convert_and_respect_annotation_metadata(
+                    object_=baseline, annotation=CreateTrunkInputBaseline, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",

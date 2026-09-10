@@ -50,24 +50,24 @@ client.Privacy.AssignReview(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestID:** `string` 
-    
+**requestID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `map[string]any` 
-    
+**request:** `map[string]any`
+
 </dd>
 </dl>
 </dd>
@@ -123,8 +123,8 @@ client.Privacy.ErasurePlan(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -180,8 +180,8 @@ client.Privacy.List(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -241,16 +241,16 @@ client.Privacy.Create(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**kind:** `*_go.CreatePrivacyRequestKind` 
-    
+**kind:** `*_go.CreatePrivacyRequestKind`
+
 </dd>
 </dl>
 </dd>
@@ -312,24 +312,24 @@ client.Contexts.Export(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revisionID:** `string` 
-    
+**revisionID:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -390,24 +390,24 @@ client.Contexts.GetRollbackPlan(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revisionID:** `string` 
-    
+**revisionID:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -470,40 +470,40 @@ client.Contexts.StageRollback(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revisionID:** `string` 
-    
+**revisionID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**expectedStagingRevisionID:** `string` 
-    
+**expectedStagingRevisionID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**reason:** `string` 
-    
+**reason:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -557,72 +557,72 @@ client.Contexts.Publish(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**title:** `string` 
-    
+**title:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**summary:** `*string` 
-    
+**summary:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**kind:** `*_go.ContextKind` 
-    
+**kind:** `*_go.ContextKind`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**tags:** `[]string` 
-    
+**tags:** `[]string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**files:** `[]*_go.FileInput` 
-    
+**files:** `[]*_go.FileInput`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**claimedDigest:** `*string` 
-    
+**claimedDigest:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**scopeID:** `*string` 
-    
+**scopeID:** `*string`
+
 </dd>
 </dl>
 </dd>
@@ -665,16 +665,16 @@ client.Contexts.Share(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -718,7 +718,7 @@ client.Contexts.Discover(
 <dd>
 
 **scopeID:** `*string` — Filter by scope before applying the result limit.
-    
+
 </dd>
 </dl>
 
@@ -726,7 +726,7 @@ client.Contexts.Discover(
 <dd>
 
 **cursor:** `*string` — Opaque snapshot continuation returned by the preceding page. Keep filters and principal unchanged; cursors expire after 15 minutes. Authorization is always rechecked. Restart pagination for expired or legacy numeric cursors.
-    
+
 </dd>
 </dl>
 
@@ -734,31 +734,31 @@ client.Contexts.Discover(
 <dd>
 
 **trunkID:** `*string` — Narrow discovery to this authorized trunk before applying the result limit.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**query:** `*string` 
-    
+**query:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**channel:** `*_go.DiscoverContextsRequestChannel` 
-    
+**channel:** `*_go.DiscoverContextsRequestChannel`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `*int` 
-    
+**limit:** `*int`
+
 </dd>
 </dl>
 </dd>
@@ -803,24 +803,24 @@ client.Contexts.Inspect(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref:** `*string` 
-    
+**ref:** `*string`
+
 </dd>
 </dl>
 </dd>
@@ -894,32 +894,32 @@ client.Contexts.Edit(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**expectedRevisionID:** `string` 
-    
+**expectedRevisionID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**changes:** `[]*_go.EditContextInputChangesItem` 
-    
+**changes:** `[]*_go.EditContextInputChangesItem`
+
 </dd>
 </dl>
 </dd>
@@ -978,32 +978,32 @@ client.Contexts.History(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**from:** `*string` 
-    
+**from:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `*int` 
-    
+**limit:** `*int`
+
 </dd>
 </dl>
 </dd>
@@ -1068,40 +1068,40 @@ client.Contexts.Compare(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**base:** `*string` 
-    
+**base:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**target:** `*string` 
-    
+**target:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**path:** `*string` 
-    
+**path:** `*string`
+
 </dd>
 </dl>
 </dd>
@@ -1146,24 +1146,24 @@ client.Contexts.GetProvenance(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref:** `*string` 
-    
+**ref:** `*string`
+
 </dd>
 </dl>
 </dd>
@@ -1225,24 +1225,24 @@ client.Contexts.PutProvenance(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revisionID:** `string` 
-    
+**revisionID:** `string`
+
 </dd>
 </dl>
 
@@ -1250,7 +1250,7 @@ client.Contexts.PutProvenance(
 <dd>
 
 **text:** `string` — Maximum 16000 UTF-8 bytes; not 16000 arbitrary Unicode characters.
-    
+
 </dd>
 </dl>
 
@@ -1258,7 +1258,7 @@ client.Contexts.PutProvenance(
 <dd>
 
 **expectedNotesCommitSha:** `*string` — Null for the first note; otherwise the notesCommitSha returned by GET.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1306,24 +1306,24 @@ client.Contexts.ReadFile(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**resourcePath:** `string` 
-    
+**resourcePath:** `string`
+
 </dd>
 </dl>
 
@@ -1331,7 +1331,7 @@ client.Contexts.ReadFile(
 <dd>
 
 **ref:** `string` — Immutable revision ID from inspect; resolve moving channels before reading.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1432,8 +1432,8 @@ client.Billing.CreateCheckout(
 <dl>
 <dd>
 
-**plan:** `*_go.CreateCheckoutBillingRequestPlan` 
-    
+**plan:** `*_go.CreateCheckoutBillingRequestPlan`
+
 </dd>
 </dl>
 </dd>
@@ -1533,8 +1533,8 @@ client.Billing.SetSpendLimit(
 <dl>
 <dd>
 
-**cents:** `int` 
-    
+**cents:** `int`
+
 </dd>
 </dl>
 </dd>
@@ -1606,24 +1606,24 @@ client.Workspaces.List(
 <dl>
 <dd>
 
-**cursor:** `*string` 
-    
+**cursor:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**q:** `*string` 
-    
+**q:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `*int` 
-    
+**limit:** `*int`
+
 </dd>
 </dl>
 </dd>
@@ -1668,16 +1668,24 @@ client.Workspaces.Create(
 <dl>
 <dd>
 
-**name:** `string` 
-    
+**name:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**description:** `*string` 
-    
+**description:** `*string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**baseline:** `*_go.CreateTrunkInputBaseline` — Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
+
 </dd>
 </dl>
 </dd>
@@ -1719,8 +1727,8 @@ client.Workspaces.Get(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -1764,16 +1772,16 @@ client.Workspaces.Audit(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `*int` 
-    
+**limit:** `*int`
+
 </dd>
 </dl>
 </dd>
@@ -1832,16 +1840,16 @@ client.Webhooks.List(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**before:** `*string` 
-    
+**before:** `*string`
+
 </dd>
 </dl>
 </dd>
@@ -1897,8 +1905,8 @@ client.Webhooks.CreatePortal(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -1955,16 +1963,16 @@ client.Webhooks.Retry(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**eventID:** `string` 
-    
+**eventID:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -2007,8 +2015,8 @@ client.Scopes.List(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -2054,24 +2062,24 @@ client.Scopes.Create(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**name:** `string` 
-    
+**name:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**slug:** `*string` 
-    
+**slug:** `*string`
+
 </dd>
 </dl>
 </dd>
@@ -2129,8 +2137,8 @@ client.ContextSets.Sources(
 <dl>
 <dd>
 
-**cursor:** `*string` 
-    
+**cursor:** `*string`
+
 </dd>
 </dl>
 </dd>
@@ -2187,16 +2195,16 @@ client.ContextSets.List(
 <dl>
 <dd>
 
-**cursor:** `*string` 
-    
+**cursor:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `*int` 
-    
+**limit:** `*int`
+
 </dd>
 </dl>
 </dd>
@@ -2253,16 +2261,16 @@ client.ContextSets.Create(
 <dl>
 <dd>
 
-**name:** `string` 
-    
+**name:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**sources:** `[]*_go.ContextSetSource` 
-    
+**sources:** `[]*_go.ContextSetSource`
+
 </dd>
 </dl>
 </dd>
@@ -2304,8 +2312,8 @@ client.ContextSets.Resolve(
 <dl>
 <dd>
 
-**contextSetID:** `string` 
-    
+**contextSetID:** `string`
+
 </dd>
 </dl>
 </dd>
@@ -2350,40 +2358,40 @@ client.Releases.List(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cursor:** `*string` 
-    
+**cursor:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**scopeID:** `*string` 
-    
+**scopeID:** `*string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**status:** `*_go.ListReleasesRequestStatus` 
-    
+**status:** `*_go.ListReleasesRequestStatus`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `*int` 
-    
+**limit:** `*int`
+
 </dd>
 </dl>
 </dd>
@@ -2427,16 +2435,16 @@ client.Releases.Open(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**evidenceReference:** `*string` 
-    
+**evidenceReference:** `*string`
+
 </dd>
 </dl>
 
@@ -2444,7 +2452,7 @@ client.Releases.Open(
 <dd>
 
 **scopeID:** `*string` — Defaults to the trunk General scope.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2487,16 +2495,16 @@ client.Releases.Merge(
 <dl>
 <dd>
 
-**trunkID:** `string` 
-    
+**trunkID:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**promotionID:** `string` 
-    
+**promotionID:** `string`
+
 </dd>
 </dl>
 </dd>

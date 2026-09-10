@@ -5,13 +5,20 @@ const source = new URL('../fern/openapi/upstream.yaml', import.meta.url);
 const output = new URL('../fern/openapi/openapi.json', import.meta.url);
 const live = process.argv.includes('--live');
 const check = process.argv.includes('--check');
+const sourceIndex = process.argv.indexOf('--source');
+const sourcePath = sourceIndex < 0 ? undefined : process.argv[sourceIndex + 1];
+if (sourceIndex >= 0 && (!sourcePath || sourcePath.startsWith('--'))) throw new Error('--source requires a reviewed OpenAPI file path');
+if (live && sourcePath) throw new Error('Choose --live or --source, not both');
 // Public spec retrieval carries no credentials; permit the site's canonical-host redirect.
 const text = live ? await fetch('https://agenttrunk.ai/openapi.yaml', {redirect: 'follow', signal: AbortSignal.timeout(30_000)}).then(async response => {
   if (!response.ok) throw new Error(`OpenAPI fetch failed: ${response.status}`);
   return response.text();
-}) : await readFile(source, 'utf8');
+}) : await readFile(sourcePath ?? source, 'utf8');
 const document = parse(text);
 if (document.openapi !== '3.1.0' || document.info?.title !== 'AgentTrunk API') throw new Error('Unexpected public API contract');
+if (check && (live || sourcePath) && JSON.stringify(parse(await readFile(source, 'utf8'))) !== JSON.stringify(document)) {
+  throw new Error('Reviewed upstream snapshot differs from source. Review the contract diff before regenerating clients.');
+}
 
 // Discovery uses compact contextKey metadata, not the full Context record's key/id/createdAt.
 // This matches the existing public client wire contract and its fixtures.
@@ -90,9 +97,9 @@ document.security = [{bearerAuth: []}];
 const serialized = JSON.stringify(document, null, 2) + '\n';
 if (check) {
   if (await readFile(output, 'utf8') !== serialized) throw new Error('OpenAPI snapshot differs; review and run sdk:sync (or sdk:sync:live for hosted updates).');
-  console.log(`OpenAPI snapshot matches ${live ? 'hosted' : 'checked-in'} source (${count} operations).`);
+  console.log(`OpenAPI snapshot matches ${live ? 'hosted' : sourcePath ? 'provided' : 'checked-in'} source (${count} operations).`);
 } else {
-  if (live) await writeFile(source, text);
+  if (live || sourcePath) await writeFile(source, text);
   await writeFile(output, serialized);
   console.log(`Prepared ${count} SDK operations; Stripe receiver excluded.`);
 }

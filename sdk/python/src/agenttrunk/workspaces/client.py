@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.trunk import Trunk
 from .raw_client import AsyncRawWorkspacesClient, RawWorkspacesClient
+from .types.create_trunk_input_baseline import CreateTrunkInputBaseline
 from .types.list_workspaces_response import ListWorkspacesResponse
 
 # this is used as the default value for optional parameters
@@ -69,6 +70,7 @@ class WorkspacesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        baseline: typing.Optional[CreateTrunkInputBaseline] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Trunk:
         """
@@ -77,6 +79,9 @@ class WorkspacesClient:
         name : str
 
         description : typing.Optional[str]
+
+        baseline : typing.Optional[CreateTrunkInputBaseline]
+            Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -97,7 +102,9 @@ class WorkspacesClient:
             name="name",
         )
         """
-        _response = self._raw_client.create(name=name, description=description, request_options=request_options)
+        _response = self._raw_client.create(
+            name=name, description=description, baseline=baseline, request_options=request_options
+        )
         return _response.data
 
     def get(self, trunk_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Trunk:
@@ -230,6 +237,7 @@ class AsyncWorkspacesClient:
         *,
         name: str,
         description: typing.Optional[str] = OMIT,
+        baseline: typing.Optional[CreateTrunkInputBaseline] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Trunk:
         """
@@ -238,6 +246,9 @@ class AsyncWorkspacesClient:
         name : str
 
         description : typing.Optional[str]
+
+        baseline : typing.Optional[CreateTrunkInputBaseline]
+            Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -266,7 +277,9 @@ class AsyncWorkspacesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(name=name, description=description, request_options=request_options)
+        _response = await self._raw_client.create(
+            name=name, description=description, baseline=baseline, request_options=request_options
+        )
         return _response.data
 
     async def get(self, trunk_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Trunk:

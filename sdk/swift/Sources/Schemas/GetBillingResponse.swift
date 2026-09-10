@@ -3,10 +3,13 @@ import Foundation
 public struct GetBillingResponse: Codable, Hashable, Sendable {
     public let plan: GetBillingResponsePlan
     public let accesses: Int
-    /// Null while new usage allowances are pending approval.
+    /// Included successful file reads per billing period. An export counts every delivered file.
     public let includedAccesses: Nullable<Int>
+    /// Retained storage allowance in decimal bytes. Not a measured usage value.
+    public let includedStorageBytes: Nullable<Int>?
     public let spendLimitCents: Int
-    public let meteringActive: String
+    /// Whether successful context delivery metering is active.
+    public let meteringActive: Bool
     public let canManage: Bool
     public let subscriptionStatus: String?
     public let monthlyPriceCents: Int?
@@ -21,8 +24,9 @@ public struct GetBillingResponse: Codable, Hashable, Sendable {
         plan: GetBillingResponsePlan,
         accesses: Int,
         includedAccesses: Nullable<Int>,
+        includedStorageBytes: Nullable<Int>? = nil,
         spendLimitCents: Int,
-        meteringActive: String,
+        meteringActive: Bool,
         canManage: Bool,
         subscriptionStatus: String? = nil,
         monthlyPriceCents: Int? = nil,
@@ -35,6 +39,7 @@ public struct GetBillingResponse: Codable, Hashable, Sendable {
         self.plan = plan
         self.accesses = accesses
         self.includedAccesses = includedAccesses
+        self.includedStorageBytes = includedStorageBytes
         self.spendLimitCents = spendLimitCents
         self.meteringActive = meteringActive
         self.canManage = canManage
@@ -52,8 +57,9 @@ public struct GetBillingResponse: Codable, Hashable, Sendable {
         self.plan = try container.decode(GetBillingResponsePlan.self, forKey: .plan)
         self.accesses = try container.decode(Int.self, forKey: .accesses)
         self.includedAccesses = try container.decode(Nullable<Int>.self, forKey: .includedAccesses)
+        self.includedStorageBytes = try container.decodeNullableIfPresent(Int.self, forKey: .includedStorageBytes)
         self.spendLimitCents = try container.decode(Int.self, forKey: .spendLimitCents)
-        self.meteringActive = try container.decode(String.self, forKey: .meteringActive)
+        self.meteringActive = try container.decode(Bool.self, forKey: .meteringActive)
         self.canManage = try container.decode(Bool.self, forKey: .canManage)
         self.subscriptionStatus = try container.decodeIfPresent(String.self, forKey: .subscriptionStatus)
         self.monthlyPriceCents = try container.decodeIfPresent(Int.self, forKey: .monthlyPriceCents)
@@ -70,6 +76,7 @@ public struct GetBillingResponse: Codable, Hashable, Sendable {
         try container.encode(self.plan, forKey: .plan)
         try container.encode(self.accesses, forKey: .accesses)
         try container.encode(self.includedAccesses, forKey: .includedAccesses)
+        try container.encodeNullableIfPresent(self.includedStorageBytes, forKey: .includedStorageBytes)
         try container.encode(self.spendLimitCents, forKey: .spendLimitCents)
         try container.encode(self.meteringActive, forKey: .meteringActive)
         try container.encode(self.canManage, forKey: .canManage)
@@ -86,6 +93,7 @@ public struct GetBillingResponse: Codable, Hashable, Sendable {
         case plan
         case accesses
         case includedAccesses
+        case includedStorageBytes
         case spendLimitCents
         case meteringActive
         case canManage

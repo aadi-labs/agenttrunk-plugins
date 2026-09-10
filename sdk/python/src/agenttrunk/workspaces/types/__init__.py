@@ -6,8 +6,12 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_trunk_input_baseline import CreateTrunkInputBaseline
     from .list_workspaces_response import ListWorkspacesResponse
-_dynamic_imports: typing.Dict[str, str] = {"ListWorkspacesResponse": ".list_workspaces_response"}
+_dynamic_imports: typing.Dict[str, str] = {
+    "CreateTrunkInputBaseline": ".create_trunk_input_baseline",
+    "ListWorkspacesResponse": ".list_workspaces_response",
+}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -31,4 +35,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["ListWorkspacesResponse"]
+__all__ = ["CreateTrunkInputBaseline", "ListWorkspacesResponse"]

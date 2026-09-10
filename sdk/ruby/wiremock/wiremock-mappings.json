@@ -676,7 +676,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"plan\": \"free\",\n  \"accesses\": 1,\n  \"includedAccesses\": 1,\n  \"spendLimitCents\": 1,\n  \"meteringActive\": \"meteringActive\",\n  \"canManage\": true,\n  \"subscriptionStatus\": \"subscriptionStatus\",\n  \"monthlyPriceCents\": 1,\n  \"overageCents\": 1,\n  \"overageCentsPerThousand\": 1,\n  \"period\": \"period\",\n  \"hasCustomer\": true\n}",
+        "body": "{\n  \"plan\": \"free\",\n  \"accesses\": 1,\n  \"includedAccesses\": 1,\n  \"includedStorageBytes\": 1,\n  \"spendLimitCents\": 1,\n  \"meteringActive\": true,\n  \"canManage\": true,\n  \"subscriptionStatus\": \"subscriptionStatus\",\n  \"monthlyPriceCents\": 1,\n  \"overageCents\": 1,\n  \"overageCentsPerThousand\": 1,\n  \"period\": \"period\",\n  \"hasCustomer\": true\n}",
         "headers": {
           "Content-Type": "application/json"
         }

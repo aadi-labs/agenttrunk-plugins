@@ -1,12 +1,45 @@
 # Fern SDK generation
 
+## Contract-to-release workflow
+
+1. Change and test the platform's public OpenAPI contract alongside the handler.
+2. Import that reviewed contract, not private implementation code:
+   `node scripts/sync-openapi.mjs --source /absolute/path/to/service/openapi.yaml`.
+   Add `--check` to compare without writing. The check compares the original
+   snapshot as well as its normalized output, so normalization cannot hide drift.
+3. Run `npm run sdk:generate`. Fern owns six SDKs and API reference types; the
+   CLI derives signatures from the same generated TypeScript client. Fern Docs
+   consumes that same normalized OpenAPI through `generators.yml` and `docs.yml`.
+4. Update task guides and the canonical skill when behavior changes. Run the
+   language, package, CLI, skill and contract checks. These authored guides are
+   not automatically proven correct by SDK generation.
+5. Deploy the compatible API before releasing clients. Release preparation checks
+   the hosted contract; a daily read-only workflow also detects hosted drift.
+   Pull requests regenerate all six SDKs to detect stale or hand-edited outputs.
+   Only Fern invocation metadata and build/dependency artifacts are excluded
+   from the source reproducibility comparison.
+
+Keep generator versions pinned and upgrades reviewed. Our reproducible extension
+pipeline retains auth handoff, bounded reads and no automatic mutation retries.
+Fern's [Replay and `.fernignore`](https://buildwithfern.com/learn/sdks/overview/custom-code)
+are alternatives for custom code; Replay targets its pull-request publishing
+workflow. Do not replace our local generation pipeline without testing that
+these safety properties survive. The new Fern CLI generator is likewise not a
+drop-in replacement for our authorization, preview and reconciliation workflows.
+
+Fern [wire tests](https://buildwithfern.com/learn/sdks/deep-dives/testing) are useful
+scaffolding, but spec-derived fixtures can repeat a spec mistake. Retain independent
+runtime regressions for boolean billing responses, required nullable note tokens,
+binary integrity, authorization failures and uncertain writes. Generation and
+`fern check` do not establish hosted OAuth compatibility or production readiness.
+
 This repository uses the same pinned Fern CLI and six SDK generator versions as AgentMailer. Fern produces the resource clients, models, references and test scaffolding from one reviewed public OpenAPI snapshot. The workflow uses [Fern local generation](https://buildwithfern.com/learn/cli-api-reference/cli-reference/sdk-commands) and [local filesystem outputs](https://buildwithfern.com/learn/sdks/reference/generators-yml).
 
 ## Sources and outputs
 
 | Path | Ownership |
 | --- | --- |
-| `fern/openapi/upstream.yaml` | Exact checked-in snapshot of `https://agenttrunk.ai/openapi.yaml` |
+| `fern/openapi/upstream.yaml` | Reviewed public contract snapshot; checked against the hosted contract before release |
 | `scripts/sync-openapi.mjs` | Explicit naming, response and immutable-read normalization |
 | `fern/openapi/openapi.json` | Generated normalized input consumed by Fern |
 | `fern/fern.config.json`, `fern/generators.yml` | Pinned CLI 5.108.0; TypeScript 3.88.3, Python 5.29.2, Go 1.57.9, Rust 0.46.4, Ruby 1.23.2, Swift 0.36.1 |
@@ -26,6 +59,7 @@ npm run sdk:sync:check        # Compare against the currently hosted public cont
 npm run sdk:sync:live         # Explicitly refresh upstream + normalized snapshots for review
 npm run sdk:generate          # Generate all six languages locally, apply extensions, tidy Go
 npm run sdk:postprocess:check # Verify a second postprocessing pass leaves outputs unchanged
+npm run sdk:generated:check   # Regenerate with pinned Fern versions; reject SDK/CLI source drift
 npm test                     # Existing client/CLI/examples plus generated TypeScript contract tests
 npm run sdk:test:python       # Focused Python sync/async transport and integrity tests
 npm run sdk:test:go           # Compile all Go packages; run AgentTrunk contract tests

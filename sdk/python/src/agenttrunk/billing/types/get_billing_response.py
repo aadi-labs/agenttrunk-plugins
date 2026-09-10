@@ -15,18 +15,39 @@ class GetBillingResponse(UniversalBaseModel):
     included_accesses: typing_extensions.Annotated[
         typing.Optional[int],
         FieldMetadata(alias="includedAccesses"),
-        pydantic.Field(alias="includedAccesses", description="Null while new usage allowances are pending approval."),
+        pydantic.Field(
+            alias="includedAccesses",
+            description="Included successful file reads per billing period. An export counts every delivered file.",
+        ),
     ] = None
     """
-    Null while new usage allowances are pending approval.
+    Included successful file reads per billing period. An export counts every delivered file.
+    """
+
+    included_storage_bytes: typing_extensions.Annotated[
+        typing.Optional[int],
+        FieldMetadata(alias="includedStorageBytes"),
+        pydantic.Field(
+            alias="includedStorageBytes",
+            description="Retained storage allowance in decimal bytes. Not a measured usage value.",
+        ),
+    ] = None
+    """
+    Retained storage allowance in decimal bytes. Not a measured usage value.
     """
 
     spend_limit_cents: typing_extensions.Annotated[
         int, FieldMetadata(alias="spendLimitCents"), pydantic.Field(alias="spendLimitCents")
     ]
     metering_active: typing_extensions.Annotated[
-        str, FieldMetadata(alias="meteringActive"), pydantic.Field(alias="meteringActive")
+        bool,
+        FieldMetadata(alias="meteringActive"),
+        pydantic.Field(alias="meteringActive", description="Whether successful context delivery metering is active."),
     ]
+    """
+    Whether successful context delivery metering is active.
+    """
+
     can_manage: typing_extensions.Annotated[bool, FieldMetadata(alias="canManage"), pydantic.Field(alias="canManage")]
     subscription_status: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="subscriptionStatus"), pydantic.Field(alias="subscriptionStatus")

@@ -1,0 +1,28 @@
+name: Reproduce Fern clients
+on:
+  pull_request:
+    paths:
+      - 'fern/**'
+      - 'sdk/**'
+      - 'cli/**'
+      - 'client-extensions/**'
+      - 'scripts/**'
+      - 'package*.json'
+      - '.github/workflows/generated-drift.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+      - run: npm ci
+      - run: npm run sdk:generated:check

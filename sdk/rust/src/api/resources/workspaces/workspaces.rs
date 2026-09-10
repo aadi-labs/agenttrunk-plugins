@@ -75,6 +75,7 @@ impl WorkspacesClient {
     ///             &CreateTrunkInput {
     ///                 name: "name".to_string(),
     ///                 description: None,
+    ///                 baseline: None,
     ///             },
     ///             None,
     ///         )

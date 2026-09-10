@@ -10,9 +10,11 @@ module AgentTrunk
 
         field :included_accesses, -> { Integer }, optional: false, nullable: true, api_name: "includedAccesses"
 
+        field :included_storage_bytes, -> { Integer }, optional: true, nullable: false, api_name: "includedStorageBytes"
+
         field :spend_limit_cents, -> { Integer }, optional: false, nullable: false, api_name: "spendLimitCents"
 
-        field :metering_active, -> { String }, optional: false, nullable: false, api_name: "meteringActive"
+        field :metering_active, -> { Internal::Types::Boolean }, optional: false, nullable: false, api_name: "meteringActive"
 
         field :can_manage, -> { Internal::Types::Boolean }, optional: false, nullable: false, api_name: "canManage"
 

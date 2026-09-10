@@ -6,7 +6,7 @@
     "moduleName": "AgentTrunk",
     "enableWireTests": true
   },
-  "originGitCommit": "bd64e95d765daae8acefcc7d4f2d3215fe9e0e4e",
+  "originGitCommit": "a2b5c817b7cc3c2727ad1cf00dcc69bf2f03b8d2",
   "originGitCommitIsDirty": true,
   "invokedBy": "manual",
   "requestedVersion": "0.1.0"

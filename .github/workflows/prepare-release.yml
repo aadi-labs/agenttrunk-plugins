@@ -22,6 +22,7 @@ jobs:
           ruby-version: '3.3'
       - run: gem install minitest --no-document
       - run: npm ci
+      - run: npm run sdk:sync:check
       - run: npm run sdk:check && npm test && npm run validate && npm run test:package
       - run: npm run sdk:test:python && npm run sdk:test:go && npm run sdk:test:rust && npm run sdk:test:ruby && npm run sdk:test:swift
       - run: npm run sdk:postprocess:check

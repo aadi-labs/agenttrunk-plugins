@@ -45,32 +45,32 @@ await client.privacy.assignReview("trunkId", "requestId", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestId:** `string` 
-    
+**requestId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Record<string, unknown>` 
-    
+**request:** `Record<string, unknown>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `PrivacyClient.RequestOptions` 
-    
+**requestOptions:** `PrivacyClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -124,16 +124,16 @@ await client.privacy.erasurePlan("trunkId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `PrivacyClient.RequestOptions` 
-    
+**requestOptions:** `PrivacyClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -187,16 +187,16 @@ await client.privacy.list("trunkId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `PrivacyClient.RequestOptions` 
-    
+**requestOptions:** `PrivacyClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -252,24 +252,24 @@ await client.privacy.create("trunkId", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.CreatePrivacyRequest` 
-    
+**request:** `AgentTrunkApi.CreatePrivacyRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `PrivacyClient.RequestOptions` 
-    
+**requestOptions:** `PrivacyClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -326,32 +326,32 @@ await client.contexts.export("trunkId", "contextKey", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.ExportContextsRequest` 
-    
+**request:** `AgentTrunkApi.ExportContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -407,32 +407,32 @@ await client.contexts.getRollbackPlan("trunkId", "contextKey", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.GetRollbackPlanContextsRequest` 
-    
+**request:** `AgentTrunkApi.GetRollbackPlanContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -490,32 +490,32 @@ await client.contexts.stageRollback("trunkId", "contextKey", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.StageRollbackContextsRequest` 
-    
+**request:** `AgentTrunkApi.StageRollbackContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -563,24 +563,24 @@ await client.contexts.publish("trunkId", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.PublishInput` 
-    
+**request:** `AgentTrunkApi.PublishInput`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -620,24 +620,24 @@ await client.contexts.share("trunkId", "contextKey");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -677,16 +677,16 @@ await client.contexts.discover();
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.DiscoverContextsRequest` 
-    
+**request:** `AgentTrunkApi.DiscoverContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -726,32 +726,32 @@ await client.contexts.inspect("trunkId", "contextKey");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.InspectContextsRequest` 
-    
+**request:** `AgentTrunkApi.InspectContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -817,32 +817,32 @@ await client.contexts.edit("trunkId", "contextKey", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.EditContextInput` 
-    
+**request:** `AgentTrunkApi.EditContextInput`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -896,32 +896,32 @@ await client.contexts.history("trunkId", "contextKey");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.HistoryContextsRequest` 
-    
+**request:** `AgentTrunkApi.HistoryContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -981,32 +981,32 @@ await client.contexts.compare("trunkId", "contextKey");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.CompareContextsRequest` 
-    
+**request:** `AgentTrunkApi.CompareContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1046,32 +1046,32 @@ await client.contexts.getProvenance("trunkId", "contextKey");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.GetProvenanceContextsRequest` 
-    
+**request:** `AgentTrunkApi.GetProvenanceContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1128,32 +1128,32 @@ await client.contexts.putProvenance("trunkId", "contextKey", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.PutProvenanceContextsRequest` 
-    
+**request:** `AgentTrunkApi.PutProvenanceContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1195,40 +1195,40 @@ await client.contexts.readFile("trunkId", "contextKey", "resourcePath", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `string` 
-    
+**contextKey:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**resourcePath:** `string` 
-    
+**resourcePath:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.ReadFileContextsRequest` 
-    
+**request:** `AgentTrunkApi.ReadFileContextsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextsClient.RequestOptions` 
-    
+**requestOptions:** `ContextsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1283,8 +1283,8 @@ await client.billing.get();
 <dl>
 <dd>
 
-**requestOptions:** `BillingClient.RequestOptions` 
-    
+**requestOptions:** `BillingClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1340,16 +1340,16 @@ await client.billing.createCheckout({
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.CreateCheckoutBillingRequest` 
-    
+**request:** `AgentTrunkApi.CreateCheckoutBillingRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `BillingClient.RequestOptions` 
-    
+**requestOptions:** `BillingClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1403,8 +1403,8 @@ await client.billing.createPortal();
 <dl>
 <dd>
 
-**requestOptions:** `BillingClient.RequestOptions` 
-    
+**requestOptions:** `BillingClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1460,16 +1460,16 @@ await client.billing.setSpendLimit({
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.SetSpendLimitBillingRequest` 
-    
+**request:** `AgentTrunkApi.SetSpendLimitBillingRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `BillingClient.RequestOptions` 
-    
+**requestOptions:** `BillingClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1510,8 +1510,8 @@ await client.health.get();
 <dl>
 <dd>
 
-**requestOptions:** `HealthClient.RequestOptions` 
-    
+**requestOptions:** `HealthClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1552,16 +1552,16 @@ await client.workspaces.list();
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.ListWorkspacesRequest` 
-    
+**request:** `AgentTrunkApi.ListWorkspacesRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkspacesClient.RequestOptions` 
-    
+**requestOptions:** `WorkspacesClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1603,16 +1603,16 @@ await client.workspaces.create({
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.CreateTrunkInput` 
-    
+**request:** `AgentTrunkApi.CreateTrunkInput`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkspacesClient.RequestOptions` 
-    
+**requestOptions:** `WorkspacesClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1652,16 +1652,16 @@ await client.workspaces.get("trunkId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkspacesClient.RequestOptions` 
-    
+**requestOptions:** `WorkspacesClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1701,24 +1701,24 @@ await client.workspaces.audit("trunkId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.AuditWorkspacesRequest` 
-    
+**request:** `AgentTrunkApi.AuditWorkspacesRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkspacesClient.RequestOptions` 
-    
+**requestOptions:** `WorkspacesClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1773,24 +1773,24 @@ await client.webhooks.list("trunkId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.ListWebhooksRequest` 
-    
+**request:** `AgentTrunkApi.ListWebhooksRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WebhooksClient.RequestOptions` 
-    
+**requestOptions:** `WebhooksClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1844,16 +1844,16 @@ await client.webhooks.createPortal("trunkId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WebhooksClient.RequestOptions` 
-    
+**requestOptions:** `WebhooksClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1907,24 +1907,24 @@ await client.webhooks.retry("trunkId", "eventId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**eventId:** `string` 
-    
+**eventId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WebhooksClient.RequestOptions` 
-    
+**requestOptions:** `WebhooksClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1965,16 +1965,16 @@ await client.scopes.list("trunkId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ScopesClient.RequestOptions` 
-    
+**requestOptions:** `ScopesClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2016,24 +2016,24 @@ await client.scopes.create("trunkId", {
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.CreateScopesRequest` 
-    
+**request:** `AgentTrunkApi.CreateScopesRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ScopesClient.RequestOptions` 
-    
+**requestOptions:** `ScopesClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2088,16 +2088,16 @@ await client.contextSets.sources();
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.SourcesContextSetsRequest` 
-    
+**request:** `AgentTrunkApi.SourcesContextSetsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextSetsClient.RequestOptions` 
-    
+**requestOptions:** `ContextSetsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2151,16 +2151,16 @@ await client.contextSets.list();
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.ListContextSetsRequest` 
-    
+**request:** `AgentTrunkApi.ListContextSetsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextSetsClient.RequestOptions` 
-    
+**requestOptions:** `ContextSetsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2212,16 +2212,16 @@ await client.contextSets.create({
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.CreateContextSetsRequest` 
-    
+**request:** `AgentTrunkApi.CreateContextSetsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextSetsClient.RequestOptions` 
-    
+**requestOptions:** `ContextSetsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2261,16 +2261,16 @@ await client.contextSets.resolve("contextSetId");
 <dl>
 <dd>
 
-**contextSetId:** `string` 
-    
+**contextSetId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ContextSetsClient.RequestOptions` 
-    
+**requestOptions:** `ContextSetsClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2311,24 +2311,24 @@ await client.releases.list("trunkId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.ListReleasesRequest` 
-    
+**request:** `AgentTrunkApi.ListReleasesRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ReleasesClient.RequestOptions` 
-    
+**requestOptions:** `ReleasesClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2368,24 +2368,24 @@ await client.releases.open("trunkId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `AgentTrunkApi.OpenPromotionRequestInput` 
-    
+**request:** `AgentTrunkApi.OpenPromotionRequestInput`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ReleasesClient.RequestOptions` 
-    
+**requestOptions:** `ReleasesClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2425,24 +2425,24 @@ await client.releases.merge("trunkId", "promotionId");
 <dl>
 <dd>
 
-**trunkId:** `string` 
-    
+**trunkId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**promotionId:** `string` 
-    
+**promotionId:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ReleasesClient.RequestOptions` 
-    
+**requestOptions:** `ReleasesClient.RequestOptions`
+
 </dd>
 </dl>
 </dd>

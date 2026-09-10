@@ -57,24 +57,24 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestId:** `String` 
-    
+**requestId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `[String: JSONValue]` 
-    
+**request:** `[String: JSONValue]`
+
 </dd>
 </dl>
 
@@ -82,7 +82,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -144,8 +144,8 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
@@ -153,7 +153,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -215,8 +215,8 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
@@ -224,7 +224,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -289,16 +289,16 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Requests.CreatePrivacyRequest` 
-    
+**request:** `Requests.CreatePrivacyRequest`
+
 </dd>
 </dl>
 
@@ -306,7 +306,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -373,24 +373,24 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revisionId:** `String` 
-    
+**revisionId:** `String`
+
 </dd>
 </dl>
 
@@ -398,7 +398,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -464,24 +464,24 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revisionId:** `String` 
-    
+**revisionId:** `String`
+
 </dd>
 </dl>
 
@@ -489,7 +489,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -559,24 +559,24 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Requests.StageRollbackContextsRequest` 
-    
+**request:** `Requests.StageRollbackContextsRequest`
+
 </dd>
 </dl>
 
@@ -584,7 +584,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -645,16 +645,16 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Requests.PublishInput` 
-    
+**request:** `Requests.PublishInput`
+
 </dd>
 </dl>
 
@@ -662,7 +662,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -713,16 +713,16 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
@@ -730,7 +730,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -779,7 +779,7 @@ try await main()
 <dd>
 
 **scopeId:** `String?` — Filter by scope before applying the result limit.
-    
+
 </dd>
 </dl>
 
@@ -787,7 +787,7 @@ try await main()
 <dd>
 
 **cursor:** `String?` — Opaque snapshot continuation returned by the preceding page. Keep filters and principal unchanged; cursors expire after 15 minutes. Authorization is always rechecked. Restart pagination for expired or legacy numeric cursors.
-    
+
 </dd>
 </dl>
 
@@ -795,31 +795,31 @@ try await main()
 <dd>
 
 **trunkId:** `String?` — Narrow discovery to this authorized trunk before applying the result limit.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**query:** `String?` 
-    
+**query:** `String?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**channel:** `DiscoverContextsRequestChannel?` 
-    
+**channel:** `DiscoverContextsRequestChannel?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Int?` 
-    
+**limit:** `Int?`
+
 </dd>
 </dl>
 
@@ -827,7 +827,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -878,24 +878,24 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref:** `String?` 
-    
+**ref:** `String?`
+
 </dd>
 </dl>
 
@@ -903,7 +903,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -984,24 +984,24 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Requests.EditContextInput` 
-    
+**request:** `Requests.EditContextInput`
+
 </dd>
 </dl>
 
@@ -1009,7 +1009,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1074,32 +1074,32 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**from:** `String?` 
-    
+**from:** `String?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Int?` 
-    
+**limit:** `Int?`
+
 </dd>
 </dl>
 
@@ -1107,7 +1107,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1178,40 +1178,40 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**base:** `String?` 
-    
+**base:** `String?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**target:** `String?` 
-    
+**target:** `String?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**path:** `String?` 
-    
+**path:** `String?`
+
 </dd>
 </dl>
 
@@ -1219,7 +1219,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1270,24 +1270,24 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref:** `String?` 
-    
+**ref:** `String?`
+
 </dd>
 </dl>
 
@@ -1295,7 +1295,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1365,24 +1365,24 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Requests.PutProvenanceContextsRequest` 
-    
+**request:** `Requests.PutProvenanceContextsRequest`
+
 </dd>
 </dl>
 
@@ -1390,7 +1390,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1443,24 +1443,24 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**contextKey:** `String` 
-    
+**contextKey:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**resourcePath:** `String` 
-    
+**resourcePath:** `String`
+
 </dd>
 </dl>
 
@@ -1468,7 +1468,7 @@ try await main()
 <dd>
 
 **ref:** `String` — Immutable revision ID from inspect; resolve moving channels before reading.
-    
+
 </dd>
 </dl>
 
@@ -1476,7 +1476,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1540,7 +1540,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1602,8 +1602,8 @@ try await main()
 <dl>
 <dd>
 
-**request:** `Requests.CreateCheckoutBillingRequest` 
-    
+**request:** `Requests.CreateCheckoutBillingRequest`
+
 </dd>
 </dl>
 
@@ -1611,7 +1611,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1674,7 +1674,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1736,8 +1736,8 @@ try await main()
 <dl>
 <dd>
 
-**request:** `Requests.SetSpendLimitBillingRequest` 
-    
+**request:** `Requests.SetSpendLimitBillingRequest`
+
 </dd>
 </dl>
 
@@ -1745,7 +1745,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1795,7 +1795,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1844,24 +1844,24 @@ try await main()
 <dl>
 <dd>
 
-**cursor:** `String?` 
-    
+**cursor:** `String?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**q:** `String?` 
-    
+**q:** `String?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Int?` 
-    
+**limit:** `Int?`
+
 </dd>
 </dl>
 
@@ -1869,7 +1869,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1917,8 +1917,8 @@ try await main()
 <dl>
 <dd>
 
-**request:** `Requests.CreateTrunkInput` 
-    
+**request:** `Requests.CreateTrunkInput`
+
 </dd>
 </dl>
 
@@ -1926,7 +1926,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1974,8 +1974,8 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
@@ -1983,7 +1983,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2031,16 +2031,16 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Int?` 
-    
+**limit:** `Int?`
+
 </dd>
 </dl>
 
@@ -2048,7 +2048,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2111,16 +2111,16 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**before:** `String?` 
-    
+**before:** `String?`
+
 </dd>
 </dl>
 
@@ -2128,7 +2128,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2190,8 +2190,8 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
@@ -2199,7 +2199,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2264,16 +2264,16 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**eventId:** `String` 
-    
+**eventId:** `String`
+
 </dd>
 </dl>
 
@@ -2281,7 +2281,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2330,8 +2330,8 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
@@ -2339,7 +2339,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2390,16 +2390,16 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Requests.CreateScopesRequest` 
-    
+**request:** `Requests.CreateScopesRequest`
+
 </dd>
 </dl>
 
@@ -2407,7 +2407,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2470,8 +2470,8 @@ try await main()
 <dl>
 <dd>
 
-**cursor:** `String?` 
-    
+**cursor:** `String?`
+
 </dd>
 </dl>
 
@@ -2479,7 +2479,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2541,16 +2541,16 @@ try await main()
 <dl>
 <dd>
 
-**cursor:** `String?` 
-    
+**cursor:** `String?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Int?` 
-    
+**limit:** `Int?`
+
 </dd>
 </dl>
 
@@ -2558,7 +2558,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2620,8 +2620,8 @@ try await main()
 <dl>
 <dd>
 
-**request:** `Requests.CreateContextSetsRequest` 
-    
+**request:** `Requests.CreateContextSetsRequest`
+
 </dd>
 </dl>
 
@@ -2629,7 +2629,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2677,8 +2677,8 @@ try await main()
 <dl>
 <dd>
 
-**contextSetId:** `String` 
-    
+**contextSetId:** `String`
+
 </dd>
 </dl>
 
@@ -2686,7 +2686,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2735,40 +2735,40 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cursor:** `String?` 
-    
+**cursor:** `String?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**scopeId:** `String?` 
-    
+**scopeId:** `String?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**status:** `ListReleasesRequestStatus?` 
-    
+**status:** `ListReleasesRequestStatus?`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Int?` 
-    
+**limit:** `Int?`
+
 </dd>
 </dl>
 
@@ -2776,7 +2776,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2827,16 +2827,16 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Requests.OpenPromotionRequestInput` 
-    
+**request:** `Requests.OpenPromotionRequestInput`
+
 </dd>
 </dl>
 
@@ -2844,7 +2844,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2895,16 +2895,16 @@ try await main()
 <dl>
 <dd>
 
-**trunkId:** `String` 
-    
+**trunkId:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**promotionId:** `String` 
-    
+**promotionId:** `String`
+
 </dd>
 </dl>
 
@@ -2912,7 +2912,7 @@ try await main()
 <dd>
 
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
+
 </dd>
 </dl>
 </dd>

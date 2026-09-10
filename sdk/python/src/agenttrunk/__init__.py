@@ -71,7 +71,7 @@ if typing.TYPE_CHECKING:
         ListWebhooksResponseDataItem,
         ListWebhooksResponseDataItemStatus,
     )
-    from .workspaces import ListWorkspacesResponse
+    from .workspaces import CreateTrunkInputBaseline, ListWorkspacesResponse
 _dynamic_imports: typing.Dict[str, str] = {
     "AgentTrunk": ".client",
     "AgentTrunkEnvironment": ".environment",
@@ -88,6 +88,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePortalBillingResponse": ".billing",
     "CreatePortalWebhooksResponse": ".webhooks",
     "CreatePrivacyRequestKind": ".privacy",
+    "CreateTrunkInputBaseline": ".workspaces",
     "DefaultAioHttpClient": "._default_clients",
     "DefaultAsyncHttpxClient": "._default_clients",
     "DiscoverContextsRequestChannel": ".contexts",
@@ -180,6 +181,7 @@ __all__ = [
     "CreatePortalBillingResponse",
     "CreatePortalWebhooksResponse",
     "CreatePrivacyRequestKind",
+    "CreateTrunkInputBaseline",
     "DefaultAioHttpClient",
     "DefaultAsyncHttpxClient",
     "DiscoverContextsRequestChannel",

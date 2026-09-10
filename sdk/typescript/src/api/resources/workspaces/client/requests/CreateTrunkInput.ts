@@ -9,4 +9,17 @@
 export interface CreateTrunkInput {
     name: string;
     description?: string;
+    /** Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork. */
+    baseline?: CreateTrunkInput.Baseline;
+}
+
+export namespace CreateTrunkInput {
+    /**
+     * Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
+     */
+    export interface Baseline {
+        trunkId: string;
+        contextKey: string;
+        revisionId: string;
+    }
 }

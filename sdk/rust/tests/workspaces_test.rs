@@ -51,6 +51,7 @@ async fn test_workspaces_create_with_wiremock() {
             &CreateTrunkInput {
                 name: "name".to_string(),
                 description: None,
+                baseline: None,
             },
             None,
         )

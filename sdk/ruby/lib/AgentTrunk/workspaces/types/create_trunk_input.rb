@@ -7,6 +7,8 @@ module AgentTrunk
         field :name, -> { String }, optional: false, nullable: false
 
         field :description, -> { String }, optional: true, nullable: false
+
+        field :baseline, -> { AgentTrunk::Workspaces::Types::CreateTrunkInputBaseline }, optional: true, nullable: false
       end
     end
   end

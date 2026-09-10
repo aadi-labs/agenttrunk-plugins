@@ -48,32 +48,32 @@ client.privacy.assign_review(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_id:** `String` 
-    
+**request_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Internal::Types::Hash[String, Object]` 
-    
+**request:** `Internal::Types::Hash[String, Object]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Privacy::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Privacy::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -126,16 +126,16 @@ client.privacy.erasure_plan(trunk_id: "trunkId")
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Privacy::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Privacy::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -188,16 +188,16 @@ client.privacy.list(trunk_id: "trunkId")
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Privacy::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Privacy::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -253,24 +253,24 @@ client.privacy.create(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**kind:** `AgentTrunk::Privacy::Types::CreatePrivacyRequestKind` 
-    
+**kind:** `AgentTrunk::Privacy::Types::CreatePrivacyRequestKind`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Privacy::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Privacy::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -328,32 +328,32 @@ client.contexts.export(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `String` 
-    
+**revision_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -410,32 +410,32 @@ client.contexts.get_rollback_plan(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `String` 
-    
+**revision_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -494,48 +494,48 @@ client.contexts.stage_rollback(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `String` 
-    
+**revision_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**expected_staging_revision_id:** `String` 
-    
+**expected_staging_revision_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**reason:** `String` 
-    
+**reason:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -583,80 +583,80 @@ client.contexts.publish(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**title:** `String` 
-    
+**title:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**summary:** `String` 
-    
+**summary:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**kind:** `AgentTrunk::Types::ContextKind` 
-    
+**kind:** `AgentTrunk::Types::ContextKind`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**tags:** `Internal::Types::Array[String]` 
-    
+**tags:** `Internal::Types::Array[String]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**files:** `Internal::Types::Array[AgentTrunk::Types::FileInput]` 
-    
+**files:** `Internal::Types::Array[AgentTrunk::Types::FileInput]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**claimed_digest:** `String` 
-    
+**claimed_digest:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**scope_id:** `String` 
-    
+**scope_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -698,24 +698,24 @@ client.contexts.share(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -755,7 +755,7 @@ client.contexts.discover
 <dd>
 
 **scope_id:** `String` — Filter by scope before applying the result limit.
-    
+
 </dd>
 </dl>
 
@@ -763,7 +763,7 @@ client.contexts.discover
 <dd>
 
 **cursor:** `String` — Opaque snapshot continuation returned by the preceding page. Keep filters and principal unchanged; cursors expire after 15 minutes. Authorization is always rechecked. Restart pagination for expired or legacy numeric cursors.
-    
+
 </dd>
 </dl>
 
@@ -771,39 +771,39 @@ client.contexts.discover
 <dd>
 
 **trunk_id:** `String` — Narrow discovery to this authorized trunk before applying the result limit.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**query:** `String` 
-    
+**query:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**channel:** `AgentTrunk::Contexts::Types::DiscoverContextsRequestChannel` 
-    
+**channel:** `AgentTrunk::Contexts::Types::DiscoverContextsRequestChannel`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Integer` 
-    
+**limit:** `Integer`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -845,32 +845,32 @@ client.contexts.inspect(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref:** `String` 
-    
+**ref:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -933,40 +933,40 @@ client.contexts.edit(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**expected_revision_id:** `String` 
-    
+**expected_revision_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**changes:** `Internal::Types::Array[AgentTrunk::Contexts::Types::EditContextInputChangesItem]` 
-    
+**changes:** `Internal::Types::Array[AgentTrunk::Contexts::Types::EditContextInputChangesItem]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1022,40 +1022,40 @@ client.contexts.history(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**from:** `String` 
-    
+**from:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Integer` 
-    
+**limit:** `Integer`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1117,48 +1117,48 @@ client.contexts.compare(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**base:** `String` 
-    
+**base:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**target:** `String` 
-    
+**target:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**path:** `String` 
-    
+**path:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1200,32 +1200,32 @@ client.contexts.get_provenance(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref:** `String` 
-    
+**ref:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1283,24 +1283,24 @@ client.contexts.put_provenance(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `String` 
-    
+**revision_id:** `String`
+
 </dd>
 </dl>
 
@@ -1308,7 +1308,7 @@ client.contexts.put_provenance(
 <dd>
 
 **text:** `String` — Maximum 16000 UTF-8 bytes; not 16000 arbitrary Unicode characters.
-    
+
 </dd>
 </dl>
 
@@ -1316,15 +1316,15 @@ client.contexts.put_provenance(
 <dd>
 
 **expected_notes_commit_sha:** `String` — Null for the first note; otherwise the notesCommitSha returned by GET.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1368,24 +1368,24 @@ client.contexts.read_file(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**resource_path:** `String` 
-    
+**resource_path:** `String`
+
 </dd>
 </dl>
 
@@ -1393,15 +1393,15 @@ client.contexts.read_file(
 <dd>
 
 **ref:** `String` — Immutable revision ID from inspect; resolve moving channels before reading.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Contexts::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Contexts::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1455,8 +1455,8 @@ client.billing.get
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Billing::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Billing::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1509,16 +1509,16 @@ client.billing.create_checkout(plan: "starter")
 <dl>
 <dd>
 
-**plan:** `AgentTrunk::Billing::Types::CreateCheckoutBillingRequestPlan` 
-    
+**plan:** `AgentTrunk::Billing::Types::CreateCheckoutBillingRequestPlan`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Billing::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Billing::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1571,8 +1571,8 @@ client.billing.create_portal
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Billing::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Billing::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1625,16 +1625,16 @@ client.billing.set_spend_limit(cents: 1)
 <dl>
 <dd>
 
-**cents:** `Integer` 
-    
+**cents:** `Integer`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Billing::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Billing::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1674,8 +1674,8 @@ client.health.get
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Health::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Health::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1715,32 +1715,32 @@ client.workspaces.list
 <dl>
 <dd>
 
-**cursor:** `String` 
-    
+**cursor:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**q:** `String` 
-    
+**q:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Integer` 
-    
+**limit:** `Integer`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Workspaces::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Workspaces::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1779,24 +1779,32 @@ client.workspaces.create(name: "name")
 <dl>
 <dd>
 
-**name:** `String` 
-    
+**name:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**description:** `String` 
-    
+**description:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Workspaces::RequestOptions` 
-    
+**baseline:** `AgentTrunk::Workspaces::Types::CreateTrunkInputBaseline` — Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `AgentTrunk::Workspaces::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1835,16 +1843,16 @@ client.workspaces.get(trunk_id: "trunkId")
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Workspaces::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Workspaces::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1883,24 +1891,24 @@ client.workspaces.audit(trunk_id: "trunkId")
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Integer` 
-    
+**limit:** `Integer`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Workspaces::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Workspaces::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -1954,24 +1962,24 @@ client.webhooks.list(trunk_id: "trunkId")
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**before:** `String` 
-    
+**before:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Webhooks::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Webhooks::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2024,16 +2032,16 @@ client.webhooks.create_portal(trunk_id: "trunkId")
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Webhooks::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Webhooks::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2089,24 +2097,24 @@ client.webhooks.retry_(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**event_id:** `String` 
-    
+**event_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Webhooks::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Webhooks::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2146,16 +2154,16 @@ client.scopes.list(trunk_id: "trunkId")
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Scopes::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Scopes::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2197,32 +2205,32 @@ client.scopes.create(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**name:** `String` 
-    
+**name:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**slug:** `String` 
-    
+**slug:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Scopes::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Scopes::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2276,16 +2284,16 @@ client.context_sets.sources
 <dl>
 <dd>
 
-**cursor:** `String` 
-    
+**cursor:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::ContextSets::RequestOptions` 
-    
+**request_options:** `AgentTrunk::ContextSets::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2338,24 +2346,24 @@ client.context_sets.list
 <dl>
 <dd>
 
-**cursor:** `String` 
-    
+**cursor:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Integer` 
-    
+**limit:** `Integer`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::ContextSets::RequestOptions` 
-    
+**request_options:** `AgentTrunk::ContextSets::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2406,24 +2414,24 @@ client.context_sets.create(
 <dl>
 <dd>
 
-**name:** `String` 
-    
+**name:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**sources:** `Internal::Types::Array[AgentTrunk::Types::ContextSetSource]` 
-    
+**sources:** `Internal::Types::Array[AgentTrunk::Types::ContextSetSource]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::ContextSets::RequestOptions` 
-    
+**request_options:** `AgentTrunk::ContextSets::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2462,16 +2470,16 @@ client.context_sets.resolve(context_set_id: "contextSetId")
 <dl>
 <dd>
 
-**context_set_id:** `String` 
-    
+**context_set_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::ContextSets::RequestOptions` 
-    
+**request_options:** `AgentTrunk::ContextSets::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2511,48 +2519,48 @@ client.releases.list(trunk_id: "trunkId")
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cursor:** `String` 
-    
+**cursor:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**scope_id:** `String` 
-    
+**scope_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**status:** `AgentTrunk::Releases::Types::ListReleasesRequestStatus` 
-    
+**status:** `AgentTrunk::Releases::Types::ListReleasesRequestStatus`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Integer` 
-    
+**limit:** `Integer`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Releases::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Releases::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2591,16 +2599,16 @@ client.releases.open(trunk_id: "trunkId")
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**evidence_reference:** `String` 
-    
+**evidence_reference:** `String`
+
 </dd>
 </dl>
 
@@ -2608,15 +2616,15 @@ client.releases.open(trunk_id: "trunkId")
 <dd>
 
 **scope_id:** `String` — Defaults to the trunk General scope.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Releases::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Releases::RequestOptions`
+
 </dd>
 </dl>
 </dd>
@@ -2658,24 +2666,24 @@ client.releases.merge(
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**promotion_id:** `String` 
-    
+**promotion_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_options:** `AgentTrunk::Releases::RequestOptions` 
-    
+**request_options:** `AgentTrunk::Releases::RequestOptions`
+
 </dd>
 </dl>
 </dd>

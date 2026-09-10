@@ -298,24 +298,28 @@ var (
 	getBillingResponseFieldPlan                    = big.NewInt(1 << 0)
 	getBillingResponseFieldAccesses                = big.NewInt(1 << 1)
 	getBillingResponseFieldIncludedAccesses        = big.NewInt(1 << 2)
-	getBillingResponseFieldSpendLimitCents         = big.NewInt(1 << 3)
-	getBillingResponseFieldMeteringActive          = big.NewInt(1 << 4)
-	getBillingResponseFieldCanManage               = big.NewInt(1 << 5)
-	getBillingResponseFieldSubscriptionStatus      = big.NewInt(1 << 6)
-	getBillingResponseFieldMonthlyPriceCents       = big.NewInt(1 << 7)
-	getBillingResponseFieldOverageCents            = big.NewInt(1 << 8)
-	getBillingResponseFieldOverageCentsPerThousand = big.NewInt(1 << 9)
-	getBillingResponseFieldPeriod                  = big.NewInt(1 << 10)
-	getBillingResponseFieldHasCustomer             = big.NewInt(1 << 11)
+	getBillingResponseFieldIncludedStorageBytes    = big.NewInt(1 << 3)
+	getBillingResponseFieldSpendLimitCents         = big.NewInt(1 << 4)
+	getBillingResponseFieldMeteringActive          = big.NewInt(1 << 5)
+	getBillingResponseFieldCanManage               = big.NewInt(1 << 6)
+	getBillingResponseFieldSubscriptionStatus      = big.NewInt(1 << 7)
+	getBillingResponseFieldMonthlyPriceCents       = big.NewInt(1 << 8)
+	getBillingResponseFieldOverageCents            = big.NewInt(1 << 9)
+	getBillingResponseFieldOverageCentsPerThousand = big.NewInt(1 << 10)
+	getBillingResponseFieldPeriod                  = big.NewInt(1 << 11)
+	getBillingResponseFieldHasCustomer             = big.NewInt(1 << 12)
 )
 
 type GetBillingResponse struct {
 	Plan     GetBillingResponsePlan `json:"plan" url:"plan"`
 	Accesses int                    `json:"accesses" url:"accesses"`
-	// Null while new usage allowances are pending approval.
-	IncludedAccesses        *int    `json:"includedAccesses,omitempty" url:"includedAccesses,omitempty"`
-	SpendLimitCents         int     `json:"spendLimitCents" url:"spendLimitCents"`
-	MeteringActive          string  `json:"meteringActive" url:"meteringActive"`
+	// Included successful file reads per billing period. An export counts every delivered file.
+	IncludedAccesses *int `json:"includedAccesses,omitempty" url:"includedAccesses,omitempty"`
+	// Retained storage allowance in decimal bytes. Not a measured usage value.
+	IncludedStorageBytes *int `json:"includedStorageBytes,omitempty" url:"includedStorageBytes,omitempty"`
+	SpendLimitCents      int  `json:"spendLimitCents" url:"spendLimitCents"`
+	// Whether successful context delivery metering is active.
+	MeteringActive          bool    `json:"meteringActive" url:"meteringActive"`
 	CanManage               bool    `json:"canManage" url:"canManage"`
 	SubscriptionStatus      *string `json:"subscriptionStatus,omitempty" url:"subscriptionStatus,omitempty"`
 	MonthlyPriceCents       *int    `json:"monthlyPriceCents,omitempty" url:"monthlyPriceCents,omitempty"`
@@ -352,6 +356,13 @@ func (g *GetBillingResponse) GetIncludedAccesses() *int {
 	return g.IncludedAccesses
 }
 
+func (g *GetBillingResponse) GetIncludedStorageBytes() *int {
+	if g == nil {
+		return nil
+	}
+	return g.IncludedStorageBytes
+}
+
 func (g *GetBillingResponse) GetSpendLimitCents() int {
 	if g == nil {
 		return 0
@@ -359,9 +370,9 @@ func (g *GetBillingResponse) GetSpendLimitCents() int {
 	return g.SpendLimitCents
 }
 
-func (g *GetBillingResponse) GetMeteringActive() string {
+func (g *GetBillingResponse) GetMeteringActive() bool {
 	if g == nil {
-		return ""
+		return false
 	}
 	return g.MeteringActive
 }
@@ -450,6 +461,13 @@ func (g *GetBillingResponse) SetIncludedAccesses(includedAccesses *int) {
 	g.require(getBillingResponseFieldIncludedAccesses)
 }
 
+// SetIncludedStorageBytes sets the IncludedStorageBytes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GetBillingResponse) SetIncludedStorageBytes(includedStorageBytes *int) {
+	g.IncludedStorageBytes = includedStorageBytes
+	g.require(getBillingResponseFieldIncludedStorageBytes)
+}
+
 // SetSpendLimitCents sets the SpendLimitCents field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (g *GetBillingResponse) SetSpendLimitCents(spendLimitCents int) {
@@ -459,7 +477,7 @@ func (g *GetBillingResponse) SetSpendLimitCents(spendLimitCents int) {
 
 // SetMeteringActive sets the MeteringActive field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GetBillingResponse) SetMeteringActive(meteringActive string) {
+func (g *GetBillingResponse) SetMeteringActive(meteringActive bool) {
 	g.MeteringActive = meteringActive
 	g.require(getBillingResponseFieldMeteringActive)
 }

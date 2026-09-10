@@ -3,10 +3,13 @@
 export interface GetBillingResponse {
     plan: GetBillingResponse.Plan;
     accesses: number;
-    /** Null while new usage allowances are pending approval. */
+    /** Included successful file reads per billing period. An export counts every delivered file. */
     includedAccesses: number | null;
+    /** Retained storage allowance in decimal bytes. Not a measured usage value. */
+    includedStorageBytes?: (number | null) | undefined;
     spendLimitCents: number;
-    meteringActive: string;
+    /** Whether successful context delivery metering is active. */
+    meteringActive: boolean;
     canManage: boolean;
     subscriptionStatus?: string | undefined;
     monthlyPriceCents?: number | undefined;

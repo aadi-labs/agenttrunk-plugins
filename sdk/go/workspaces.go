@@ -38,11 +38,14 @@ func (a *AuditWorkspacesRequest) SetLimit(limit *int) {
 var (
 	createTrunkInputFieldName        = big.NewInt(1 << 0)
 	createTrunkInputFieldDescription = big.NewInt(1 << 1)
+	createTrunkInputFieldBaseline    = big.NewInt(1 << 2)
 )
 
 type CreateTrunkInput struct {
 	Name        string  `json:"name" url:"-"`
 	Description *string `json:"description,omitempty" url:"-"`
+	// Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
+	Baseline *CreateTrunkInputBaseline `json:"baseline,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -67,6 +70,13 @@ func (c *CreateTrunkInput) SetName(name string) {
 func (c *CreateTrunkInput) SetDescription(description *string) {
 	c.Description = description
 	c.require(createTrunkInputFieldDescription)
+}
+
+// SetBaseline sets the Baseline field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateTrunkInput) SetBaseline(baseline *CreateTrunkInputBaseline) {
+	c.Baseline = baseline
+	c.require(createTrunkInputFieldBaseline)
 }
 
 func (c *CreateTrunkInput) UnmarshalJSON(data []byte) error {
@@ -419,6 +429,123 @@ func (t *TrunkBranches) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", t)
+}
+
+// Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
+var (
+	createTrunkInputBaselineFieldTrunkID    = big.NewInt(1 << 0)
+	createTrunkInputBaselineFieldContextKey = big.NewInt(1 << 1)
+	createTrunkInputBaselineFieldRevisionID = big.NewInt(1 << 2)
+)
+
+type CreateTrunkInputBaseline struct {
+	TrunkID    string `json:"trunkId" url:"trunkId"`
+	ContextKey string `json:"contextKey" url:"contextKey"`
+	RevisionID string `json:"revisionId" url:"revisionId"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *CreateTrunkInputBaseline) GetTrunkID() string {
+	if c == nil {
+		return ""
+	}
+	return c.TrunkID
+}
+
+func (c *CreateTrunkInputBaseline) GetContextKey() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContextKey
+}
+
+func (c *CreateTrunkInputBaseline) GetRevisionID() string {
+	if c == nil {
+		return ""
+	}
+	return c.RevisionID
+}
+
+func (c *CreateTrunkInputBaseline) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *CreateTrunkInputBaseline) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetTrunkID sets the TrunkID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateTrunkInputBaseline) SetTrunkID(trunkID string) {
+	c.TrunkID = trunkID
+	c.require(createTrunkInputBaselineFieldTrunkID)
+}
+
+// SetContextKey sets the ContextKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateTrunkInputBaseline) SetContextKey(contextKey string) {
+	c.ContextKey = contextKey
+	c.require(createTrunkInputBaselineFieldContextKey)
+}
+
+// SetRevisionID sets the RevisionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateTrunkInputBaseline) SetRevisionID(revisionID string) {
+	c.RevisionID = revisionID
+	c.require(createTrunkInputBaselineFieldRevisionID)
+}
+
+func (c *CreateTrunkInputBaseline) UnmarshalJSON(data []byte) error {
+	type unmarshaler CreateTrunkInputBaseline
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = CreateTrunkInputBaseline(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *CreateTrunkInputBaseline) MarshalJSON() ([]byte, error) {
+	type embed CreateTrunkInputBaseline
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *CreateTrunkInputBaseline) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
 }
 
 var (

@@ -12,6 +12,12 @@ MCP is separate: it cannot access private workspaces or publish context.
 The operational server exposes 38 named, typed tools. Your client handles tool
 search and composition; there is no server-side search/execute wrapper.
 
+Results contain JSON in a text content block. Small results also include
+`structuredContent`; large exports omit that duplicate. Clients must support
+the text JSON fallback. UTF-8 file content preserves a leading BOM; binary
+content uses base64. Prefer fetching only the files needed for the task.
+Temporary authorization-service failures return 503, not a new sign-up request.
+
 | Tool | Use |
 | --- | --- |
 | `listTrunks` | List authorized workspaces. |

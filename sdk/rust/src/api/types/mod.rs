@@ -62,6 +62,7 @@ pub mod webhooks_list_query_request;
 pub mod webhooks_list_webhooks_response;
 pub mod webhooks_list_webhooks_response_data_item;
 pub mod webhooks_list_webhooks_response_data_item_status;
+pub mod workspaces_create_trunk_input_baseline;
 pub mod workspaces_list_query_request;
 pub mod workspaces_list_workspaces_response;
 
@@ -129,5 +130,6 @@ pub use webhooks_list_query_request::WebhooksListQueryRequest;
 pub use webhooks_list_webhooks_response::ListWebhooksResponse;
 pub use webhooks_list_webhooks_response_data_item::ListWebhooksResponseDataItem;
 pub use webhooks_list_webhooks_response_data_item_status::ListWebhooksResponseDataItemStatus;
+pub use workspaces_create_trunk_input_baseline::CreateTrunkInputBaseline;
 pub use workspaces_list_query_request::WorkspacesListQueryRequest;
 pub use workspaces_list_workspaces_response::ListWorkspacesResponse;

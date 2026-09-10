@@ -9,8 +9,8 @@ pub struct PutProvenanceContextsRequest {
     #[serde(default)]
     pub text: String,
     /// Null for the first note; otherwise the notesCommitSha returned by GET.
+    // Required nullable field: None must serialize as JSON null.
     #[serde(rename = "expectedNotesCommitSha")]
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub expected_notes_commit_sha: Option<String>,
 }
 

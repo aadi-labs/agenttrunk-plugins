@@ -60,16 +60,16 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_id:** `String` 
-    
+**request_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -135,8 +135,8 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -199,8 +199,8 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -272,16 +272,16 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**kind:** `CreatePrivacyRequestKind` 
-    
+**kind:** `CreatePrivacyRequestKind`
+
 </dd>
 </dl>
 </dd>
@@ -355,24 +355,24 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `String` 
-    
+**revision_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -445,24 +445,24 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `String` 
-    
+**revision_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -537,40 +537,40 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `String` 
-    
+**revision_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**expected_staging_revision_id:** `String` 
-    
+**expected_staging_revision_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**reason:** `String` 
-    
+**reason:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -639,72 +639,72 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**title:** `String` 
-    
+**title:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**summary:** `Option<String>` 
-    
+**summary:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**kind:** `ContextKind` 
-    
+**kind:** `ContextKind`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**tags:** `Option<Vec<String>>` 
-    
+**tags:** `Option<Vec<String>>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**files:** `Vec<FileInput>` 
-    
+**files:** `Vec<FileInput>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**claimed_digest:** `Option<String>` 
-    
+**claimed_digest:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**scope_id:** `Option<String>` 
-    
+**scope_id:** `Option<String>`
+
 </dd>
 </dl>
 </dd>
@@ -756,16 +756,16 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -823,7 +823,7 @@ async fn main() {
 <dd>
 
 **scope_id:** `Option<String>` — Filter by scope before applying the result limit.
-    
+
 </dd>
 </dl>
 
@@ -831,7 +831,7 @@ async fn main() {
 <dd>
 
 **cursor:** `Option<String>` — Opaque snapshot continuation returned by the preceding page. Keep filters and principal unchanged; cursors expire after 15 minutes. Authorization is always rechecked. Restart pagination for expired or legacy numeric cursors.
-    
+
 </dd>
 </dl>
 
@@ -839,31 +839,31 @@ async fn main() {
 <dd>
 
 **trunk_id:** `Option<String>` — Narrow discovery to this authorized trunk before applying the result limit.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**query:** `Option<String>` 
-    
+**query:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**channel:** `Option<DiscoverContextsRequestChannel>` 
-    
+**channel:** `Option<DiscoverContextsRequestChannel>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Option<i64>` 
-    
+**limit:** `Option<i64>`
+
 </dd>
 </dl>
 </dd>
@@ -922,24 +922,24 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref_:** `Option<String>` 
-    
+**ref_:** `Option<String>`
+
 </dd>
 </dl>
 </dd>
@@ -1018,32 +1018,32 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**expected_revision_id:** `String` 
-    
+**expected_revision_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**changes:** `Vec<EditContextInputChangesItem>` 
-    
+**changes:** `Vec<EditContextInputChangesItem>`
+
 </dd>
 </dl>
 </dd>
@@ -1116,32 +1116,32 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**from:** `Option<String>` 
-    
+**from:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Option<i64>` 
-    
+**limit:** `Option<i64>`
+
 </dd>
 </dl>
 </dd>
@@ -1220,40 +1220,40 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**base:** `Option<String>` 
-    
+**base:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**target:** `Option<String>` 
-    
+**target:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**path:** `Option<String>` 
-    
+**path:** `Option<String>`
+
 </dd>
 </dl>
 </dd>
@@ -1312,24 +1312,24 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref_:** `Option<String>` 
-    
+**ref_:** `Option<String>`
+
 </dd>
 </dl>
 </dd>
@@ -1404,24 +1404,24 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `String` 
-    
+**revision_id:** `String`
+
 </dd>
 </dl>
 
@@ -1429,7 +1429,7 @@ async fn main() {
 <dd>
 
 **text:** `String` — Maximum 16000 UTF-8 bytes; not 16000 arbitrary Unicode characters.
-    
+
 </dd>
 </dl>
 
@@ -1437,7 +1437,7 @@ async fn main() {
 <dd>
 
 **expected_notes_commit_sha:** `Option<String>` — Null for the first note; otherwise the notesCommitSha returned by GET.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1497,24 +1497,24 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `String` 
-    
+**context_key:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**resource_path:** `String` 
-    
+**resource_path:** `String`
+
 </dd>
 </dl>
 
@@ -1522,7 +1522,7 @@ async fn main() {
 <dd>
 
 **ref_:** `String` — Immutable revision ID from inspect; resolve moving channels before reading.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1643,8 +1643,8 @@ async fn main() {
 <dl>
 <dd>
 
-**plan:** `CreateCheckoutBillingRequestPlan` 
-    
+**plan:** `CreateCheckoutBillingRequestPlan`
+
 </dd>
 </dl>
 </dd>
@@ -1759,8 +1759,8 @@ async fn main() {
 <dl>
 <dd>
 
-**cents:** `i64` 
-    
+**cents:** `i64`
+
 </dd>
 </dl>
 </dd>
@@ -1854,24 +1854,24 @@ async fn main() {
 <dl>
 <dd>
 
-**cursor:** `Option<String>` 
-    
+**cursor:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**q:** `Option<String>` 
-    
+**q:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Option<i64>` 
-    
+**limit:** `Option<i64>`
+
 </dd>
 </dl>
 </dd>
@@ -1910,6 +1910,7 @@ async fn main() {
             &CreateTrunkInput {
                 name: "name".to_string(),
                 description: None,
+                baseline: None,
             },
             None,
         )
@@ -1929,16 +1930,24 @@ async fn main() {
 <dl>
 <dd>
 
-**name:** `String` 
-    
+**name:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**description:** `Option<String>` 
-    
+**description:** `Option<String>`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**baseline:** `Option<CreateTrunkInputBaseline>` — Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
+
 </dd>
 </dl>
 </dd>
@@ -1987,8 +1996,8 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -2046,16 +2055,16 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Option<i64>` 
-    
+**limit:** `Option<i64>`
+
 </dd>
 </dl>
 </dd>
@@ -2128,16 +2137,16 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**before:** `Option<String>` 
-    
+**before:** `Option<String>`
+
 </dd>
 </dl>
 </dd>
@@ -2203,8 +2212,8 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -2270,16 +2279,16 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**event_id:** `String` 
-    
+**event_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -2329,8 +2338,8 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -2389,24 +2398,24 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**name:** `String` 
-    
+**name:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**slug:** `Option<String>` 
-    
+**slug:** `Option<String>`
+
 </dd>
 </dl>
 </dd>
@@ -2478,8 +2487,8 @@ async fn main() {
 <dl>
 <dd>
 
-**cursor:** `Option<String>` 
-    
+**cursor:** `Option<String>`
+
 </dd>
 </dl>
 </dd>
@@ -2550,16 +2559,16 @@ async fn main() {
 <dl>
 <dd>
 
-**cursor:** `Option<String>` 
-    
+**cursor:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Option<i64>` 
-    
+**limit:** `Option<i64>`
+
 </dd>
 </dl>
 </dd>
@@ -2627,16 +2636,16 @@ async fn main() {
 <dl>
 <dd>
 
-**name:** `String` 
-    
+**name:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**sources:** `Vec<ContextSetSource>` 
-    
+**sources:** `Vec<ContextSetSource>`
+
 </dd>
 </dl>
 </dd>
@@ -2688,8 +2697,8 @@ async fn main() {
 <dl>
 <dd>
 
-**context_set_id:** `String` 
-    
+**context_set_id:** `String`
+
 </dd>
 </dl>
 </dd>
@@ -2748,40 +2757,40 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cursor:** `Option<String>` 
-    
+**cursor:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**scope_id:** `Option<String>` 
-    
+**scope_id:** `Option<String>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**status:** `Option<ListReleasesRequestStatus>` 
-    
+**status:** `Option<ListReleasesRequestStatus>`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `Option<i64>` 
-    
+**limit:** `Option<i64>`
+
 </dd>
 </dl>
 </dd>
@@ -2839,16 +2848,16 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**evidence_reference:** `Option<String>` 
-    
+**evidence_reference:** `Option<String>`
+
 </dd>
 </dl>
 
@@ -2856,7 +2865,7 @@ async fn main() {
 <dd>
 
 **scope_id:** `Option<String>` — Defaults to the trunk General scope.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2908,16 +2917,16 @@ async fn main() {
 <dl>
 <dd>
 
-**trunk_id:** `String` 
-    
+**trunk_id:** `String`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**promotion_id:** `String` 
-    
+**promotion_id:** `String`
+
 </dd>
 </dl>
 </dd>

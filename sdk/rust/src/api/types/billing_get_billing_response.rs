@@ -5,16 +5,21 @@ pub struct GetBillingResponse {
     pub plan: GetBillingResponsePlan,
     #[serde(default)]
     pub accesses: i64,
-    /// Null while new usage allowances are pending approval.
+    /// Included successful file reads per billing period. An export counts every delivered file.
     #[serde(rename = "includedAccesses")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub included_accesses: Option<i64>,
+    /// Retained storage allowance in decimal bytes. Not a measured usage value.
+    #[serde(rename = "includedStorageBytes")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub included_storage_bytes: Option<i64>,
     #[serde(rename = "spendLimitCents")]
     #[serde(default)]
     pub spend_limit_cents: i64,
+    /// Whether successful context delivery metering is active.
     #[serde(rename = "meteringActive")]
     #[serde(default)]
-    pub metering_active: String,
+    pub metering_active: bool,
     #[serde(rename = "canManage")]
     #[serde(default)]
     pub can_manage: bool,
@@ -49,8 +54,9 @@ pub struct GetBillingResponseBuilder {
     plan: Option<GetBillingResponsePlan>,
     accesses: Option<i64>,
     included_accesses: Option<i64>,
+    included_storage_bytes: Option<i64>,
     spend_limit_cents: Option<i64>,
-    metering_active: Option<String>,
+    metering_active: Option<bool>,
     can_manage: Option<bool>,
     subscription_status: Option<String>,
     monthly_price_cents: Option<i64>,
@@ -76,13 +82,18 @@ impl GetBillingResponseBuilder {
         self
     }
 
+    pub fn included_storage_bytes(mut self, value: i64) -> Self {
+        self.included_storage_bytes = Some(value);
+        self
+    }
+
     pub fn spend_limit_cents(mut self, value: i64) -> Self {
         self.spend_limit_cents = Some(value);
         self
     }
 
-    pub fn metering_active(mut self, value: impl Into<String>) -> Self {
-        self.metering_active = Some(value.into());
+    pub fn metering_active(mut self, value: bool) -> Self {
+        self.metering_active = Some(value);
         self
     }
 
@@ -135,6 +146,7 @@ impl GetBillingResponseBuilder {
                 .accesses
                 .ok_or_else(|| BuildError::missing_field("accesses"))?,
             included_accesses: self.included_accesses,
+            included_storage_bytes: self.included_storage_bytes,
             spend_limit_cents: self
                 .spend_limit_cents
                 .ok_or_else(|| BuildError::missing_field("spend_limit_cents"))?,

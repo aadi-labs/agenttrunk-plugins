@@ -57,24 +57,24 @@ client.privacy.assign_review(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request_id:** `str` 
-    
+**request_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `typing.Dict[str, typing.Any]` 
-    
+**request:** `typing.Dict[str, typing.Any]`
+
 </dd>
 </dl>
 
@@ -82,7 +82,7 @@ client.privacy.assign_review(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -146,8 +146,8 @@ client.privacy.erasure_plan(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
@@ -155,7 +155,7 @@ client.privacy.erasure_plan(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -219,8 +219,8 @@ client.privacy.list(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
@@ -228,7 +228,7 @@ client.privacy.list(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -293,16 +293,16 @@ client.privacy.create(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**kind:** `CreatePrivacyRequestKind` 
-    
+**kind:** `CreatePrivacyRequestKind`
+
 </dd>
 </dl>
 
@@ -310,7 +310,7 @@ client.privacy.create(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -377,24 +377,24 @@ client.contexts.export(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `str` 
-    
+**revision_id:** `str`
+
 </dd>
 </dl>
 
@@ -402,7 +402,7 @@ client.contexts.export(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -468,24 +468,24 @@ client.contexts.get_rollback_plan(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `str` 
-    
+**revision_id:** `str`
+
 </dd>
 </dl>
 
@@ -493,7 +493,7 @@ client.contexts.get_rollback_plan(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -561,40 +561,40 @@ client.contexts.stage_rollback(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `str` 
-    
+**revision_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**expected_staging_revision_id:** `str` 
-    
+**expected_staging_revision_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**reason:** `str` 
-    
+**reason:** `str`
+
 </dd>
 </dl>
 
@@ -602,7 +602,7 @@ client.contexts.stage_rollback(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -661,72 +661,72 @@ client.contexts.publish(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**title:** `str` 
-    
+**title:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**kind:** `ContextKind` 
-    
+**kind:** `ContextKind`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**files:** `typing.List[FileInput]` 
-    
+**files:** `typing.List[FileInput]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**summary:** `typing.Optional[str]` 
-    
+**summary:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**tags:** `typing.Optional[typing.List[str]]` 
-    
+**tags:** `typing.Optional[typing.List[str]]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**claimed_digest:** `typing.Optional[str]` 
-    
+**claimed_digest:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**scope_id:** `typing.Optional[str]` 
-    
+**scope_id:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
@@ -734,7 +734,7 @@ client.contexts.publish(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -785,16 +785,16 @@ client.contexts.share(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
@@ -802,7 +802,7 @@ client.contexts.share(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -851,7 +851,7 @@ client.contexts.discover()
 <dd>
 
 **scope_id:** `typing.Optional[str]` — Filter by scope before applying the result limit.
-    
+
 </dd>
 </dl>
 
@@ -859,7 +859,7 @@ client.contexts.discover()
 <dd>
 
 **cursor:** `typing.Optional[str]` — Opaque snapshot continuation returned by the preceding page. Keep filters and principal unchanged; cursors expire after 15 minutes. Authorization is always rechecked. Restart pagination for expired or legacy numeric cursors.
-    
+
 </dd>
 </dl>
 
@@ -867,31 +867,31 @@ client.contexts.discover()
 <dd>
 
 **trunk_id:** `typing.Optional[str]` — Narrow discovery to this authorized trunk before applying the result limit.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**query:** `typing.Optional[str]` 
-    
+**query:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**channel:** `typing.Optional[DiscoverContextsRequestChannel]` 
-    
+**channel:** `typing.Optional[DiscoverContextsRequestChannel]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
-    
+**limit:** `typing.Optional[int]`
+
 </dd>
 </dl>
 
@@ -899,7 +899,7 @@ client.contexts.discover()
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -950,24 +950,24 @@ client.contexts.inspect(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref:** `typing.Optional[str]` 
-    
+**ref:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
@@ -975,7 +975,7 @@ client.contexts.inspect(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1053,32 +1053,32 @@ client.contexts.edit(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**expected_revision_id:** `str` 
-    
+**expected_revision_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**changes:** `typing.List[EditContextInputChangesItem]` 
-    
+**changes:** `typing.List[EditContextInputChangesItem]`
+
 </dd>
 </dl>
 
@@ -1086,7 +1086,7 @@ client.contexts.edit(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1151,32 +1151,32 @@ client.contexts.history(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**from:** `typing.Optional[str]` 
-    
+**from:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
-    
+**limit:** `typing.Optional[int]`
+
 </dd>
 </dl>
 
@@ -1184,7 +1184,7 @@ client.contexts.history(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1255,40 +1255,40 @@ client.contexts.compare(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**base:** `typing.Optional[str]` 
-    
+**base:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**target:** `typing.Optional[str]` 
-    
+**target:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**path:** `typing.Optional[str]` 
-    
+**path:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
@@ -1296,7 +1296,7 @@ client.contexts.compare(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1347,24 +1347,24 @@ client.contexts.get_provenance(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**ref:** `typing.Optional[str]` 
-    
+**ref:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
@@ -1372,7 +1372,7 @@ client.contexts.get_provenance(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1439,24 +1439,24 @@ client.contexts.put_provenance(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**revision_id:** `str` 
-    
+**revision_id:** `str`
+
 </dd>
 </dl>
 
@@ -1464,7 +1464,7 @@ client.contexts.put_provenance(
 <dd>
 
 **text:** `str` — Maximum 16000 UTF-8 bytes; not 16000 arbitrary Unicode characters.
-    
+
 </dd>
 </dl>
 
@@ -1472,7 +1472,7 @@ client.contexts.put_provenance(
 <dd>
 
 **expected_notes_commit_sha:** `typing.Optional[str]` — Null for the first note; otherwise the notesCommitSha returned by GET.
-    
+
 </dd>
 </dl>
 
@@ -1480,7 +1480,7 @@ client.contexts.put_provenance(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1533,24 +1533,24 @@ client.contexts.read_file(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**context_key:** `str` 
-    
+**context_key:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**resource_path:** `str` 
-    
+**resource_path:** `str`
+
 </dd>
 </dl>
 
@@ -1558,7 +1558,7 @@ client.contexts.read_file(
 <dd>
 
 **ref:** `str` — Immutable revision ID from inspect; resolve moving channels before reading.
-    
+
 </dd>
 </dl>
 
@@ -1566,7 +1566,7 @@ client.contexts.read_file(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1630,7 +1630,7 @@ client.billing.get()
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1694,8 +1694,8 @@ client.billing.create_checkout(
 <dl>
 <dd>
 
-**plan:** `CreateCheckoutBillingRequestPlan` 
-    
+**plan:** `CreateCheckoutBillingRequestPlan`
+
 </dd>
 </dl>
 
@@ -1703,7 +1703,7 @@ client.billing.create_checkout(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1766,7 +1766,7 @@ client.billing.create_portal()
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1830,8 +1830,8 @@ client.billing.set_spend_limit(
 <dl>
 <dd>
 
-**cents:** `int` 
-    
+**cents:** `int`
+
 </dd>
 </dl>
 
@@ -1839,7 +1839,7 @@ client.billing.set_spend_limit(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1889,7 +1889,7 @@ client.health.get()
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -1938,24 +1938,24 @@ client.workspaces.list()
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` 
-    
+**cursor:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**q:** `typing.Optional[str]` 
-    
+**q:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
-    
+**limit:** `typing.Optional[int]`
+
 </dd>
 </dl>
 
@@ -1963,7 +1963,7 @@ client.workspaces.list()
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2013,16 +2013,24 @@ client.workspaces.create(
 <dl>
 <dd>
 
-**name:** `str` 
-    
+**name:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**description:** `typing.Optional[str]` 
-    
+**description:** `typing.Optional[str]`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**baseline:** `typing.Optional[CreateTrunkInputBaseline]` — Copy one authorized immutable context revision into the new workspace's staging environment. Copies verified files and current display metadata, not history, notes, permissions or production releases. The workspace name is reserved for this exact baseline; retry with identical inputs after a partial failure. Destination storage allowances apply. This is a snapshot copy, not a full Git repository fork.
+
 </dd>
 </dl>
 
@@ -2030,7 +2038,7 @@ client.workspaces.create(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2080,8 +2088,8 @@ client.workspaces.get(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
@@ -2089,7 +2097,7 @@ client.workspaces.get(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2139,16 +2147,16 @@ client.workspaces.audit(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
-    
+**limit:** `typing.Optional[int]`
+
 </dd>
 </dl>
 
@@ -2156,7 +2164,7 @@ client.workspaces.audit(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2221,16 +2229,16 @@ client.webhooks.list(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` 
-    
+**before:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
@@ -2238,7 +2246,7 @@ client.webhooks.list(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2302,8 +2310,8 @@ client.webhooks.create_portal(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
@@ -2311,7 +2319,7 @@ client.webhooks.create_portal(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2376,16 +2384,16 @@ client.webhooks.retry(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**event_id:** `str` 
-    
+**event_id:** `str`
+
 </dd>
 </dl>
 
@@ -2393,7 +2401,7 @@ client.webhooks.retry(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2444,8 +2452,8 @@ client.scopes.list(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
@@ -2453,7 +2461,7 @@ client.scopes.list(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2504,24 +2512,24 @@ client.scopes.create(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**name:** `str` 
-    
+**name:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**slug:** `typing.Optional[str]` 
-    
+**slug:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
@@ -2529,7 +2537,7 @@ client.scopes.create(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2592,8 +2600,8 @@ client.context_sets.sources()
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` 
-    
+**cursor:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
@@ -2601,7 +2609,7 @@ client.context_sets.sources()
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2663,16 +2671,16 @@ client.context_sets.list()
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` 
-    
+**cursor:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
-    
+**limit:** `typing.Optional[int]`
+
 </dd>
 </dl>
 
@@ -2680,7 +2688,7 @@ client.context_sets.list()
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2742,16 +2750,16 @@ client.context_sets.create(
 <dl>
 <dd>
 
-**name:** `str` 
-    
+**name:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**sources:** `typing.List[ContextSetSource]` 
-    
+**sources:** `typing.List[ContextSetSource]`
+
 </dd>
 </dl>
 
@@ -2759,7 +2767,7 @@ client.context_sets.create(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2809,8 +2817,8 @@ client.context_sets.resolve(
 <dl>
 <dd>
 
-**context_set_id:** `str` 
-    
+**context_set_id:** `str`
+
 </dd>
 </dl>
 
@@ -2818,7 +2826,7 @@ client.context_sets.resolve(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2869,40 +2877,40 @@ client.releases.list(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` 
-    
+**cursor:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**scope_id:** `typing.Optional[str]` 
-    
+**scope_id:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**status:** `typing.Optional[ListReleasesRequestStatus]` 
-    
+**status:** `typing.Optional[ListReleasesRequestStatus]`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
-    
+**limit:** `typing.Optional[int]`
+
 </dd>
 </dl>
 
@@ -2910,7 +2918,7 @@ client.releases.list(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -2960,16 +2968,16 @@ client.releases.open(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**evidence_reference:** `typing.Optional[str]` 
-    
+**evidence_reference:** `typing.Optional[str]`
+
 </dd>
 </dl>
 
@@ -2977,7 +2985,7 @@ client.releases.open(
 <dd>
 
 **scope_id:** `typing.Optional[str]` — Defaults to the trunk General scope.
-    
+
 </dd>
 </dl>
 
@@ -2985,7 +2993,7 @@ client.releases.open(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>
@@ -3036,16 +3044,16 @@ client.releases.merge(
 <dl>
 <dd>
 
-**trunk_id:** `str` 
-    
+**trunk_id:** `str`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**promotion_id:** `str` 
-    
+**promotion_id:** `str`
+
 </dd>
 </dl>
 
@@ -3053,7 +3061,7 @@ client.releases.merge(
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
+
 </dd>
 </dl>
 </dd>

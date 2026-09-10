@@ -36,6 +36,12 @@ await patch(sw+'Public/ClientConfig.swift','static let maxRetries: Swift.Int = 2
 await patch(sw+'Core/Networking/HTTPClient.swift','let maxRetries = retriesDisabled ? 0 : (requestOptions?.maxRetries ?? clientConfig.maxRetries)','let maxRetries = (retriesDisabled || !["GET", "HEAD"].contains(request.httpMethod ?? "")) ? 0 : max(0, requestOptions?.maxRetries ?? clientConfig.maxRetries)');
 await patch(sw+'Core/Networking/HTTPClient.swift','clientConfig.urlSession.data(for: request)','AgentTrunkSafety.data(for: request, session: clientConfig.urlSession)');
 const rs='sdk/rust/';
+// A required nullable concurrency token must serialize None as JSON null, not
+// omission. Keep this guarded workaround until the pinned generator handles it.
+await patch(rs+'src/api/types/put_provenance_contexts_request.rs',
+ '    #[serde(rename = "expectedNotesCommitSha")]\n    #[serde(skip_serializing_if = "Option::is_none")]',
+ '    // Required nullable field: None must serialize as JSON null.\n    #[serde(rename = "expectedNotesCommitSha")]');
+await copyFile('client-extensions/rust/contract_regressions.rs',rs+'tests/contract_regressions.rs');
 await patch(rs+'Cargo.toml','features = ["json", "stream", "gzip"]','features = ["json", "stream", "gzip", "rustls-tls"]');
 await patch(rs+'src/config.rs','max_retries: 3','max_retries: 0');
 await patch(rs+'src/core/http_client.rs','.timeout(config.timeout)','.redirect(reqwest::redirect::Policy::none())\n                .timeout(config.timeout)');
@@ -105,3 +111,11 @@ await copyFile('client-extensions/swift/manifest.json','sdk/swift/Tests/AgentTru
 await patch('sdk/swift/Package.swift','path: "Tests"','path: "Tests",\n            exclude: ["AgentTrunk/manifest.json"]');
 const swiftManifest=await readFile('sdk/swift/Package.swift','utf8');
 await writeFile('Package.swift',swiftManifest.replace('path: "Sources"','path: "sdk/swift/Sources"').replace('path: "Tests"','path: "sdk/swift/Tests"'));
+
+// Fern references contain whitespace-only code-block lines. Normalize these in
+// the generator pipeline rather than hand-editing generated documentation.
+for(const language of ['typescript','python','go','rust','ruby','swift']) {
+ const path=`sdk/${language}/reference.md`;
+ try {await writeFile(path,(await readFile(path,'utf8')).replace(/[\t ]+$/gm,''));}
+ catch(error){if(error.code!=='ENOENT')throw error;}
+}

@@ -266,6 +266,14 @@ func TestSettersGetBillingResponse(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetIncludedStorageBytes", func(t *testing.T) {
+		obj := &GetBillingResponse{}
+		var fernTestValueIncludedStorageBytes *int
+		obj.SetIncludedStorageBytes(fernTestValueIncludedStorageBytes)
+		assert.Equal(t, fernTestValueIncludedStorageBytes, obj.IncludedStorageBytes)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetSpendLimitCents", func(t *testing.T) {
 		obj := &GetBillingResponse{}
 		var fernTestValueSpendLimitCents int
@@ -276,7 +284,7 @@ func TestSettersGetBillingResponse(t *testing.T) {
 
 	t.Run("SetMeteringActive", func(t *testing.T) {
 		obj := &GetBillingResponse{}
-		var fernTestValueMeteringActive string
+		var fernTestValueMeteringActive bool
 		obj.SetMeteringActive(fernTestValueMeteringActive)
 		assert.Equal(t, fernTestValueMeteringActive, obj.MeteringActive)
 		assert.NotNil(t, obj.explicitFields)
@@ -420,6 +428,39 @@ func TestGettersGetBillingResponse(t *testing.T) {
 		_ = obj.GetIncludedAccesses() // Should return zero value
 	})
 
+	t.Run("GetIncludedStorageBytes", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &GetBillingResponse{}
+		var expected *int
+		obj.IncludedStorageBytes = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetIncludedStorageBytes(), "getter should return the property value")
+	})
+
+	t.Run("GetIncludedStorageBytes_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &GetBillingResponse{}
+		obj.IncludedStorageBytes = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetIncludedStorageBytes(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetIncludedStorageBytes_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *GetBillingResponse
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetIncludedStorageBytes() // Should return zero value
+	})
+
 	t.Run("GetSpendLimitCents", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
@@ -447,7 +488,7 @@ func TestGettersGetBillingResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &GetBillingResponse{}
-		var expected string
+		var expected bool
 		obj.MeteringActive = expected
 
 		// Act & Assert
@@ -783,6 +824,37 @@ func TestSettersMarkExplicitGetBillingResponse(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
+	t.Run("SetIncludedStorageBytes_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &GetBillingResponse{}
+		var fernTestValueIncludedStorageBytes *int
+
+		// Act
+		obj.SetIncludedStorageBytes(fernTestValueIncludedStorageBytes)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
 	t.Run("SetSpendLimitCents_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
@@ -818,7 +890,7 @@ func TestSettersMarkExplicitGetBillingResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &GetBillingResponse{}
-		var fernTestValueMeteringActive string
+		var fernTestValueMeteringActive bool
 
 		// Act
 		obj.SetMeteringActive(fernTestValueMeteringActive)
