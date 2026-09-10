@@ -16,8 +16,11 @@ for (const language of ['typescript','python','go']) await copy('LICENSE', `sdk/
 await copy('client-extensions/typescript/safety.ts', 'sdk/typescript/src/core/fetcher/safety.ts');
 await copy('client-extensions/python/safety.py', 'sdk/python/src/agenttrunk/core/safety.py');
 await copy('client-extensions/python/verified.py', 'sdk/python/src/agenttrunk/verified.py');
+await copy('client-extensions/python/agent_auth.py', 'sdk/python/src/agenttrunk/agent_auth.py');
 await copy('client-extensions/go/safety.go', 'sdk/go/internal/safety.go');
 await copy('client-extensions/go/verified.go', 'sdk/go/verified/verified.go');
+await copy('client-extensions/go/agent_auth.go', 'sdk/go/agentauth/agent_auth.go');
+await copy('client-extensions/go/agent_auth_test.go', 'sdk/go/agentauth/agent_auth_test.go');
 await copy('client-extensions/go/verified_test.go', 'sdk/go/verified/verified_test.go');
 await copy('client-extensions/go/quickstart.go', 'sdk/go/examples/quickstart/main.go');
 

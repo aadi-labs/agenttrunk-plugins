@@ -1576,6 +1576,66 @@
       }
     },
     "/v1/trunks/{trunkId}/contexts/{contextKey}": {
+      "patch": {
+        "operationId": "contexts_edit",
+        "description": "Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.\nRequires staging read and deployment permission. expectedRevisionId must equal the current\nstaging revision. Concurrent branch changes return 409; reread and reconcile, never blindly\nretry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,\nand 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing\nfile is invalid. Identical content is a no-op; restoring historical content uses rollback.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TrunkId"
+          },
+          {
+            "$ref": "#/components/parameters/ContextKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditContextInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Context metadata and the immutable resulting revision.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "context",
+                    "revision"
+                  ],
+                  "properties": {
+                    "context": {
+                      "$ref": "#/components/schemas/Context"
+                    },
+                    "revision": {
+                      "$ref": "#/components/schemas/Revision"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidInput"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        },
+        "tags": [
+          "contexts"
+        ],
+        "x-fern-sdk-group-name": "contexts",
+        "x-fern-sdk-method-name": "edit"
+      },
       "get": {
         "operationId": "contexts_inspect",
         "parameters": [
@@ -2272,6 +2332,76 @@
           "scopeId": {
             "type": "string",
             "maxLength": 200
+          }
+        }
+      },
+      "EditContextInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expectedRevisionId",
+          "changes"
+        ],
+        "properties": {
+          "expectedRevisionId": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "changes": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 256,
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operation",
+                    "path",
+                    "contentBase64"
+                  ],
+                  "properties": {
+                    "operation": {
+                      "type": "string",
+                      "enum": [
+                        "put"
+                      ]
+                    },
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 512
+                    },
+                    "contentBase64": {
+                      "type": "string",
+                      "maxLength": 1400000
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operation",
+                    "path"
+                  ],
+                  "properties": {
+                    "operation": {
+                      "type": "string",
+                      "enum": [
+                        "delete"
+                      ]
+                    },
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 512
+                    }
+                  }
+                }
+              ]
+            }
           }
         }
       },

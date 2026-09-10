@@ -1,5 +1,17 @@
 # AgentTrunk CLI
 
+Use `skills pull`, `skills status`, and `skills push` for verified local context
+folders. Pull/push preview unless `--execute --yes` is supplied; pushes update
+staging, not production. See [skill sync](../docs/skill-sync.md).
+`auth logout --yes` clears local CLI credentials without revoking remote grants.
+
+For partial changes, preview with `agenttrunk api contexts.edit --input edit.json`,
+then add `--execute --yes` when authorized. Input contains `trunkId`, `contextKey`,
+and `request: {expectedRevisionId, changes}`. Inspect staging for the expected
+revision. Changes use `{operation: "put", path, contentBase64}` or
+`{operation: "delete", path}`; omitted files stay intact. Reconcile conflicts.
+See the [edit example](../examples/workflows/edit-context/README.md).
+
 Build the repository and use `node dist/cli/index.js` from its root, or install with `npm install -g .` to use `agenttrunk`. Requires Node.js 22+. `--help` needs no credentials.
 
 The CLI prefers runtime-injected `AGENTTRUNK_ACCESS_TOKEN` and optional `AGENTTRUNK_API_URL`. Otherwise it exchanges a token from its human-approved local registration. It does not load `.env` or print credentials. See [setup](../docs/setup.md) for registration and explicit refresh.

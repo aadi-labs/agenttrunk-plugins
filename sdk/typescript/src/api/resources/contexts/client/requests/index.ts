@@ -1,5 +1,6 @@
 export type { CompareContextsRequest } from "./CompareContextsRequest.js";
 export type { DiscoverContextsRequest } from "./DiscoverContextsRequest.js";
+export type { EditContextInput } from "./EditContextInput.js";
 export type { ExportContextsRequest } from "./ExportContextsRequest.js";
 export type { GetProvenanceContextsRequest } from "./GetProvenanceContextsRequest.js";
 export type { GetRollbackPlanContextsRequest } from "./GetRollbackPlanContextsRequest.js";

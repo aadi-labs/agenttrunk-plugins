@@ -41,7 +41,7 @@ const naming = {
   publishContextRevision: ['contexts', 'publish'], listContextHistory: ['contexts', 'history'], compareContextRevisions: ['contexts', 'compare'],
   getRevisionProvenance: ['contexts', 'getProvenance'], putRevisionProvenance: ['contexts', 'putProvenance'],
   getRollbackPlan: ['contexts', 'getRollbackPlan'], stageRollback: ['contexts', 'stageRollback'],
-  shareContextItem: ['contexts', 'share'],
+  shareContextItem: ['contexts', 'share'], editContext: ['contexts', 'edit'],
   listPromotionRequests: ['releases', 'list'], openPromotionRequest: ['releases', 'open'], mergePromotionRequest: ['releases', 'merge'],
   listAvailableContextSources: ['contextSets', 'sources'], listContextSets: ['contextSets', 'list'], createContextSet: ['contextSets', 'create'], resolveContextSet: ['contextSets', 'resolve'],
   listTrunkAudit: ['workspaces', 'audit'],

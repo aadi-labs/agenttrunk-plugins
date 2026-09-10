@@ -8,6 +8,14 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .discover_contexts_request_channel import DiscoverContextsRequestChannel
     from .discover_contexts_response import DiscoverContextsResponse
+    from .edit_context_input_changes_item import (
+        EditContextInputChangesItem,
+        EditContextInputChangesItem_Delete,
+        EditContextInputChangesItem_Put,
+    )
+    from .edit_context_input_changes_item_delete import EditContextInputChangesItemDelete
+    from .edit_context_input_changes_item_put import EditContextInputChangesItemPut
+    from .edit_contexts_response import EditContextsResponse
     from .get_rollback_plan_contexts_response import GetRollbackPlanContextsResponse
     from .history_contexts_response import HistoryContextsResponse
     from .inspect_contexts_response import InspectContextsResponse
@@ -15,6 +23,12 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "DiscoverContextsRequestChannel": ".discover_contexts_request_channel",
     "DiscoverContextsResponse": ".discover_contexts_response",
+    "EditContextInputChangesItem": ".edit_context_input_changes_item",
+    "EditContextInputChangesItemDelete": ".edit_context_input_changes_item_delete",
+    "EditContextInputChangesItemPut": ".edit_context_input_changes_item_put",
+    "EditContextInputChangesItem_Delete": ".edit_context_input_changes_item",
+    "EditContextInputChangesItem_Put": ".edit_context_input_changes_item",
+    "EditContextsResponse": ".edit_contexts_response",
     "GetRollbackPlanContextsResponse": ".get_rollback_plan_contexts_response",
     "HistoryContextsResponse": ".history_contexts_response",
     "InspectContextsResponse": ".inspect_contexts_response",
@@ -46,6 +60,12 @@ def __dir__():
 __all__ = [
     "DiscoverContextsRequestChannel",
     "DiscoverContextsResponse",
+    "EditContextInputChangesItem",
+    "EditContextInputChangesItemDelete",
+    "EditContextInputChangesItemPut",
+    "EditContextInputChangesItem_Delete",
+    "EditContextInputChangesItem_Put",
+    "EditContextsResponse",
     "GetRollbackPlanContextsResponse",
     "HistoryContextsResponse",
     "InspectContextsResponse",

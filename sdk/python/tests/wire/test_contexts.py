@@ -1,6 +1,7 @@
 from .conftest import get_client, verify_request_count
 
 from agenttrunk import FileInput
+from agenttrunk.contexts import EditContextInputChangesItem_Put
 
 
 def test_contexts_export() -> None:
@@ -92,6 +93,24 @@ def test_contexts_inspect() -> None:
         context_key="contextKey",
     )
     verify_request_count(test_id, "GET", "/v1/trunks/trunkId/contexts/contextKey", None, 1)
+
+
+def test_contexts_edit() -> None:
+    """Test edit endpoint with WireMock"""
+    test_id = "contexts.edit.0"
+    client = get_client(test_id)
+    client.contexts.edit(
+        trunk_id="trunkId",
+        context_key="contextKey",
+        expected_revision_id="expectedRevisionId",
+        changes=[
+            EditContextInputChangesItem_Put(
+                path="path",
+                content_base64="contentBase64",
+            )
+        ],
+    )
+    verify_request_count(test_id, "PATCH", "/v1/trunks/trunkId/contexts/contextKey", None, 1)
 
 
 def test_contexts_history() -> None:

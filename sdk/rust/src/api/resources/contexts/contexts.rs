@@ -357,6 +357,71 @@ impl ContextsClient {
             .await
     }
 
+    /// Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+    /// Requires staging read and deployment permission. expectedRevisionId must equal the current
+    /// staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+    /// retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+    /// and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+    /// file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+    ///
+    /// # Arguments
+    ///
+    /// * `options` - Additional request options such as headers, timeout, etc.
+    ///
+    /// # Returns
+    ///
+    /// JSON response from the API
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use agenttrunk::prelude::*;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let config = ClientConfig {
+    ///         token: Some("<token>".to_string()),
+    ///         ..Default::default()
+    ///     };
+    ///     let client = AgentTrunk::new(config).expect("Failed to build client");
+    ///     client
+    ///         .contexts
+    ///         .edit(
+    ///             &"trunkId".to_string(),
+    ///             &"contextKey".to_string(),
+    ///             &EditContextInput {
+    ///                 expected_revision_id: "expectedRevisionId".to_string(),
+    ///                 changes: vec![EditContextInputChangesItem::Put {
+    ///                     data: EditContextInputChangesItemPut {
+    ///                         path: "path".to_string(),
+    ///                         content_base64: "contentBase64".to_string(),
+    ///                         ..Default::default()
+    ///                     },
+    ///                 }],
+    ///             },
+    ///             None,
+    ///         )
+    ///         .await;
+    /// }
+    /// ```
+    pub async fn edit(
+        &self,
+        trunk_id: &str,
+        context_key: &str,
+        request: &EditContextInput,
+        options: Option<RequestOptions>,
+    ) -> Result<EditContextsResponse, ApiError> {
+        self.http_client
+            .execute_request(
+                Method::PATCH,
+                &format!("v1/trunks/{}/contexts/{}", crate::safety::path_param(trunk_id)?, crate::safety::path_param(context_key)?),
+                Some(serde_json::to_value(request).map_err(ApiError::Serialization)?),
+                None,
+                options,
+            )
+            .await
+    }
+
     /// Follows immutable parent revisions, authorizing every revision. Historic IDs require staging read or shared-context-item read access.
     ///
     /// # Arguments

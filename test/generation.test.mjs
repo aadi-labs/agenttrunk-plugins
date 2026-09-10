@@ -15,7 +15,7 @@ test('every normalized SDK operation is exposed by the generated TypeScript clie
       count++;
     }
   }
-  assert.equal(count,37);
+  assert.equal(count,38);
   const read = spec.paths['/v1/trunks/{trunkId}/contexts/{contextKey}/files/{resourcePath}'].get;
   assert.equal(read.parameters.find(p=>p.name==='ref').required,true);
   assert.ok(spec.components.schemas.DiscoveryResult.required.includes('contextKey'));

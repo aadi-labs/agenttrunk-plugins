@@ -509,6 +509,178 @@ describe("ContextsClient", () => {
         }).rejects.toThrow(AgentTrunkApi.NotFoundError);
     });
 
+    test("edit (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new AgentTrunkClient({ maxRetries: 0, accessToken: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            expectedRevisionId: "expectedRevisionId",
+            changes: [{ operation: "put", path: "path", contentBase64: "contentBase64" }],
+        };
+        const rawResponseBody = {
+            context: {
+                id: "id",
+                trunkId: "trunkId",
+                scopeId: "scopeId",
+                key: "key",
+                title: "title",
+                kind: "skill",
+                summary: "summary",
+                tags: ["tags"],
+                createdAt: "2024-01-15T09:30:00Z",
+                updatedAt: "2024-01-15T09:30:00Z",
+            },
+            revision: {
+                id: "id",
+                contextId: "contextId",
+                packageDigest: "packageDigest",
+                parentRevisionId: "parentRevisionId",
+                files: [{ path: "path", size: 1, sha256: "sha256" }],
+                createdAt: "2024-01-15T09:30:00Z",
+            },
+        };
+
+        server
+            .mockEndpoint()
+            .patch("/v1/trunks/trunkId/contexts/contextKey")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.contexts.edit("trunkId", "contextKey", {
+            expectedRevisionId: "expectedRevisionId",
+            changes: [
+                {
+                    operation: "put",
+                    path: "path",
+                    contentBase64: "contentBase64",
+                },
+            ],
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("edit (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new AgentTrunkClient({ maxRetries: 0, accessToken: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            expectedRevisionId: "expectedRevisionId",
+            changes: [
+                { operation: "put", path: "x", contentBase64: "contentBase64" },
+                { operation: "put", path: "x", contentBase64: "contentBase64" },
+            ],
+        };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .patch("/v1/trunks/trunkId/contexts/contextKey")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contexts.edit("trunkId", "contextKey", {
+                expectedRevisionId: "expectedRevisionId",
+                changes: [
+                    {
+                        operation: "put",
+                        path: "x",
+                        contentBase64: "contentBase64",
+                    },
+                    {
+                        operation: "put",
+                        path: "x",
+                        contentBase64: "contentBase64",
+                    },
+                ],
+            });
+        }).rejects.toThrow(AgentTrunkApi.BadRequestError);
+    });
+
+    test("edit (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new AgentTrunkClient({ maxRetries: 0, accessToken: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            expectedRevisionId: "expectedRevisionId",
+            changes: [
+                { operation: "put", path: "x", contentBase64: "contentBase64" },
+                { operation: "put", path: "x", contentBase64: "contentBase64" },
+            ],
+        };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .patch("/v1/trunks/trunkId/contexts/contextKey")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contexts.edit("trunkId", "contextKey", {
+                expectedRevisionId: "expectedRevisionId",
+                changes: [
+                    {
+                        operation: "put",
+                        path: "x",
+                        contentBase64: "contentBase64",
+                    },
+                    {
+                        operation: "put",
+                        path: "x",
+                        contentBase64: "contentBase64",
+                    },
+                ],
+            });
+        }).rejects.toThrow(AgentTrunkApi.NotFoundError);
+    });
+
+    test("edit (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new AgentTrunkClient({ maxRetries: 0, accessToken: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            expectedRevisionId: "expectedRevisionId",
+            changes: [
+                { operation: "put", path: "x", contentBase64: "contentBase64" },
+                { operation: "put", path: "x", contentBase64: "contentBase64" },
+            ],
+        };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .patch("/v1/trunks/trunkId/contexts/contextKey")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contexts.edit("trunkId", "contextKey", {
+                expectedRevisionId: "expectedRevisionId",
+                changes: [
+                    {
+                        operation: "put",
+                        path: "x",
+                        contentBase64: "contentBase64",
+                    },
+                    {
+                        operation: "put",
+                        path: "x",
+                        contentBase64: "contentBase64",
+                    },
+                ],
+            });
+        }).rejects.toThrow(AgentTrunkApi.ConflictError);
+    });
+
     test("history (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new AgentTrunkClient({ maxRetries: 0, accessToken: "test", environment: server.baseUrl });

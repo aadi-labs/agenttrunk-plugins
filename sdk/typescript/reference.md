@@ -762,6 +762,97 @@ await client.contexts.inspect("trunkId", "contextKey");
 </dl>
 </details>
 
+<details><summary><code>client.contexts.<a href="/src/api/resources/contexts/client/Client.ts">edit</a>(trunkId, contextKey, { ...params }) -> AgentTrunkApi.EditContextsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+Requires staging read and deployment permission. expectedRevisionId must equal the current
+staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.contexts.edit("trunkId", "contextKey", {
+    expectedRevisionId: "expectedRevisionId",
+    changes: [{
+            operation: "put",
+            path: "path",
+            contentBase64: "contentBase64"
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trunkId:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contextKey:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `AgentTrunkApi.EditContextInput` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ContextsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.contexts.<a href="/src/api/resources/contexts/client/Client.ts">history</a>(trunkId, contextKey, { ...params }) -> AgentTrunkApi.HistoryContextsResponse</code></summary>
 <dl>
 <dd>

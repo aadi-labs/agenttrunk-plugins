@@ -44,6 +44,7 @@ pub mod core;
 pub mod environment;
 pub mod error;
 pub mod prelude;
+pub mod agent_auth;
 
 pub use api::*;
 pub use client::*;

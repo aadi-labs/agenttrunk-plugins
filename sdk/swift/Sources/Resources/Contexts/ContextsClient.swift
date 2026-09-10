@@ -231,6 +231,51 @@ public final class ContextsClient: Sendable {
         )
     }
 
+    /// Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+    /// Requires staging read and deployment permission. expectedRevisionId must equal the current
+    /// staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+    /// retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+    /// and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+    /// file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import AgentTrunk
+    ///
+    /// private func main() async throws {
+    ///     let client = AgentTrunk(accessToken: "<token>")
+    ///
+    ///     _ = try await client.contexts.edit(
+    ///         trunkId: "trunkId",
+    ///         contextKey: "contextKey",
+    ///         request: .init(
+    ///             expectedRevisionId: "expectedRevisionId",
+    ///             changes: [
+    ///                 EditContextInputChangesItem.put(
+    ///                     EditContextInputChangesItemPut(
+    ///                         path: "path",
+    ///                         contentBase64: "contentBase64"
+    ///                     )
+    ///                 )
+    ///             ]
+    ///         )
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func edit(trunkId: String, contextKey: String, request: Requests.EditContextInput, requestOptions: RequestOptions? = nil) async throws -> EditContextsResponse {
+        return try await httpClient.performRequest(
+            method: .patch,
+            path: "/v1/trunks/\(trunkId)/contexts/\(contextKey)",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: EditContextsResponse.self
+        )
+    }
+
     /// Follows immutable parent revisions, authorizing every revision. Historic IDs require staging read or shared-context-item read access.
     ///
     /// ```swift

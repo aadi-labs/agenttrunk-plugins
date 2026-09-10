@@ -1,5 +1,10 @@
 # SDK integration
 
+Native registration helpers in all six languages cover discovery, human approval,
+exchange and explicit refresh. See the [authentication lifecycle guide](https://github.com/aadi-labs/agenttrunk-plugins/blob/main/docs/native-agent-auth.md).
+For managed local folders, follow [sync](sync.md); sync is a CLI workflow, not a
+background SDK service.
+
 Choose the language already used by the calling runtime. Fern generates TypeScript, Python, Go, Rust, Ruby and Swift resource clients from one reviewed public contract.
 
 | Language | Install before registry publication | Entry point |
@@ -22,4 +27,4 @@ Generated clients also expose context sets, provenance, rollback, webhooks, bill
 
 For regeneration use the [Fern guide](https://github.com/aadi-labs/agenttrunk-plugins/blob/main/docs/sdk-generation.md). Modify the schema overlay or authored extensions, never generated API methods directly.
 
-The [workflow cookbook](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/examples/workflows) provides 14 paired TypeScript/Python recipes. Rust, Ruby and Swift also supply `verified` helpers; consult their language guides. Custom Rust transports own redirect/retry policy; use defaults unless you can enforce those constraints.
+The [workflow cookbook](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/examples/workflows) provides 15 paired TypeScript/Python recipes, including incremental edits. Use generated `contexts.edit` (Go: `Contexts.Edit`) with the current staging revision to preserve untouched files; the TypeScript convenience class does not expose it. Rust, Ruby and Swift also supply `verified` helpers; consult their language guides. Custom Rust transports own redirect/retry policy; use defaults unless you can enforce those constraints.

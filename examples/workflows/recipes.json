@@ -1,5 +1,9 @@
 [
   {
+    "name": "edit-context",
+    "operation": "contexts.edit"
+  },
+  {
     "name": "workspace-audit",
     "operation": "workspaces.audit"
   },

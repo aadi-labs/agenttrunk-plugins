@@ -95,7 +95,7 @@ Open a release request after reviewing staging. A request covers the **whole sco
 
 ## Coverage and validation
 
-Fern generates 37 public operations across workspaces, scopes, contexts, releases, context sets, webhooks, billing, privacy and health. The existing TypeScript convenience API and CLI retain their bounded core workflow. There is no MCP server, credential issuer or agent execution engine. See [SDK generation and coverage](docs/sdk-generation.md) for schema limitations and the excluded provider callback.
+Fern generates 38 public operations across workspaces, scopes, contexts, releases, context sets, webhooks, billing, privacy and health. The existing TypeScript convenience API and CLI retain their bounded core workflow. The platform's [operational MCP](fern/pages/guides/mcp.mdx) exposes named, typed tools for client-side discovery and composition; this package does not itself host a server, issue credentials or execute agents. See [SDK generation and coverage](docs/sdk-generation.md) for schema limitations and the excluded provider callback.
 
 ```sh
 npm ci
@@ -112,11 +112,11 @@ Validation checks documentation links, catalog targets and packaged discovery re
 
 ## Integration coverage
 
-Fern generates **TypeScript, Python (sync/async), Go, Rust, Ruby and Swift** clients for all 37 public operations. Each has a source-install guide, method reference and verified-file helper. [Choose an SDK](sdk/README.md).
+Fern generates **TypeScript, Python (sync/async), Go, Rust, Ruby and Swift** clients for all 38 public operations. Each has a source-install guide, method reference and verified-file helper. [Choose an SDK](sdk/README.md).
 
 Claude, Codex, Cursor, Pi, OpenCode, OpenClaw, Hermes and Agent Plugins clients consume one canonical skill through shared packaging. [Install for your harness](docs/installation.md), run `agenttrunk doctor`, then connect the authorized runtime.
 
-The [workflow cookbook](examples/workflows/README.md) includes 14 paired TypeScript/Python recipes. The CLI exposes every generated SDK operation with local previews. [Release and hosted readiness](docs/readiness.md) records what local checks establish and what requires provider or registry acceptance.
+The [workflow cookbook](examples/workflows/README.md) includes 15 paired TypeScript/Python recipes, including incremental file edits. The CLI exposes every generated SDK operation with local previews. [Release and hosted readiness](docs/readiness.md) records what local checks establish and what requires provider or registry acceptance.
 # Human-approved agent signup and sign-in
 
 Run `agenttrunk auth discover`, then `agenttrunk auth start --email HUMAN_EMAIL`.

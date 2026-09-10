@@ -202,6 +202,32 @@ export const operations = [
     ]
   },
   {
+    "name": "contexts.edit",
+    "group": "contexts",
+    "method": "edit",
+    "verb": "PATCH",
+    "path": "/v1/trunks/{trunkId}/contexts/{contextKey}",
+    "summary": "Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.\nRequires staging read and deployment permission. expectedRevisionId must equal the current\nstaging revision. Concurrent branch changes return 409; reread and reconcile, never blindly\nretry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,\nand 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing\nfile is invalid. Identical content is a no-op; restoring historical content uses rollback.\n",
+    "parameters": [
+      {
+        "name": "trunkId",
+        "required": true
+      },
+      {
+        "name": "contextKey",
+        "required": true
+      },
+      {
+        "name": "request",
+        "required": true
+      }
+    ],
+    "requestSchema": {
+      "$ref": "#/components/schemas/EditContextInput"
+    },
+    "query": []
+  },
+  {
     "name": "contexts.export",
     "group": "contexts",
     "method": "export",

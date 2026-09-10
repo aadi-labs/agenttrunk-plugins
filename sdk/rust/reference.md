@@ -950,6 +950,110 @@ async fn main() {
 </dl>
 </details>
 
+<details><summary><code>client.contexts.<a href="/src/api/resources/contexts/client.rs">edit</a>(trunk_id: String, context_key: String, request: EditContextInput) -> Result&lt;EditContextsResponse, ApiError&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+Requires staging read and deployment permission. expectedRevisionId must equal the current
+staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```rust
+use agenttrunk::prelude::*;
+
+#[tokio::main]
+async fn main() {
+    let config = ClientConfig {
+        token: Some("<token>".to_string()),
+        ..Default::default()
+    };
+    let client = AgentTrunk::new(config).expect("Failed to build client");
+    client
+        .contexts
+        .edit(
+            &"trunkId".to_string(),
+            &"contextKey".to_string(),
+            &EditContextInput {
+                expected_revision_id: "expectedRevisionId".to_string(),
+                changes: vec![EditContextInputChangesItem::put("path".to_string(), "contentBase64".to_string())],
+            },
+            None,
+        )
+        .await;
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trunk_id:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**context_key:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expected_revision_id:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**changes:** `Vec<EditContextInputChangesItem>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.contexts.<a href="/src/api/resources/contexts/client.rs">history</a>(trunk_id: String, context_key: String, from: Option&lt;Option&lt;String&gt;&gt;, limit: Option&lt;Option&lt;i64&gt;&gt;) -> Result&lt;HistoryContextsResponse, ApiError&gt;</code></summary>
 <dl>
 <dd>

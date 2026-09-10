@@ -16,7 +16,8 @@ try {
   const help = run(join(temporary, 'node_modules/.bin/agenttrunk'), ['--help'], temporary);
   assert.match(help, /api RESOURCE.METHOD/);
   const catalog=JSON.parse(run(join(temporary, 'node_modules/.bin/agenttrunk'), ['api','list'], temporary));
-  assert.equal(catalog.length,37);
+  assert.equal(catalog.length,38);
+  assert.ok(catalog.some(operation => operation.name === 'contexts.edit'));
   const portable=JSON.parse(await readFile(join(temporary,'node_modules/@agenttrunk/sdk/plugin.json'),'utf8'));
   assert.equal(portable.name,'agenttrunk');
   assert.match(help, /scope-create/); assert.match(help, /releases/);

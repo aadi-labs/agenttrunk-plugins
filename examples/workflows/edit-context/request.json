@@ -1,0 +1,14 @@
+{
+  "trunkId": "${AGENTTRUNK_WORKSPACE_ID}",
+  "contextKey": "${AGENTTRUNK_CONTEXT_KEY}",
+  "request": {
+    "expectedRevisionId": "${AGENTTRUNK_REVISION_ID}",
+    "changes": [
+      {
+        "operation": "put",
+        "path": "references/escalation.md",
+        "contentBase64": "IyBFc2NhbGF0aW9uCgpBc2sgdGhlIHN1cHBvcnQgb3duZXIgdG8gcmV2aWV3IHVucmVzb2x2ZWQgcmVxdWVzdHMuCg=="
+      }
+    ]
+  }
+}

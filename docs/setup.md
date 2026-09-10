@@ -1,5 +1,10 @@
 # Set up an agent's AgentTrunk access
 
+Local sign-out: `agenttrunk auth logout` previews the effect; `--yes` clears this
+CLI's stored identity and pending claim. It does not revoke server grants,
+already-issued tokens, or runtime-injected credentials. An administrator must
+revoke remote access separately. `auth cancel` remains for pending claims only.
+
 An agent can discover AgentTrunk, request human-approved registration, and use context for that human. Run `agenttrunk auth discover`, `agenttrunk auth start --email HUMAN_EMAIL`, and after the human returns their approval code, `agenttrunk auth complete` (code on stdin). Reuse existing authorization; no anonymous access or independent organization grants.
 
 The CLI stores identity assertions and refresh credentials in `~/.agenttrunk/credentials.json`, mode 0600, inside an owner-only 0700 directory. This is not encrypted storage. Use an isolated OS user or the SDK's `AgentRegistration` with your runtime secret manager for cloud agents. Access tokens are exchanged in memory for API commands. `auth refresh` explicitly rotates the stored identity; no credential mutation is automatically retried. Hosted discovery, human approval and workspace access must each be verified after deployment.

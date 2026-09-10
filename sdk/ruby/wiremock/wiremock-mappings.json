@@ -421,6 +421,45 @@
       }
     },
     {
+      "id": "342d75fe-f1a1-4e94-aee6-6c1cc293ffad",
+      "name": "edit - default",
+      "request": {
+        "urlPathTemplate": "/v1/trunks/{trunkId}/contexts/{contextKey}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trunkId": {
+            "equalTo": "trunkId"
+          },
+          "contextKey": {
+            "equalTo": "contextKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"context\": {\n    \"id\": \"id\",\n    \"trunkId\": \"trunkId\",\n    \"scopeId\": \"scopeId\",\n    \"key\": \"key\",\n    \"title\": \"title\",\n    \"kind\": \"skill\",\n    \"summary\": \"summary\",\n    \"tags\": [\n      \"tags\"\n    ],\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  },\n  \"revision\": {\n    \"id\": \"id\",\n    \"contextId\": \"contextId\",\n    \"packageDigest\": \"packageDigest\",\n    \"parentRevisionId\": \"parentRevisionId\",\n    \"files\": [\n      {\n        \"path\": \"path\",\n        \"size\": 1,\n        \"sha256\": \"sha256\"\n      }\n    ],\n    \"createdAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "342d75fe-f1a1-4e94-aee6-6c1cc293ffad",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "82cc0a4c-d6f5-4007-9dd3-4aaea218c591",
       "name": "history - default",
       "request": {
@@ -1337,6 +1376,6 @@
     }
   ],
   "meta": {
-    "total": 37
+    "total": 38
   }
 }

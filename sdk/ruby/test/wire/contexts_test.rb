@@ -173,6 +173,30 @@ class ContextsWireTest < WireMockTestCase
     )
   end
 
+  def test_contexts_edit_with_wiremock
+    test_id = "contexts.edit.0"
+
+    @client.contexts.edit(
+      trunk_id: "trunkId",
+      context_key: "contextKey",
+      expected_revision_id: "expectedRevisionId",
+      changes: [],
+      request_options: {
+        additional_headers: {
+          "X-Test-Id" => "contexts.edit.0"
+        }
+      }
+    )
+
+    verify_request_count(
+      test_id: test_id,
+      method: "PATCH",
+      url_path: "/v1/trunks/trunkId/contexts/contextKey",
+      query_params: nil,
+      expected: 1
+    )
+  end
+
   def test_contexts_history_with_wiremock
     test_id = "contexts.history.0"
 

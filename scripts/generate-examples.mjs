@@ -1,6 +1,7 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 const operations=JSON.parse((await readFile('cli/operations.ts','utf8')).split('export const operations = ')[1].split(' as const;')[0]);
 const recipes=[
+ ['edit-context','contexts.edit',{trunkId:'${AGENTTRUNK_WORKSPACE_ID}',contextKey:'${AGENTTRUNK_CONTEXT_KEY}',request:{expectedRevisionId:'${AGENTTRUNK_REVISION_ID}',changes:[{operation:'put',path:'references/escalation.md',contentBase64:Buffer.from('# Escalation\n\nAsk the support owner to review unresolved requests.\n').toString('base64')}]}}],
  ['workspace-audit','workspaces.audit',{trunkId:'${AGENTTRUNK_WORKSPACE_ID}'}],
  ['context-history','contexts.history',{trunkId:'${AGENTTRUNK_WORKSPACE_ID}',contextKey:'${AGENTTRUNK_CONTEXT_KEY}',request:{}}],
  ['context-compare','contexts.compare',{trunkId:'${AGENTTRUNK_WORKSPACE_ID}',contextKey:'${AGENTTRUNK_CONTEXT_KEY}',request:{base:'${AGENTTRUNK_FROM_REVISION}',target:'${AGENTTRUNK_REVISION_ID}'}}],
@@ -18,6 +19,7 @@ const recipes=[
 ];
 const snake=s=>s.replace(/[A-Z]/g,c=>'_'+c.toLowerCase());
 const notes={
+ 'edit-context':'Edits only selected files in staging and preserves all omitted files. Use the current staging revision as the expected base. On 409, reread and reconcile; never blindly retry. Production still requires release review.',
  'publish-package':'This replaces the complete package in staging, including removing omitted files. Review both sample files and select a scratch workspace/scope. Inspect the returned revision and verify each file before requesting a release.',
  'open-release':'Review the complete scope snapshot and attach evidence. Opening a release does not authorize merging it. Inspect pending releases after a lost response before repeating this write.',
  'rollback-plan':'This is a read-only eligibility check. It does not restore data. The stageRollback operation requires separate authorization and must be followed by normal release review.',

@@ -914,6 +914,112 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.contexts.<a href="/Sources/Resources/Contexts/ContextsClient.swift">edit</a>(trunkId: String, contextKey: String, request: Requests.EditContextInput, requestOptions: RequestOptions?) -> EditContextsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+Requires staging read and deployment permission. expectedRevisionId must equal the current
+staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import AgentTrunk
+
+private func main() async throws {
+    let client = AgentTrunk(accessToken: "<token>")
+
+    _ = try await client.contexts.edit(
+        trunkId: "trunkId",
+        contextKey: "contextKey",
+        request: .init(
+            expectedRevisionId: "expectedRevisionId",
+            changes: [
+                EditContextInputChangesItem.put(
+                    EditContextInputChangesItemPut(
+                        path: "path",
+                        contentBase64: "contentBase64"
+                    )
+                )
+            ]
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trunkId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contextKey:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.EditContextInput` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.contexts.<a href="/Sources/Resources/Contexts/ContextsClient.swift">history</a>(trunkId: String, contextKey: String, from: String?, limit: Int?, requestOptions: RequestOptions?) -> HistoryContextsResponse</code></summary>
 <dl>
 <dd>

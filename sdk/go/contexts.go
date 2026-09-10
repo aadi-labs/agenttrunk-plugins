@@ -127,6 +127,61 @@ func (d *DiscoverContextsRequest) SetLimit(limit *int) {
 }
 
 var (
+	editContextInputFieldExpectedRevisionID = big.NewInt(1 << 0)
+	editContextInputFieldChanges            = big.NewInt(1 << 1)
+)
+
+type EditContextInput struct {
+	ExpectedRevisionID string                         `json:"expectedRevisionId" url:"-"`
+	Changes            []*EditContextInputChangesItem `json:"changes" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (e *EditContextInput) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetExpectedRevisionID sets the ExpectedRevisionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EditContextInput) SetExpectedRevisionID(expectedRevisionID string) {
+	e.ExpectedRevisionID = expectedRevisionID
+	e.require(editContextInputFieldExpectedRevisionID)
+}
+
+// SetChanges sets the Changes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EditContextInput) SetChanges(changes []*EditContextInputChangesItem) {
+	e.Changes = changes
+	e.require(editContextInputFieldChanges)
+}
+
+func (e *EditContextInput) UnmarshalJSON(data []byte) error {
+	type unmarshaler EditContextInput
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*e = EditContextInput(body)
+	return nil
+}
+
+func (e *EditContextInput) MarshalJSON() ([]byte, error) {
+	type embed EditContextInput
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
 	exportContextsRequestFieldRevisionID = big.NewInt(1 << 0)
 )
 
@@ -1585,6 +1640,416 @@ func (d *DiscoverContextsResponse) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", d)
+}
+
+type EditContextInputChangesItem struct {
+	Operation string
+	Put       *EditContextInputChangesItemPut
+	Delete    *EditContextInputChangesItemDelete
+
+	rawJSON json.RawMessage
+}
+
+func (e *EditContextInputChangesItem) GetOperation() string {
+	if e == nil {
+		return ""
+	}
+	return e.Operation
+}
+
+func (e *EditContextInputChangesItem) GetPut() *EditContextInputChangesItemPut {
+	if e == nil {
+		return nil
+	}
+	return e.Put
+}
+
+func (e *EditContextInputChangesItem) GetDelete() *EditContextInputChangesItemDelete {
+	if e == nil {
+		return nil
+	}
+	return e.Delete
+}
+
+func (e *EditContextInputChangesItem) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Operation string `json:"operation"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	e.Operation = unmarshaler.Operation
+	if unmarshaler.Operation == "" {
+		return fmt.Errorf("%T did not include discriminant operation", e)
+	}
+	switch unmarshaler.Operation {
+	case "put":
+		value := new(EditContextInputChangesItemPut)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		e.Put = value
+	case "delete":
+		value := new(EditContextInputChangesItemDelete)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		e.Delete = value
+	}
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e EditContextInputChangesItem) MarshalJSON() ([]byte, error) {
+	if err := e.validate(); err != nil {
+		return nil, err
+	}
+	if e.Put != nil {
+		return internal.MarshalJSONWithExtraProperty(e.Put, "operation", "put")
+	}
+	if e.Delete != nil {
+		return internal.MarshalJSONWithExtraProperty(e.Delete, "operation", "delete")
+	}
+	if len(e.rawJSON) > 0 {
+		return e.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", e)
+}
+
+type EditContextInputChangesItemVisitor interface {
+	VisitPut(*EditContextInputChangesItemPut) error
+	VisitDelete(*EditContextInputChangesItemDelete) error
+}
+
+func (e *EditContextInputChangesItem) Accept(visitor EditContextInputChangesItemVisitor) error {
+	if e.Put != nil {
+		return visitor.VisitPut(e.Put)
+	}
+	if e.Delete != nil {
+		return visitor.VisitDelete(e.Delete)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", e)
+}
+
+func (e *EditContextInputChangesItem) validate() error {
+	if e == nil {
+		return fmt.Errorf("type %T is nil", e)
+	}
+	var fields []string
+	if e.Put != nil {
+		fields = append(fields, "put")
+	}
+	if e.Delete != nil {
+		fields = append(fields, "delete")
+	}
+	if len(fields) == 0 {
+		if e.Operation != "" {
+			if len(e.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", e, e.Operation)
+		}
+		return fmt.Errorf("type %T is empty", e)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", e, fields)
+	}
+	if e.Operation != "" {
+		field := fields[0]
+		if e.Operation != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				e,
+				e.Operation,
+				e,
+			)
+		}
+	}
+	return nil
+}
+
+var (
+	editContextInputChangesItemDeleteFieldPath = big.NewInt(1 << 0)
+)
+
+type EditContextInputChangesItemDelete struct {
+	Path string `json:"path" url:"path"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EditContextInputChangesItemDelete) GetPath() string {
+	if e == nil {
+		return ""
+	}
+	return e.Path
+}
+
+func (e *EditContextInputChangesItemDelete) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EditContextInputChangesItemDelete) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetPath sets the Path field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EditContextInputChangesItemDelete) SetPath(path string) {
+	e.Path = path
+	e.require(editContextInputChangesItemDeleteFieldPath)
+}
+
+func (e *EditContextInputChangesItemDelete) UnmarshalJSON(data []byte) error {
+	type unmarshaler EditContextInputChangesItemDelete
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EditContextInputChangesItemDelete(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EditContextInputChangesItemDelete) MarshalJSON() ([]byte, error) {
+	type embed EditContextInputChangesItemDelete
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EditContextInputChangesItemDelete) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	editContextInputChangesItemPutFieldPath          = big.NewInt(1 << 0)
+	editContextInputChangesItemPutFieldContentBase64 = big.NewInt(1 << 1)
+)
+
+type EditContextInputChangesItemPut struct {
+	Path          string `json:"path" url:"path"`
+	ContentBase64 string `json:"contentBase64" url:"contentBase64"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EditContextInputChangesItemPut) GetPath() string {
+	if e == nil {
+		return ""
+	}
+	return e.Path
+}
+
+func (e *EditContextInputChangesItemPut) GetContentBase64() string {
+	if e == nil {
+		return ""
+	}
+	return e.ContentBase64
+}
+
+func (e *EditContextInputChangesItemPut) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EditContextInputChangesItemPut) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetPath sets the Path field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EditContextInputChangesItemPut) SetPath(path string) {
+	e.Path = path
+	e.require(editContextInputChangesItemPutFieldPath)
+}
+
+// SetContentBase64 sets the ContentBase64 field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EditContextInputChangesItemPut) SetContentBase64(contentBase64 string) {
+	e.ContentBase64 = contentBase64
+	e.require(editContextInputChangesItemPutFieldContentBase64)
+}
+
+func (e *EditContextInputChangesItemPut) UnmarshalJSON(data []byte) error {
+	type unmarshaler EditContextInputChangesItemPut
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EditContextInputChangesItemPut(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EditContextInputChangesItemPut) MarshalJSON() ([]byte, error) {
+	type embed EditContextInputChangesItemPut
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EditContextInputChangesItemPut) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	editContextsResponseFieldContext  = big.NewInt(1 << 0)
+	editContextsResponseFieldRevision = big.NewInt(1 << 1)
+)
+
+type EditContextsResponse struct {
+	Context  *Context  `json:"context" url:"context"`
+	Revision *Revision `json:"revision" url:"revision"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EditContextsResponse) GetContext() *Context {
+	if e == nil {
+		return nil
+	}
+	return e.Context
+}
+
+func (e *EditContextsResponse) GetRevision() *Revision {
+	if e == nil {
+		return nil
+	}
+	return e.Revision
+}
+
+func (e *EditContextsResponse) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EditContextsResponse) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetContext sets the Context field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EditContextsResponse) SetContext(context *Context) {
+	e.Context = context
+	e.require(editContextsResponseFieldContext)
+}
+
+// SetRevision sets the Revision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EditContextsResponse) SetRevision(revision *Revision) {
+	e.Revision = revision
+	e.require(editContextsResponseFieldRevision)
+}
+
+func (e *EditContextsResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler EditContextsResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EditContextsResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EditContextsResponse) MarshalJSON() ([]byte, error) {
+	type embed EditContextsResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EditContextsResponse) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
 }
 
 var (

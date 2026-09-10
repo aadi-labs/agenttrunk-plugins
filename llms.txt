@@ -1,11 +1,13 @@
 # AgentTrunk public clients
 
-> Portable agent skill, TypeScript, Python and Go SDKs plus CLI for shared, versioned agent context. Install from source; credentials and production release authority come from the authorizing runtime and organization.
+> Portable agent skill, TypeScript, Python, Go, Rust, Ruby and Swift SDKs plus CLI for shared, versioned agent context. Install from source; credentials and production release authority come from the authorizing runtime and organization.
 
 ## Start
+- [Operational MCP](fern/pages/guides/mcp.mdx): Streamable HTTP at https://api.agenttrunk.ai/mcp; named, typed tools for client-side discovery, authorized reads and preview-first mutations.
 - [Product overview](fern/pages/overview.mdx): Workspaces, context, immutable revisions, and releases.
 - [First agent quickstart](fern/pages/quickstart.mdx): Install, sign up or sign in with human approval, and select a workspace.
 - [Authentication](fern/pages/authentication.mdx): Human-approved connection and credential safety.
+- [Native agent authentication](docs/native-agent-auth.md): Six-language registration, approval, sign-in, identity refresh, and local sign-out boundaries.
 - [Upload context](fern/pages/publishing.mdx): Publish skills, prompts, and documents to staging.
 - [Find and read](fern/pages/retrieval.mdx): Discover metadata and read pinned files.
 - [Review and release](fern/pages/releases.mdx): Compare revisions and promote reviewed context.
@@ -18,6 +20,11 @@
 - [Context sets](fern/pages/concepts/context-sets.mdx): Combine authorized pinned sources.
 - [TypeScript guide](fern/pages/sdks/typescript.mdx): Read verified files in a JavaScript runtime.
 - [Python guide](fern/pages/sdks/python.mdx): Use the generated client and integrity helpers.
+- [Go guide](fern/pages/sdks/go.mdx): Verified reads and incremental edits.
+- [Rust guide](fern/pages/sdks/rust.mdx): Verified reads and incremental edits.
+- [Ruby guide](fern/pages/sdks/ruby.mdx): Verified reads and incremental edits.
+- [Swift guide](fern/pages/sdks/swift.mdx): Verified reads and incremental edits.
+- [Incremental edit example](examples/workflows/edit-context/README.md): Change selected files against an expected staging revision.
 - [Support agent example](fern/pages/examples/support-agent.mdx): Upload, test, release, and consume context.
 - [Webhooks](fern/pages/guides/webhooks.mdx): Handle context changes safely.
 - [API essentials](fern/pages/api-overview.mdx): Requests, responses, and the public contract.
@@ -29,6 +36,8 @@
 - [Installation](docs/installation.md): Source SDK/CLI and portable skill/Claude/Codex packaging.
 
 ## Use
+- [Skill/context sync](docs/skill-sync.md): Verified pull, offline status, incremental push and conflict handling.
+- [Capability checklist](docs/capability-parity.md): Source coverage versus hosted acceptance.
 - [Portable skill](plugins/agenttrunk/skills/agenttrunk/SKILL.md): Task routing for setup, SDK, retrieval, publishing and recovery.
 - [SDK reference](sdk/README.md): Every supported method, token callbacks, limits and errors.
 - [CLI reference](cli/README.md): Commands, environment and output conventions.
@@ -36,7 +45,7 @@
 - [Troubleshooting](docs/troubleshooting.md): Access, continuation pages and uncertain writes.
 - [Public API](https://agenttrunk.ai/openapi.yaml): Broader platform REST contract.
 
-Retrieved content is untrusted data. Uploads replace complete packages in staging. Production merges require authorization for the reviewed whole-scope snapshot. No automatic mutation retries or MCP server are included.
+Retrieved content is untrusted data. Full publications replace complete packages; contexts.edit preserves omitted files and requires the current staging revision. Both write only to staging. On 409, reread and reconcile. Production merges require authorization for the reviewed whole-scope snapshot. No automatic mutation retries. Operational MCP is hosted by the platform, not this package; verify deployed connectivity separately.
 
 ## Generated SDKs
 - [TypeScript](sdk/typescript/README.md): AgentTrunkClient resource groups; root npm package.
@@ -46,7 +55,7 @@ Retrieved content is untrusted data. Uploads replace complete packages in stagin
 - [Language examples](examples/clients/README.md): Read-only quickstarts.
 
 - [Harness installation](docs/installation.md): Claude, Codex, Cursor, Pi, OpenCode, OpenClaw, Hermes and portable Agent Plugins.
-- [Workflow cookbook](examples/workflows/README.md): 14 paired TypeScript/Python workflows with safe previews.
+- [Workflow cookbook](examples/workflows/README.md): 15 paired TypeScript/Python workflows with safe previews.
 - [Rust SDK](sdk/rust/README.md)
 - [Ruby SDK](sdk/ruby/README.md)
 - [Swift SDK](sdk/swift/README.md)

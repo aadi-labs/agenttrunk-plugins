@@ -1,7 +1,24 @@
 import {readFile,writeFile,copyFile,mkdir} from 'node:fs/promises';
 async function patch(path,before,after,count=1){let s=await readFile(path,'utf8');if(s.includes(after))return;let n=s.split(before).length-1;if(n!==count)throw new Error(`Patch drift ${path}: ${n} != ${count}`);await writeFile(path,s.split(before).join(after));}
 for(const lang of ['rust','ruby','swift'])await copyFile('LICENSE',`sdk/${lang}/LICENSE`);
+await copyFile('client-extensions/rust/agent_auth.rs','sdk/rust/src/agent_auth.rs');
+// Normalize the earlier local insertion before applying the stable module patches.
+{
+ const path='sdk/rust/src/lib.rs'; let source=await readFile(path,'utf8');
+ source=source.replace('pub mod verified;\npub mod agent_auth;\npub mod verified;','pub mod verified;');
+ source=source.replace('pub mod agent_auth;\n','');
+ await writeFile(path,source);
+}
+// Fern's Rust reference still renders the old nested enum shape. Match the actual public constructor.
+await patch('sdk/rust/reference.md', `EditContextInputChangesItem::Put {
+                    data: EditContextInputChangesItemPut {
+                        path: "path".to_string(),
+                        content_base64: "contentBase64".to_string(),
+                        ..Default::default()
+                    },
+                }`, `EditContextInputChangesItem::put("path".to_string(), "contentBase64".to_string())`);
 const rb='sdk/ruby/';
+await copyFile('client-extensions/ruby/agent_auth.rb',rb+'lib/AgentTrunk/agent_auth.rb');
 await copyFile('client-extensions/ruby/safety.rb',rb+'lib/AgentTrunk/safety.rb');
 await patch(rb+'lib/AgentTrunk.rb','require "json"','require "set"\nrequire_relative "AgentTrunk/safety"\nrequire "json"');
 await patch(rb+'lib/AgentTrunk/client.rb','max_retries: 2','max_retries: 0');
@@ -13,6 +30,7 @@ await patch(rb+'lib/AgentTrunk/errors/response_error.rb','super(msg)','super("Ag
 await patch(rb+'lib/AgentTrunk/version.rb','"0.0.1"','"0.1.0"');
 await patch(rb+'agenttrunk.gemspec','spec.name = "AgentTrunk"','spec.name = "agenttrunk"');
 const sw='sdk/swift/Sources/';
+await copyFile('client-extensions/swift/AgentRegistration.swift',sw+'Public/AgentRegistration.swift');
 await copyFile('client-extensions/swift/Safety.swift',sw+'Core/Networking/Safety.swift');
 await patch(sw+'Public/ClientConfig.swift','static let maxRetries: Swift.Int = 2','static let maxRetries: Swift.Int = 0');
 await patch(sw+'Core/Networking/HTTPClient.swift','let maxRetries = retriesDisabled ? 0 : (requestOptions?.maxRetries ?? clientConfig.maxRetries)','let maxRetries = (retriesDisabled || !["GET", "HEAD"].contains(request.httpMethod ?? "")) ? 0 : max(0, requestOptions?.maxRetries ?? clientConfig.maxRetries)');
@@ -74,6 +92,7 @@ await mkdir(rb+'examples',{recursive:true});await copyFile('client-extensions/ru
 await mkdir('sdk/swift/Tests/AgentTrunk',{recursive:true});await copyFile('client-extensions/swift/AgentTrunkSafetyTests.swift','sdk/swift/Tests/AgentTrunk/AgentTrunkSafetyTests.swift');
 await copyFile('client-extensions/rust/safety.rs',rs+'src/safety.rs');
 await patch(rs+'src/lib.rs','pub mod verified;','pub mod safety;\npub mod verified;');
+await patch(rs+'src/lib.rs','pub mod prelude;','pub mod prelude;\npub mod agent_auth;');
 async function encodeRustPaths(dir){for(const entry of await readdir(dir,{withFileTypes:true})){const path=dir+'/'+entry.name;if(entry.isDirectory()){await encodeRustPaths(path);continue;}if(!path.endsWith('.rs'))continue;let s=await readFile(path,'utf8');
  s=s.replace(/&format!\(\s*("v1\/[^"\n]+"),([\s\S]*?)\)/g,(full,format,args)=>{if(args.includes('crate::safety::path_param'))return full;const names=args.split(',').map(s=>s.trim()).filter(Boolean);if(names.some(n=>!/^\w+$/.test(n)))throw Error('Rust path template drift');return `&format!(${format}, ${names.map(n=>`crate::safety::path_param(${n})?`).join(', ')})`;});await writeFile(path,s);
 }}

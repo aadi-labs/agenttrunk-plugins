@@ -831,6 +831,105 @@ client.Contexts.Inspect(
 </dl>
 </details>
 
+<details><summary><code>client.Contexts.Edit(TrunkID, ContextKey, request) -> *_go.EditContextsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+Requires staging read and deployment permission. expectedRevisionId must equal the current
+staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &_go.EditContextInput{
+    ExpectedRevisionID: "expectedRevisionId",
+    Changes: []*_go.EditContextInputChangesItem{
+        &_go.EditContextInputChangesItem{
+            Put: &_go.EditContextInputChangesItemPut{
+                Path: "path",
+                ContentBase64: "contentBase64",
+            },
+        },
+    },
+}
+client.Contexts.Edit(
+    context.TODO(),
+    "trunkId",
+    "contextKey",
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trunkID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contextKey:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expectedRevisionID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**changes:** `[]*_go.EditContextInputChangesItem` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.Contexts.History(TrunkID, ContextKey) -> *_go.HistoryContextsResponse</code></summary>
 <dl>
 <dd>

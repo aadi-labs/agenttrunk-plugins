@@ -332,6 +332,59 @@ module AgentTrunk
         end
       end
 
+      # Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+      # Requires staging read and deployment permission. expectedRevisionId must equal the current
+      # staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+      # retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+      # and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+      # file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+      #
+      # @param request_options [Hash]
+      # @param params [AgentTrunk::Contexts::Types::EditContextInput]
+      # @option request_options [String] :base_url
+      # @option request_options [Hash{String => Object}] :additional_headers
+      # @option request_options [Hash{String => Object}] :additional_query_parameters
+      # @option request_options [Hash{String => Object}] :additional_body_parameters
+      # @option request_options [Integer] :timeout_in_seconds
+      # @option params [String] :trunk_id
+      # @option params [String] :context_key
+      #
+      # @example
+      #   client.contexts.edit(
+      #     trunk_id: "trunkId",
+      #     context_key: "contextKey",
+      #     expected_revision_id: "expectedRevisionId",
+      #     changes: []
+      #   )
+      #
+      # @return [AgentTrunk::Contexts::Types::EditContextsResponse]
+      def edit(request_options: {}, **params)
+        params = AgentTrunk::Internal::Types::Utils.normalize_keys(params)
+        request_data = AgentTrunk::Contexts::Types::EditContextInput.new(params).to_h
+        non_body_param_names = %w[trunkId contextKey]
+        body = request_data.except(*non_body_param_names)
+
+        request = AgentTrunk::Internal::JSON::Request.new(
+          base_url: request_options[:base_url],
+          method: "PATCH",
+          path: "v1/trunks/#{URI.encode_uri_component(params[:trunk_id].to_s)}/contexts/#{URI.encode_uri_component(params[:context_key].to_s)}",
+          body: body,
+          request_options: request_options
+        )
+        begin
+          response = @client.send(request)
+        rescue Net::HTTPRequestTimeout
+          raise AgentTrunk::Errors::TimeoutError
+        end
+        code = response.code.to_i
+        if code.between?(200, 299)
+          AgentTrunk::Contexts::Types::EditContextsResponse.load(response.body)
+        else
+          error_class = AgentTrunk::Errors::ResponseError.subclass_for_code(code)
+          raise error_class.new(response.body, code: code)
+        end
+      end
+
       # Follows immutable parent revisions, authorizing every revision. Historic IDs require staging read or
       # shared-context-item read access.
       #

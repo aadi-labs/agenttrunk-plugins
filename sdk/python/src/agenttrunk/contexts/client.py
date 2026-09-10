@@ -9,6 +9,8 @@ from ..types.file_input import FileInput
 from .raw_client import AsyncRawContextsClient, RawContextsClient
 from .types.discover_contexts_request_channel import DiscoverContextsRequestChannel
 from .types.discover_contexts_response import DiscoverContextsResponse
+from .types.edit_context_input_changes_item import EditContextInputChangesItem
+from .types.edit_contexts_response import EditContextsResponse
 from .types.get_rollback_plan_contexts_response import GetRollbackPlanContextsResponse
 from .types.history_contexts_response import HistoryContextsResponse
 from .types.inspect_contexts_response import InspectContextsResponse
@@ -386,6 +388,70 @@ class ContextsClient:
         )
         """
         _response = self._raw_client.inspect(trunk_id, context_key, ref=ref, request_options=request_options)
+        return _response.data
+
+    def edit(
+        self,
+        trunk_id: str,
+        context_key: str,
+        *,
+        expected_revision_id: str,
+        changes: typing.Sequence[EditContextInputChangesItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> EditContextsResponse:
+        """
+        Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+        Requires staging read and deployment permission. expectedRevisionId must equal the current
+        staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+        retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+        and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+        file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+
+        Parameters
+        ----------
+        trunk_id : str
+
+        context_key : str
+
+        expected_revision_id : str
+
+        changes : typing.Sequence[EditContextInputChangesItem]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EditContextsResponse
+            Context metadata and the immutable resulting revision.
+
+        Examples
+        --------
+        from agenttrunk import AgentTrunk
+        from agenttrunk.contexts import EditContextInputChangesItem_Put
+
+        client = AgentTrunk(
+            access_token="YOUR_ACCESS_TOKEN",
+        )
+        client.contexts.edit(
+            trunk_id="trunkId",
+            context_key="contextKey",
+            expected_revision_id="expectedRevisionId",
+            changes=[
+                EditContextInputChangesItem_Put(
+                    path="path",
+                    content_base64="contentBase64",
+                )
+            ],
+        )
+        """
+        _response = self._raw_client.edit(
+            trunk_id,
+            context_key,
+            expected_revision_id=expected_revision_id,
+            changes=changes,
+            request_options=request_options,
+        )
         return _response.data
 
     def history(
@@ -1063,6 +1129,78 @@ class AsyncContextsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.inspect(trunk_id, context_key, ref=ref, request_options=request_options)
+        return _response.data
+
+    async def edit(
+        self,
+        trunk_id: str,
+        context_key: str,
+        *,
+        expected_revision_id: str,
+        changes: typing.Sequence[EditContextInputChangesItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> EditContextsResponse:
+        """
+        Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+        Requires staging read and deployment permission. expectedRevisionId must equal the current
+        staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+        retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+        and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+        file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+
+        Parameters
+        ----------
+        trunk_id : str
+
+        context_key : str
+
+        expected_revision_id : str
+
+        changes : typing.Sequence[EditContextInputChangesItem]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EditContextsResponse
+            Context metadata and the immutable resulting revision.
+
+        Examples
+        --------
+        import asyncio
+
+        from agenttrunk import AsyncAgentTrunk
+        from agenttrunk.contexts import EditContextInputChangesItem_Put
+
+        client = AsyncAgentTrunk(
+            access_token="YOUR_ACCESS_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.contexts.edit(
+                trunk_id="trunkId",
+                context_key="contextKey",
+                expected_revision_id="expectedRevisionId",
+                changes=[
+                    EditContextInputChangesItem_Put(
+                        path="path",
+                        content_base64="contentBase64",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.edit(
+            trunk_id,
+            context_key,
+            expected_revision_id=expected_revision_id,
+            changes=changes,
+            request_options=request_options,
+        )
         return _response.data
 
     async def history(

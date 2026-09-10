@@ -23,6 +23,8 @@ from ..types.error import Error
 from ..types.file_input import FileInput
 from .types.discover_contexts_request_channel import DiscoverContextsRequestChannel
 from .types.discover_contexts_response import DiscoverContextsResponse
+from .types.edit_context_input_changes_item import EditContextInputChangesItem
+from .types.edit_contexts_response import EditContextsResponse
 from .types.get_rollback_plan_contexts_response import GetRollbackPlanContextsResponse
 from .types.history_contexts_response import HistoryContextsResponse
 from .types.inspect_contexts_response import InspectContextsResponse
@@ -560,6 +562,108 @@ class RawContextsClient:
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def edit(
+        self,
+        trunk_id: str,
+        context_key: str,
+        *,
+        expected_revision_id: str,
+        changes: typing.Sequence[EditContextInputChangesItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[EditContextsResponse]:
+        """
+        Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+        Requires staging read and deployment permission. expectedRevisionId must equal the current
+        staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+        retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+        and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+        file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+
+        Parameters
+        ----------
+        trunk_id : str
+
+        context_key : str
+
+        expected_revision_id : str
+
+        changes : typing.Sequence[EditContextInputChangesItem]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[EditContextsResponse]
+            Context metadata and the immutable resulting revision.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/trunks/{encode_path_param(trunk_id)}/contexts/{encode_path_param(context_key)}",
+            method="PATCH",
+            json={
+                "expectedRevisionId": expected_revision_id,
+                "changes": convert_and_respect_annotation_metadata(
+                    object_=changes, annotation=typing.Sequence[EditContextInputChangesItem], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    EditContextsResponse,
+                    parse_obj_as(
+                        type_=EditContextsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1525,6 +1629,108 @@ class AsyncRawContextsClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def edit(
+        self,
+        trunk_id: str,
+        context_key: str,
+        *,
+        expected_revision_id: str,
+        changes: typing.Sequence[EditContextInputChangesItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[EditContextsResponse]:
+        """
+        Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+        Requires staging read and deployment permission. expectedRevisionId must equal the current
+        staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+        retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+        and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+        file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+
+        Parameters
+        ----------
+        trunk_id : str
+
+        context_key : str
+
+        expected_revision_id : str
+
+        changes : typing.Sequence[EditContextInputChangesItem]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[EditContextsResponse]
+            Context metadata and the immutable resulting revision.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/trunks/{encode_path_param(trunk_id)}/contexts/{encode_path_param(context_key)}",
+            method="PATCH",
+            json={
+                "expectedRevisionId": expected_revision_id,
+                "changes": convert_and_respect_annotation_metadata(
+                    object_=changes, annotation=typing.Sequence[EditContextInputChangesItem], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    EditContextsResponse,
+                    parse_obj_as(
+                        type_=EditContextsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

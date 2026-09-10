@@ -1,0 +1,30 @@
+---
+title: Synchronize skills
+description: Pull verified context, inspect local changes, and push to staging.
+---
+
+Authenticate with the [agent setup flow](/guides/agent-setup). Choose a dedicated
+folder and an authorized workspace/context. Sync never executes downloaded skills.
+
+```sh
+agenttrunk skills pull --workspace WORKSPACE_ID --key CONTEXT_KEY --directory ./support --ref staging
+agenttrunk skills pull --workspace WORKSPACE_ID --key CONTEXT_KEY --directory ./support --ref staging --execute --yes
+agenttrunk skills status --workspace WORKSPACE_ID --key CONTEXT_KEY --directory ./support
+agenttrunk skills push --workspace WORKSPACE_ID --key CONTEXT_KEY --directory ./support
+agenttrunk skills push --workspace WORKSPACE_ID --key CONTEXT_KEY --directory ./support --execute --yes
+```
+
+Pull and push preview by default. An initial pull requires a nonexistent folder
+with an existing parent. Downloads are verified against the immutable revision's
+file hashes. Existing folders must have a matching sync binding and no local
+changes, including untracked files. Updates preserve a reported sibling backup.
+
+Status is offline. Push submits additions, replacements, and deletions together
+to staging only if its revision still matches the downloaded base. Conflicts
+require review, not forced overwrites. Production promotion is a separate step.
+
+Keep secrets and unrelated files outside the folder: every file is considered
+context. Symlinks and unsafe paths are rejected. Pause editors while pulling;
+after an uncertain push, inspect staging before trying again.
+
+See the [complete sync safety and recovery guide](https://github.com/aadi-labs/agenttrunk-plugins/blob/main/docs/skill-sync.md).

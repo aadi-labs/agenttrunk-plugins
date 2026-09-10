@@ -1,5 +1,16 @@
 # AgentTrunk SDKs
 
+## Incremental edits
+
+Use generated `contexts.edit` (Go: `Contexts.Edit`) to change selected files.
+The TypeScript convenience class does not expose it; import `AgentTrunkClient`
+with `accessToken`. Inspect staging and pass its immutable revision as the
+expected base. Omitted files and metadata remain unchanged. Reconcile 409
+conflicts rather than retrying blindly. Production still requires promotion.
+
+Language examples: [TypeScript](typescript/README.md), [Python](python/README.md),
+[Go](go/README.md), [Rust](rust/README.md), [Ruby](ruby/README.md), [Swift](swift/README.md).
+
 Fern generates TypeScript, Python, Go, Rust, Ruby and Swift clients from one reviewed public REST contract.
 
 | Language | Client and install guide |

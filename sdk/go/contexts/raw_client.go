@@ -391,6 +391,56 @@ func (r *RawClient) Inspect(
 	}, nil
 }
 
+func (r *RawClient) Edit(
+	ctx context.Context,
+	trunkID string,
+	contextKey string,
+	request *_go.EditContextInput,
+	opts ...option.RequestOption,
+) (*core.Response[*_go.EditContextsResponse], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://api.agenttrunk.ai",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/trunks/%v/contexts/%v",
+		trunkID,
+		contextKey,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	headers.Add("Content-Type", "application/json")
+	var response *_go.EditContextsResponse
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPatch,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(_go.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*_go.EditContextsResponse]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
 func (r *RawClient) History(
 	ctx context.Context,
 	trunkID string,

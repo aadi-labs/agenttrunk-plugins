@@ -253,6 +253,52 @@ func (c *Client) Inspect(
 	return response.Body, nil
 }
 
+// Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+// Requires staging read and deployment permission. expectedRevisionId must equal the current
+// staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+// retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+// and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+// file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+//
+// Example:
+//
+//	request := &_go.EditContextInput{
+//	    ExpectedRevisionID: "expectedRevisionId",
+//	    Changes: []*_go.EditContextInputChangesItem{
+//	        &_go.EditContextInputChangesItem{
+//	            Put: &_go.EditContextInputChangesItemPut{
+//	                Path: "path",
+//	                ContentBase64: "contentBase64",
+//	            },
+//	        },
+//	    },
+//	}
+//	client.Contexts.Edit(
+//	    context.TODO(),
+//	    "trunkId",
+//	    "contextKey",
+//	    request,
+//	)
+func (c *Client) Edit(
+	ctx context.Context,
+	trunkID string,
+	contextKey string,
+	request *_go.EditContextInput,
+	opts ...option.RequestOption,
+) (*_go.EditContextsResponse, error) {
+	response, err := c.WithRawResponse.Edit(
+		ctx,
+		trunkID,
+		contextKey,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Follows immutable parent revisions, authorizing every revision. Historic IDs require staging read or shared-context-item read access.
 //
 // Example:

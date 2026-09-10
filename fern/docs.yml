@@ -44,6 +44,9 @@ navigation:
       - page: Upload context
         path: ./pages/publishing.mdx
         slug: publishing
+      - page: Synchronize skills
+        path: ./pages/guides/skill-sync.mdx
+        slug: guides/skill-sync
       - page: Find and read
         path: ./pages/retrieval.mdx
         slug: retrieval
@@ -65,9 +68,24 @@ navigation:
       - page: Python SDK
         path: ./pages/sdks/python.mdx
         slug: sdks/python
+      - page: Go SDK
+        path: ./pages/sdks/go.mdx
+        slug: sdks/go
+      - page: Rust SDK
+        path: ./pages/sdks/rust.mdx
+        slug: sdks/rust
+      - page: Ruby SDK
+        path: ./pages/sdks/ruby.mdx
+        slug: sdks/ruby
+      - page: Swift SDK
+        path: ./pages/sdks/swift.mdx
+        slug: sdks/swift
       - page: Agent setup
         path: ./pages/guides/agent-setup.mdx
         slug: guides/agent-setup
+      - page: Operational MCP
+        path: ./pages/guides/mcp.mdx
+        slug: guides/mcp
       - page: Support agent example
         path: ./pages/examples/support-agent.mdx
         slug: examples/support-agent

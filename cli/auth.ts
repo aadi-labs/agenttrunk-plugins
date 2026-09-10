@@ -45,9 +45,17 @@ export async function withState<T>(operation: (state: State | undefined, save: (
 }
 export async function runAuth(args: string[], env: NodeJS.ProcessEnv, write: (value: string | Uint8Array) => void) {
   const [command,...rest] = args;
-  if (!command || !["discover","start","complete","refresh","cancel"].includes(command)) throw new Error("Use auth discover, auth start --email EMAIL, auth complete, auth refresh, or auth cancel");
-  const {values} = parseArgs({args:rest,options:command === "start" ? {email:{type:"string"}} : {},strict:true,allowPositionals:false});
+  if (!command || !["discover","start","complete","refresh","cancel","logout"].includes(command)) throw new Error("Use auth discover, start, complete, refresh, cancel, or logout --yes");
+  const {values} = parseArgs({args:rest,options:command === "start" ? {email:{type:"string"}} : command === "logout" ? {yes:{type:"boolean"}} : {},strict:true,allowPositionals:false});
   const resource = env.AGENTTRUNK_API_URL ?? "https://api.agenttrunk.ai";
+  if (command === "logout") {
+    if (!values.yes) {write("Local sign-out clears this CLI's stored identity and pending claim. It does not revoke server access or runtime-injected tokens. Run auth logout --yes to confirm.\n");return;}
+    await withState(async(state,save)=>{
+      if(state && state.resource !== resource) throw new Error("Stored credentials belong to another origin");
+      await save({resource});
+    });
+    write("Local credentials cleared. Existing tokens and remote agent grants must be revoked separately by an administrator.\n");return;
+  }
   if (command === "cancel") {
     await withState(async (state,save) => {
       if (state?.identity) throw new Error("Cannot cancel a completed registration; revoke it through the account administrator");

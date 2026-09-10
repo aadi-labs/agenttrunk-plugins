@@ -3,6 +3,32 @@ title: "TypeScript SDK"
 description: "Load verified context into a Node.js agent runtime."
 ---
 
+
+## Incremental context edits
+
+Authenticate and select an authorized workspace/context. Inspect staging and use
+its immutable revision ID as the expected base. This example uses the generated
+TypeScript client (`AgentTrunkClient` with `accessToken`, not the convenience `AgentTrunk` class).
+
+```typescript
+const updated = await client.contexts.edit(workspaceId, contextKey, {
+  expectedRevisionId: stagingRevisionId,
+  changes: [
+    { operation: "put", path: "prompts/system.md", contentBase64: "IyBTdXBwb3J0Cg==" },
+    { operation: "delete", path: "obsolete.md" },
+  ],
+});
+```
+
+The example adds/replaces one file and deletes an existing file. Omit the delete
+if that file does not exist. Untouched files and metadata remain unchanged.
+Changes apply together to staging, never production. The complete result must
+contain 1–256 files, at most 1 MB per file and 16 MB total. Paths must be unique
+and relative. On 409, reread and reconcile; do not blindly update the expected
+revision and retry. Identical current bytes are a no-op; historical bytes use
+rollback. Inspect staging/history after an uncertain write before trying again.
+
+
 Build the public client checkout with `npm ci && npm run build`, then run
 `npm pack` and install the resulting tarball in your application. Source setup
 does not assume an npm registry release. Use Node.js 22 or newer.

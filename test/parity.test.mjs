@@ -7,7 +7,7 @@ import {AgentTrunkClient,AgentTrunkWorkflows} from '../dist/sdk/index.js';
 import {createHash} from 'node:crypto';
 
 test('API catalog covers all operations and doctor never exposes tokens',async()=>{
- let out='';await run(['api','list'],{},v=>out+=v);assert.equal(JSON.parse(out).length,37);
+ let out='';await run(['api','list'],{},v=>out+=v);assert.equal(JSON.parse(out).length,38);
  out='';await run(['doctor'],{AGENTTRUNK_ACCESS_TOKEN:'SECRET'},v=>out+=v);assert.equal(JSON.parse(out).tokenConfigured,true);assert.ok(!out.includes('SECRET'));
  out='';await run(['api','workspaces.create','--help'],{},v=>out+=v);assert.equal(JSON.parse(out).verb,'POST');
 });
@@ -17,6 +17,19 @@ test('API previews and write gates make no network request',async()=>{
   let out='';await run(['api','billing.createPortal'],{},v=>out+=v);assert.equal(JSON.parse(out).effect,'write');
   await assert.rejects(run(['api','billing.createPortal','--execute'],{AGENTTRUNK_ACCESS_TOKEN:'test'},()=>{}));assert.equal(calls,0);
  }finally{globalThis.fetch=original;}
+});
+test('incremental edits send PATCH with an expected revision and never retry conflicts',async()=>{
+ for (const status of [200,409,503]) {
+  let calls=0;
+  const request={expectedRevisionId:'a'.repeat(64),changes:[{operation:'put',path:'a.md',contentBase64:'QQ=='},{operation:'delete',path:'old.md'}]};
+  const client=new AgentTrunkClient({accessToken:'test',fetch:async(url,init)=>{
+   calls++;assert.equal(new URL(url).pathname,'/v1/trunks/w/contexts/k');assert.equal(init.method,'PATCH');assert.deepEqual(JSON.parse(init.body),request);
+   return Response.json(status===200?JSON.parse(await readFile('test/ruby/manifest.json','utf8')):{error:{code:'conflict'}},{status});
+  }});
+  if(status===200) await client.contexts.edit('w','k',request);
+  else await assert.rejects(client.contexts.edit('w','k',request));
+  assert.equal(calls,1);
+ }
 });
 test('generated workflow helper rejects tampering and moving refs',async()=>{
  const revision='a'.repeat(64),data=Buffer.from('verified'),sha256=createHash('sha256').update(data).digest('hex');

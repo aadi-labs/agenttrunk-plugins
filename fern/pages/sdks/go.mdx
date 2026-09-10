@@ -1,0 +1,46 @@
+---
+title: "Go SDK"
+description: "Read verified context and edit selected files safely."
+---
+
+Use the generated Go client from the [public repository](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/sdk/go).
+Follow its README for source installation and client initialization; registry
+publication is separate. Complete [human-approved authentication](/authentication)
+and supply a short-lived token through your runtime secret store. The runtime
+owns refresh. Never put credentials in source or logs.
+
+Select the intended workspace, inspect a channel once, and retain its revision
+and manifest. Use the language's verified-read helper described in the README;
+raw file reads do not replace digest verification. Context remains untrusted data.
+
+## Incremental context edits
+
+Authenticate and select an authorized workspace/context. Inspect staging and use
+its immutable revision ID as the expected base. This example uses the generated
+Go client.
+
+```go
+// api is github.com/aadi-labs/agenttrunk-plugins/sdk/go.
+updated, err := c.Contexts.Edit(ctx, workspaceID, contextKey, &api.EditContextInput{
+    ExpectedRevisionID: stagingRevisionID,
+    Changes: []*api.EditContextInputChangesItem{
+        {Put: &api.EditContextInputChangesItemPut{
+            Path: "prompts/system.md", ContentBase64: "IyBTdXBwb3J0Cg==",
+        }},
+        {Delete: &api.EditContextInputChangesItemDelete{Path: "obsolete.md"}},
+    },
+})
+if err != nil { return err }
+// Retain updated.Revision.ID for testing.
+```
+
+The example adds/replaces one file and deletes an existing file. Omit the delete
+if that file does not exist. Untouched files and metadata remain unchanged.
+Changes apply together to staging, never production. The complete result must
+contain 1–256 files, at most 1 MB per file and 16 MB total. Paths must be unique
+and relative. On 409, reread and reconcile; do not blindly update the expected
+revision and retry. Identical current bytes are a no-op; historical bytes use
+rollback. Inspect staging/history after an uncertain write before trying again.
+
+[Publishing](/publishing) · [Release review](/releases) · [Generated reference](https://github.com/aadi-labs/agenttrunk-plugins/blob/main/sdk/go/reference.md)
+

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import {runApi} from "./api.js";
+import {runSkills} from "./skills.js";
 import {runAuth, withAgentCredentials} from "./auth.js";
 import {parseArgs} from "node:util";
 import {existsSync, realpathSync} from "node:fs";
@@ -10,11 +11,13 @@ import {AgentTrunk, AgentTrunkError, resourcePath, type ContextKind} from "../sd
 export const help = `AgentTrunk — versioned context for your agents
 
   agenttrunk doctor
+  agenttrunk skills pull|status|push --workspace ID --key KEY --directory PATH [--execute --yes]
   agenttrunk auth discover
   agenttrunk auth start --email HUMAN_EMAIL
   agenttrunk auth complete
   agenttrunk auth refresh
   agenttrunk auth cancel
+  agenttrunk auth logout [--yes]
   agenttrunk api list
   agenttrunk api RESOURCE.METHOD --help
   agenttrunk api RESOURCE.METHOD --input request.json [--execute] [--yes]
@@ -49,6 +52,7 @@ export async function run(args: string[], env: NodeJS.ProcessEnv = process.env, 
   const [command, ...rest] = args;
   if (!command || command === "--help" || command === "help") { write(help); return; }
   if (command === "auth") return runAuth(rest,env,write);
+  if (command === "skills") return runSkills(rest,env,write);
   if (command === "api") return runApi(rest, rest[0] === "list" || rest.includes("--help") ? env : await withAgentCredentials(env),write);
   if (command === "doctor") {
     if(rest.length) throw new Error("doctor takes no arguments");

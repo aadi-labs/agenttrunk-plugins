@@ -620,6 +620,104 @@ export class ContextsClient {
     }
 
     /**
+     * Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+     * Requires staging read and deployment permission. expectedRevisionId must equal the current
+     * staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+     * retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+     * and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+     * file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+     *
+     * @param {string} trunkId
+     * @param {string} contextKey
+     * @param {AgentTrunkApi.EditContextInput} request
+     * @param {ContextsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link AgentTrunkApi.BadRequestError}
+     * @throws {@link AgentTrunkApi.NotFoundError}
+     * @throws {@link AgentTrunkApi.ConflictError}
+     * @throws {@link errors.AgentTrunkApiError}
+     * @throws {@link errors.AgentTrunkTimeoutError}
+     *
+     * @example
+     *     await client.contexts.edit("trunkId", "contextKey", {
+     *         expectedRevisionId: "expectedRevisionId",
+     *         changes: [{
+     *                 operation: "put",
+     *                 path: "path",
+     *                 contentBase64: "contentBase64"
+     *             }]
+     *     })
+     */
+    public edit(
+        trunkId: string,
+        contextKey: string,
+        request: AgentTrunkApi.EditContextInput,
+        requestOptions?: ContextsClient.RequestOptions,
+    ): core.HttpResponsePromise<AgentTrunkApi.EditContextsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__edit(trunkId, contextKey, request, requestOptions));
+    }
+
+    private async __edit(
+        trunkId: string,
+        contextKey: string,
+        request: AgentTrunkApi.EditContextInput,
+        requestOptions?: ContextsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<AgentTrunkApi.EditContextsResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.AgentTrunkEnvironment.Default,
+                `v1/trunks/${core.url.encodePathParam(trunkId)}/contexts/${core.url.encodePathParam(contextKey)}`,
+            ),
+            method: "PATCH",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as AgentTrunkApi.EditContextsResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new AgentTrunkApi.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new AgentTrunkApi.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 409:
+                    throw new AgentTrunkApi.ConflictError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.AgentTrunkApiError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "PATCH",
+            "/v1/trunks/{trunkId}/contexts/{contextKey}",
+        );
+    }
+
+    /**
      * Follows immutable parent revisions, authorizing every revision. Historic IDs require staging read or shared-context-item read access.
      *
      * @param {string} trunkId

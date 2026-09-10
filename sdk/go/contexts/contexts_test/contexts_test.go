@@ -272,6 +272,42 @@ func TestContextsInspectWithWireMock(
 	VerifyRequestCount(t, "TestContextsInspectWithWireMock", "GET", "/v1/trunks/trunkId/contexts/contextKey", nil, 1)
 }
 
+func TestContextsEditWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.New(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithAccessToken("test-token"),
+	)
+	request := &_go.EditContextInput{
+		ExpectedRevisionID: "expectedRevisionId",
+		Changes: []*_go.EditContextInputChangesItem{
+			&_go.EditContextInputChangesItem{
+				Put: &_go.EditContextInputChangesItemPut{
+					Path:          "path",
+					ContentBase64: "contentBase64",
+				},
+			},
+		},
+	}
+	_, invocationErr := client.Contexts.Edit(
+		context.TODO(),
+		"trunkId",
+		"contextKey",
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestContextsEditWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestContextsEditWithWireMock", "PATCH", "/v1/trunks/trunkId/contexts/contextKey", nil, 1)
+}
+
 func TestContextsHistoryWithWireMock(
 	t *testing.T,
 ) {

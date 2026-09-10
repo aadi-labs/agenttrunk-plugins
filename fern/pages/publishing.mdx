@@ -20,7 +20,7 @@ Kinds are `skill`, `docs`, `prompt`, `policy`, and `memory-schema`. The local fi
 
 ## Upload a complete package
 
-A publication replaces the **complete package**, not just one file. To update one file in a multi-file context, include all files you want to keep.
+A publication replaces the **complete package**, not just one file. Include all files you want to keep, or use incremental edits below.
 
 Use the [multi-file SDK example](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/examples/publish-skill), or `POST /v1/trunks/{trunkId}/publications` with this JSON shape:
 
@@ -39,6 +39,41 @@ Use the [multi-file SDK example](https://github.com/aadi-labs/agenttrunk-plugins
 ```
 
 The example encodes the text "# Support" followed by a newline. Replace it with your file's base64 bytes. This is encoding, not encryption.
+
+## Edit selected files
+
+Inspect the context with `ref=staging` and retain its `revision.id`. Then call
+`PATCH /v1/trunks/{trunkId}/contexts/{contextKey}`:
+
+```json
+{
+  "expectedRevisionId": "IMMUTABLE_STAGING_REVISION_ID",
+  "changes": [
+    {"operation": "put", "path": "prompts/system.md", "contentBase64": "IyBTdXBwb3J0Cg=="},
+    {"operation": "delete", "path": "obsolete.md"}
+  ]
+}
+```
+
+`put` adds or replaces a file. `delete` requires an existing file. Omitted files
+and context metadata remain unchanged. All changes publish together to staging;
+production is unaffected. Each path can appear only once and the result cannot be empty.
+
+The generated TypeScript SDK exposes `client.contexts.edit(workspaceId, contextKey, request)`.
+For the CLI, create a JSON input with `trunkId`, `contextKey`, and the body above
+under `request`, then preview before executing:
+
+```sh
+agenttrunk api contexts.edit --input edit.json
+agenttrunk api contexts.edit --input edit.json --execute --yes
+```
+
+A `409` means the base or branch changed, or the resulting content is a historical
+revision that requires rollback. Reread staging and reconcile your changes; do not
+blindly replace the expected revision and retry. Identical current content is a no-op.
+After a timeout, inspect staging and history before another write.
+
+See the [paired JavaScript and Python example](https://github.com/aadi-labs/agenttrunk-plugins/tree/main/examples/workflows/edit-context).
 
 ## Limits and safe paths
 

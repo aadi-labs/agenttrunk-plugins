@@ -881,6 +881,102 @@ client.contexts.inspect(
 </dl>
 </details>
 
+<details><summary><code>client.contexts.<a href="/lib/AgentTrunk/contexts/client.rb">edit</a>(trunk_id:, context_key:, request) -> AgentTrunk::Contexts::Types::EditContextsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Atomically add, replace, or delete files in staging, preserving metadata and unchanged files.
+Requires staging read and deployment permission. expectedRevisionId must equal the current
+staging revision. Concurrent branch changes return 409; reread and reconcile, never blindly
+retry. Production is unchanged. The resulting package retains the 256-file, 1 MB per-file,
+and 16 MB total limits and must not be empty. Each path may appear once. Deleting a missing
+file is invalid. Identical content is a no-op; restoring historical content uses rollback.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```ruby
+client.contexts.edit(
+  trunk_id: "trunkId",
+  context_key: "contextKey",
+  expected_revision_id: "expectedRevisionId",
+  changes: []
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**trunk_id:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**context_key:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expected_revision_id:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**changes:** `Internal::Types::Array[AgentTrunk::Contexts::Types::EditContextInputChangesItem]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `AgentTrunk::Contexts::RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.contexts.<a href="/lib/AgentTrunk/contexts/client.rb">history</a>(trunk_id:, context_key:) -> AgentTrunk::Contexts::Types::HistoryContextsResponse</code></summary>
 <dl>
 <dd>

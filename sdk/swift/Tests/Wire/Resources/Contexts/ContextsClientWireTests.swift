@@ -779,6 +779,208 @@ import AgentTrunk
         try #require(response == expectedResponse)
     }
 
+    @Test func edit1() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Foundation.Data(
+                #"""
+                {
+                  "context": {
+                    "id": "id",
+                    "trunkId": "trunkId",
+                    "scopeId": "scopeId",
+                    "key": "key",
+                    "title": "title",
+                    "kind": "skill",
+                    "summary": "summary",
+                    "tags": [
+                      "tags"
+                    ],
+                    "createdAt": "2024-01-15T09:30:00Z",
+                    "updatedAt": "2024-01-15T09:30:00Z"
+                  },
+                  "revision": {
+                    "id": "id",
+                    "contextId": "contextId",
+                    "packageDigest": "packageDigest",
+                    "parentRevisionId": "parentRevisionId",
+                    "files": [
+                      {
+                        "path": "path",
+                        "size": 1,
+                        "sha256": "sha256"
+                      }
+                    ],
+                    "createdAt": "2024-01-15T09:30:00Z"
+                  }
+                }
+                """#.utf8
+            )
+        )
+        let client = AgentTrunk(
+            baseURL: "https://api.fern.com",
+            accessToken: "<token>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = EditContextsResponse(
+            context: Context(
+                id: "id",
+                trunkId: "trunkId",
+                scopeId: "scopeId",
+                key: "key",
+                title: "title",
+                kind: ContextKind.skill,
+                summary: "summary",
+                tags: [
+                    "tags"
+                ],
+                createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)
+            ),
+            revision: Revision(
+                id: "id",
+                contextId: "contextId",
+                packageDigest: "packageDigest",
+                parentRevisionId: Optional(Nullable<String>.value("parentRevisionId")),
+                files: [
+                    FileRecord(
+                        path: "path",
+                        size: 1,
+                        sha256: "sha256"
+                    )
+                ],
+                createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)
+            )
+        )
+        let response = try await client.contexts.edit(
+            trunkId: "trunkId",
+            contextKey: "contextKey",
+            request: .init(
+                expectedRevisionId: "expectedRevisionId",
+                changes: [
+                    EditContextInputChangesItem.put(
+                        EditContextInputChangesItemPut(
+                            path: "path",
+                            contentBase64: "contentBase64"
+                        )
+                    )
+                ]
+            ),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
+    @Test func edit2() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Foundation.Data(
+                #"""
+                {
+                  "context": {
+                    "id": "id",
+                    "trunkId": "trunkId",
+                    "scopeId": "scopeId",
+                    "key": "key",
+                    "title": "title",
+                    "kind": "skill",
+                    "summary": "summary",
+                    "tags": [
+                      "tags",
+                      "tags"
+                    ],
+                    "createdAt": "2024-01-15T09:30:00Z",
+                    "updatedAt": "2024-01-15T09:30:00Z"
+                  },
+                  "revision": {
+                    "id": "id",
+                    "contextId": "contextId",
+                    "packageDigest": "packageDigest",
+                    "parentRevisionId": "parentRevisionId",
+                    "files": [
+                      {
+                        "path": "path",
+                        "size": 1000000,
+                        "sha256": "sha256"
+                      },
+                      {
+                        "path": "path",
+                        "size": 1000000,
+                        "sha256": "sha256"
+                      }
+                    ],
+                    "createdAt": "2024-01-15T09:30:00Z"
+                  }
+                }
+                """#.utf8
+            )
+        )
+        let client = AgentTrunk(
+            baseURL: "https://api.fern.com",
+            accessToken: "<token>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = EditContextsResponse(
+            context: Context(
+                id: "id",
+                trunkId: "trunkId",
+                scopeId: "scopeId",
+                key: "key",
+                title: "title",
+                kind: ContextKind.skill,
+                summary: "summary",
+                tags: [
+                    "tags",
+                    "tags"
+                ],
+                createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)
+            ),
+            revision: Revision(
+                id: "id",
+                contextId: "contextId",
+                packageDigest: "packageDigest",
+                parentRevisionId: Optional(Nullable<String>.value("parentRevisionId")),
+                files: [
+                    FileRecord(
+                        path: "path",
+                        size: 1000000,
+                        sha256: "sha256"
+                    ),
+                    FileRecord(
+                        path: "path",
+                        size: 1000000,
+                        sha256: "sha256"
+                    )
+                ],
+                createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)
+            )
+        )
+        let response = try await client.contexts.edit(
+            trunkId: "trunkId",
+            contextKey: "contextKey",
+            request: .init(
+                expectedRevisionId: "expectedRevisionId",
+                changes: [
+                    EditContextInputChangesItem.put(
+                        EditContextInputChangesItemPut(
+                            path: "x",
+                            contentBase64: "contentBase64"
+                        )
+                    ),
+                    EditContextInputChangesItem.put(
+                        EditContextInputChangesItemPut(
+                            path: "x",
+                            contentBase64: "contentBase64"
+                        )
+                    )
+                ]
+            ),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
     @Test func history1() async throws -> Void {
         let stub = HTTPStub()
         stub.setResponse(

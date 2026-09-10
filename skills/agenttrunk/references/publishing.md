@@ -1,5 +1,37 @@
 # Publish and review a complete package
 
+## Edit selected files without replacing the package
+
+Use the signup/sign-in procedure in [setup](setup.md) if authorized credentials
+are missing. Inspect the intended context at `staging` and retain `revision.id`.
+Call generated SDK `contexts.edit` (Go: `Contexts.Edit`) or CLI
+`agenttrunk api contexts.edit --input edit.json` to preview this shape:
+
+```json
+{
+  "trunkId": "WORKSPACE_ID",
+  "contextKey": "CONTEXT_KEY",
+  "request": {
+    "expectedRevisionId": "IMMUTABLE_STAGING_REVISION_ID",
+    "changes": [{"operation": "put", "path": "prompts/system.md", "contentBase64": "IyBTdXBwb3J0Cg=="}]
+  }
+}
+```
+
+Add `--execute --yes` only when authorized to make the edit. `put` adds/replaces;
+`delete` takes only `operation` and `path` and requires an existing file. Omitted
+files and metadata stay intact. Use each path once; the complete result must be
+nonempty and within package limits below. Both read and deployment access to
+staging are required. Production does not change.
+
+On 409, inspect staging and reconcile the intended changes; do not merely swap
+in a newer expected revision. Identical current bytes are a no-op. Restoring a
+historical revision uses rollback. After an uncertain write, inspect history
+before retrying. [All-language examples](https://docs.agenttrunk.ai/sdks/typescript)
+are linked from the docs navigation; Python has sync and async clients.
+
+## Publish a complete replacement
+
 Use the workspace and scope authorized for the task. Inspect the existing package before replacing it. Upload only the explicitly selected files; never traverse home directories or bundle credentials/runtime state.
 
 For a single-file package:

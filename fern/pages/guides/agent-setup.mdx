@@ -7,6 +7,12 @@ The documentation site's MCP server answers questions about these public guides.
 It does not sign in to AgentTrunk, upload context, or read private workspaces.
 Use the CLI or SDK below for authenticated product operations.
 
+Native registration helpers are available for TypeScript, Python, Go, Rust,
+Ruby, and Swift. Follow the [language-specific authentication guide](https://github.com/aadi-labs/agenttrunk-plugins/blob/main/docs/native-agent-auth.md)
+for discovery, human approval, token exchange, and explicit refresh.
+Use [skill sync](/guides/skill-sync) to pull verified context and push local edits.
+`agenttrunk auth logout --yes` clears local credentials, not server-side grants.
+
 Give a terminal-capable agent this task:
 
 ```text
@@ -39,6 +45,6 @@ can be inspected without signing in.
 The portable skill teaches the workflow; it is not a credential. Install it
 using the [integration guide](/integrations).
 
-There is no hosted AgentTrunk service MCP endpoint currently documented.
-A documentation search tool is not an upload or release API. Use the CLI, SDK,
-or REST API for those actions; do not invent MCP signup or connection URLs.
+Connect to [operational MCP](/guides/mcp) for private workspace operations using
+securely supplied bearer credentials. Documentation search is separate and cannot
+upload or release context. Verify the deployed connection before claiming success.

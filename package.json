@@ -80,7 +80,7 @@
     "cli:check": "node scripts/generate-cli.mjs --check",
     "examples:generate": "node scripts/generate-examples.mjs",
     "sdk:test:rust": "cargo test --manifest-path sdk/rust/Cargo.toml --test agenttrunk_safety && cargo check --manifest-path sdk/rust/Cargo.toml --examples",
-    "sdk:test:ruby": "ruby -I sdk/ruby/lib test/ruby/test_agenttrunk.rb",
+    "sdk:test:ruby": "ruby -I sdk/ruby/lib test/ruby/test_agenttrunk.rb && ruby -I sdk/ruby/lib test/ruby/test_agent_auth.rb",
     "sdk:test:swift": "swift test --package-path sdk/swift --filter AgentTrunkSafetyTests"
   },
   "devDependencies": {
