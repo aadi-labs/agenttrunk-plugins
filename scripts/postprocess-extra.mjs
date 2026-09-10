@@ -28,7 +28,7 @@ await patch(rb+'lib/AgentTrunk/internal/http/raw_client.rb','response = conn.req
 await patch(rb+'lib/AgentTrunk/internal/http/raw_client.rb','break unless should_retry?(response, attempt)','break unless %w[GET HEAD].include?(request.method) && should_retry?(response, attempt)');
 await patch(rb+'lib/AgentTrunk/errors/response_error.rb','super(msg)','super("AgentTrunk request failed (HTTP #{code})")');
 await patch(rb+'lib/AgentTrunk/version.rb','"0.0.1"','"0.1.0"');
-await patch(rb+'agenttrunk.gemspec','spec.name = "AgentTrunk"','spec.name = "agenttrunk"');
+await patch(rb+'AgentTrunk.gemspec','spec.name = "AgentTrunk"','spec.name = "agenttrunk"');
 const sw='sdk/swift/Sources/';
 await copyFile('client-extensions/swift/AgentRegistration.swift',sw+'Public/AgentRegistration.swift');
 await copyFile('client-extensions/swift/Safety.swift',sw+'Core/Networking/Safety.swift');

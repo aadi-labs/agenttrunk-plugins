@@ -29,7 +29,7 @@ jobs:
       - run: npm pack
       - run: uv build ./sdk/python
       - run: cargo package --manifest-path sdk/rust/Cargo.toml
-      - run: gem build agenttrunk.gemspec
+      - run: gem build AgentTrunk.gemspec
         working-directory: sdk/ruby
       - run: tar --exclude='.build' -czf agenttrunk-swift-source.tar.gz -C sdk swift
       - run: tar -czf agenttrunk-go-source.tar.gz -C sdk go

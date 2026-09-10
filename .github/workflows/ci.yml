@@ -64,7 +64,7 @@ jobs:
       - run: gem install minitest --no-document
       - run: ruby -I sdk/ruby/lib test/ruby/test_agenttrunk.rb
       - run: ruby -I sdk/ruby/lib test/ruby/test_agent_auth.rb
-      - run: gem build agenttrunk.gemspec
+      - run: gem build AgentTrunk.gemspec
         working-directory: sdk/ruby
   swift:
     runs-on: macos-latest

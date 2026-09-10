@@ -41,7 +41,7 @@ Fern-generated coverage of all 38 public API operations. Requires Ruby 3.3+. Ins
 cd sdk/ruby
 ruby -I lib examples/quickstart.rb
 # Optional local gem artifact:
-gem build agenttrunk.gemspec
+gem build AgentTrunk.gemspec
 ```
 
 ```ruby

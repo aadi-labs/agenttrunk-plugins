@@ -20,7 +20,7 @@ uv build ./sdk/python
 cargo package --manifest-path sdk/rust/Cargo.toml
 ```
 
-Build the Ruby gem from `sdk/ruby` with `gem build agenttrunk.gemspec`. Compile the Swift package with `swift build --package-path sdk/swift`. The `prepare-release.yml` workflow performs checks and uploads source/package artifacts after an explicit manual dispatch. Its output is not a release.
+Build the Ruby gem from `sdk/ruby` with `gem build AgentTrunk.gemspec`. Compile the Swift package with `swift build --package-path sdk/swift`. The `prepare-release.yml` workflow performs checks and uploads source/package artifacts after an explicit manual dispatch. Its output is not a release.
 
 Before publishing, align the root npm version, all manifests, Fern generation version, Python pyproject, Cargo manifest and Ruby version. Regenerate clients and skill exports, rerun checks, and inspect archives for source licenses, readmes, references and absence of secrets/build caches. The private `sdk/typescript/package.json` is scaffolding; publish the root npm artifact only.
 
