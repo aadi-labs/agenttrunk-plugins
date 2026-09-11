@@ -103,6 +103,10 @@ class AgentRegistration:
     def complete(self, claim_token, user_code):
         if not isinstance(user_code, str) or not re.fullmatch(r"[A-Za-z0-9-]{4,32}", user_code):
             raise AgentAuthError("invalid_user_code")
+        # WorkOS displays separators, but its completion endpoint expects raw code characters.
+        user_code = user_code.replace("-", "")
+        if not re.fullmatch(r"[A-Za-z0-9]{4,32}", user_code):
+            raise AgentAuthError("invalid_user_code")
         result = self._json(self._client, self._claim + "/complete", {"claim_token": _secret(claim_token), "user_code": user_code})
         return self._parse_identity(result.get("identity"))
 

@@ -1,4 +1,5 @@
 import unittest
+import json
 import httpx
 from agenttrunk.agent_auth import AgentRegistration, AgentAuthError
 
@@ -59,3 +60,23 @@ class RegistrationTests(unittest.TestCase):
         with self.assertRaisesRegex(AgentAuthError,"request_rejected:302"):
             AgentRegistration.discover("https://api.example.com",client=client)
         client.close()
+
+    def test_claim_completion_removes_display_hyphens(self):
+        for code in ("ABCD-EFGH", "ABCDEFGH"):
+            with self.subTest(code=code):
+                client, calls = self.fixture()
+                auth = AgentRegistration.discover("https://api.example.com", client=client)
+                identity = auth.complete("claim", code)
+                self.assertEqual(identity["assertion"], "identity")
+                self.assertEqual(json.loads(calls[-1].content)["user_code"], "ABCDEFGH")
+                self.assertEqual(len(calls), 3)
+                auth.close()
+
+    def test_claim_completion_rejects_invalid_normalized_codes_before_request(self):
+        client, calls = self.fixture()
+        auth = AgentRegistration.discover("https://api.example.com", client=client)
+        for code in ("----", "A---", "AB CD", "ABCD/EFGH", "ABCD\u2011EFGH"):
+            with self.subTest(code=code), self.assertRaisesRegex(AgentAuthError, "invalid_user_code"):
+                auth.complete("claim", code)
+        self.assertEqual(len(calls), 2)
+        auth.close()

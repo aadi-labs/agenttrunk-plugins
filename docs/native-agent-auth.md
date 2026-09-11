@@ -20,6 +20,10 @@ identities skip start/complete and go straight to exchange.
 | Ruby | `require 'AgentTrunk/agent_auth'`; `AgentTrunk::AgentRegistration` | Same lowercase names | Hash `access_token`, `expires_in` |
 | Swift | `import AgentTrunk`; `AgentRegistration` | Same lowercase names (async) | Dictionary `access_token`, `expires_in` |
 
+The Python helper accepts the displayed approval code, including ASCII hyphens
+(for example, `ABCD-EFGH`), and removes those separators before submission.
+Whitespace and other punctuation remain invalid.
+
 Python example, with `human_code` supplied only after human approval:
 
 ```python
